@@ -152,16 +152,129 @@ function setCellColor(cell, type, value) {
 }
 
 /**
- * Render the three-dimensional table
- * @param {Object} jsonData - Raw JSON data
- * @param {HTMLElement} container - Table container element
+ * Extract entities by dimension type from formatted data
+ * @param {Array} formattedData - Formatted table data
+ * @param {string} dimensionType - Dimension type to extract (Manager, Department, Team)
+ * @returns {Array} Array of unique entity names
  */
-function renderTable(jsonData, container) {
-  const formattedData = formatTableData(jsonData);
+function extractEntitiesByDimension(formattedData, dimensionType) {
+  const entitiesSet = new Set();
 
-  // Group data by question
-  const questionGroups = {};
   formattedData.forEach(row => {
+    if (row.dimension === dimensionType) {
+      entitiesSet.add(row.name);
+    }
+  });
+
+  return Array.from(entitiesSet).sort();
+}
+
+/**
+ * Populate dropdown with options
+ * @param {string} elementId - Select element ID
+ * @param {Array} options - Array of option values
+ */
+function populateDropdown(elementId, options) {
+  const selectElement = document.getElementById(elementId);
+  if (!selectElement) return;
+
+  selectElement.innerHTML = ''; // Clear existing options
+
+  // Add "Select All" option
+  const allOption = document.createElement('option');
+  allOption.value = "__all__";
+  allOption.textContent = "-- Select All --";
+  selectElement.appendChild(allOption);
+
+  // Add individual options
+  options.forEach(option => {
+    const optionElement = document.createElement('option');
+    optionElement.value = option;
+    optionElement.textContent = option;
+    optionElement.selected = true; // Select all by default
+    selectElement.appendChild(optionElement);
+  });
+}
+
+/**
+ * Get selected values from a multi-select dropdown
+ * @param {string} elementId - Select element ID
+ * @returns {Array} Array of selected values
+ */
+function getSelectedOptions(elementId) {
+  const selectElement = document.getElementById(elementId);
+  if (!selectElement) return [];
+
+  // Check if "Select All" is selected
+  const allOption = Array.from(selectElement.options).find(option => option.value === "__all__");
+  if (allOption && allOption.selected) {
+    // Return all options except the "Select All" one
+    return Array.from(selectElement.options)
+      .filter(option => option.value !== "__all__")
+      .map(option => option.value);
+  }
+
+  // Return only selected options
+  return Array.from(selectElement.selectedOptions)
+    .filter(option => option.value !== "__all__")
+    .map(option => option.value);
+}
+
+/**
+ * Set up "Select All" option behavior
+ * @param {string} elementId - Select element ID
+ */
+function setupSelectAllBehavior(elementId) {
+  const selectElement = document.getElementById(elementId);
+  if (!selectElement) return;
+
+  selectElement.addEventListener('change', (event) => {
+    // Find the "Select All" option
+    const allOption = Array.from(selectElement.options).find(option => option.value === "__all__");
+    if (!allOption) return;
+
+    if (event.target === allOption || allOption.selected) {
+      // If "Select All" was clicked, toggle all other options
+      const selectAll = allOption.selected;
+
+      // Skip the first option (which is the "Select All" option)
+      for (let i = 1; i < selectElement.options.length; i++) {
+        selectElement.options[i].selected = selectAll;
+      }
+    }
+  });
+}
+
+/**
+ * Apply filters to the data
+ * @param {Array} formattedData - Original formatted data
+ * @param {Object} filters - Filter criteria
+ * @returns {Object} Filtered question groups
+ */
+function applyFilters(formattedData, filters) {
+  const { managers, departments, teams } = filters;
+
+  // Filter the data based on selected managers, departments, and teams
+  const filteredData = formattedData.filter(row => {
+    // Check if this row should be included based on its dimension and name
+    if (row.dimension === 'Manager' && !managers.includes(row.name)) {
+      return false;
+    }
+
+    if (row.dimension === 'Department' && !departments.includes(row.name)) {
+      return false;
+    }
+
+    if (row.dimension === 'Team' && !teams.includes(row.name)) {
+      return false;
+    }
+
+    return true;
+  });
+
+  // Group the filtered data by question
+  const questionGroups = {};
+  filteredData.forEach(row => {
     if (!questionGroups[row.questionId]) {
       questionGroups[row.questionId] = {
         question: row.question,
@@ -176,6 +289,94 @@ function renderTable(jsonData, container) {
     questionGroups[row.questionId].dimensions[row.dimension].push(row);
   });
 
+  return questionGroups;
+}
+
+/**
+ * Setup filter dropdowns and listeners
+ * @param {Array} formattedData - Formatted table data
+ * @param {HTMLElement} container - Table container element
+ * @param {Object} options - Filter options with element IDs
+ */
+function setupFilters(formattedData, container, options) {
+  const { filterElementIds, applyFilterId, resetFilterId } = options;
+
+  // Extract entities for each dimension
+  const managers = extractEntitiesByDimension(formattedData, 'Manager');
+  const departments = extractEntitiesByDimension(formattedData, 'Department');
+  const teams = extractEntitiesByDimension(formattedData, 'Team');
+
+  // Populate dropdowns
+  populateDropdown(filterElementIds.manager, managers);
+  populateDropdown(filterElementIds.department, departments);
+  populateDropdown(filterElementIds.team, teams);
+
+  // Setup "Select All" behavior for each dropdown
+  setupSelectAllBehavior(filterElementIds.manager);
+  setupSelectAllBehavior(filterElementIds.department);
+  setupSelectAllBehavior(filterElementIds.team);
+
+  // Apply filters button
+  const applyButton = document.getElementById(applyFilterId);
+  if (applyButton) {
+    applyButton.addEventListener('click', () => {
+      // Get selected filters
+      const selectedManagers = getSelectedOptions(filterElementIds.manager);
+      const selectedDepartments = getSelectedOptions(filterElementIds.department);
+      const selectedTeams = getSelectedOptions(filterElementIds.team);
+
+      // Apply filters
+      const filters = {
+        managers: selectedManagers,
+        departments: selectedDepartments,
+        teams: selectedTeams
+      };
+
+      const filteredQuestionGroups = applyFilters(formattedData, filters);
+
+      // Render filtered data
+      renderFilteredTable(filteredQuestionGroups, container, [
+        'stronglyDisagree', 'disagree', 'neutral', 'agree', 'stronglyAgree'
+      ]);
+    });
+  }
+
+  // Reset filters button
+  const resetButton = document.getElementById(resetFilterId);
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      // Reset manager dropdown
+      populateDropdown(filterElementIds.manager, managers);
+
+      // Reset department dropdown
+      populateDropdown(filterElementIds.department, departments);
+
+      // Reset team dropdown
+      populateDropdown(filterElementIds.team, teams);
+
+      // Apply reset (show all data)
+      const filters = {
+        managers: managers,
+        departments: departments,
+        teams: teams
+      };
+
+      const filteredQuestionGroups = applyFilters(formattedData, filters);
+
+      renderFilteredTable(filteredQuestionGroups, container, [
+        'stronglyDisagree', 'disagree', 'neutral', 'agree', 'stronglyAgree'
+      ]);
+    });
+  }
+}
+
+/**
+ * Render filtered table
+ * @param {Object} questionGroups - Filtered question groups
+ * @param {HTMLElement} container - Table container element
+ * @param {Array} visibleScoreTypes - Array of score types to display
+ */
+function renderFilteredTable(questionGroups, container, visibleScoreTypes) {
   // Clear container
   container.innerHTML = '';
 
@@ -283,17 +484,17 @@ function renderTable(jsonData, container) {
 // CSS styles, adjustable as needed
 const tableStyles = `
 .question-section {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .question-section h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .question-section h4 {
-  font-size: 16px;
-  margin: 15px 0 5px;
+  font-size: 14px;
+  margin: 12px 0 4px;
   color: #555;
 }
 
@@ -301,18 +502,20 @@ const tableStyles = `
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 15px;
+  font-size: 12px;
 }
 
 .data-table th, 
 .data-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 6px;
   text-align: left;
 }
 
 .data-table th {
   background-color: #f2f2f2;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .data-table tr:nth-child(even):not(.totals-row) {
@@ -333,8 +536,9 @@ const tableStyles = `
  * Initialize the table
  * @param {string} jsonDataPath - JSON data file path
  * @param {string} containerId - DOM ID of the table container
+ * @param {Object} options - Options for filtering
  */
-function initTable(jsonDataPath, containerId) {
+function initTable(jsonDataPath, containerId, options = {}) {
   // Add CSS styles
   const styleElement = document.createElement('style');
   styleElement.textContent = tableStyles;
@@ -356,12 +560,67 @@ function initTable(jsonDataPath, containerId) {
       return response.json();
     })
     .then(data => {
-      renderTable(data, container);
+      renderTable(data, container, options);
     })
     .catch(error => {
       console.error('Error loading or rendering data:', error);
       container.innerHTML = `<p>Error loading data: ${error.message}</p>`;
     });
+}
+
+/**
+ * Render the three-dimensional table
+ * @param {Object} jsonData - Raw JSON data
+ * @param {HTMLElement} container - Table container element
+ * @param {Object} options - Options for filtering
+ */
+function renderTable(jsonData, container, options = {}) {
+  const formattedData = formatTableData(jsonData);
+
+  // If filtering is enabled, set up filters
+  if (options.enableFiltering && options.filterElementIds) {
+    setupFilters(formattedData, container, options);
+
+    // Apply initial filters (show all data)
+    const managers = extractEntitiesByDimension(formattedData, 'Manager');
+    const departments = extractEntitiesByDimension(formattedData, 'Department');
+    const teams = extractEntitiesByDimension(formattedData, 'Team');
+
+    const filters = {
+      managers: managers,
+      departments: departments,
+      teams: teams
+    };
+
+    const filteredQuestionGroups = applyFilters(formattedData, filters);
+
+    renderFilteredTable(filteredQuestionGroups, container, [
+      'stronglyDisagree', 'disagree', 'neutral', 'agree', 'stronglyAgree'
+    ]);
+    return;
+  }
+
+  // Group data by question (no filtering)
+  const questionGroups = {};
+  formattedData.forEach(row => {
+    if (!questionGroups[row.questionId]) {
+      questionGroups[row.questionId] = {
+        question: row.question,
+        dimensions: {}
+      };
+    }
+
+    if (!questionGroups[row.questionId].dimensions[row.dimension]) {
+      questionGroups[row.questionId].dimensions[row.dimension] = [];
+    }
+
+    questionGroups[row.questionId].dimensions[row.dimension].push(row);
+  });
+
+  // Render without filtering
+  renderFilteredTable(questionGroups, container, [
+    'stronglyDisagree', 'disagree', 'neutral', 'agree', 'stronglyAgree'
+  ]);
 }
 
 // Export functions for external use

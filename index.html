@@ -20,7 +20,7 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: #2c3e50;
         }
 
@@ -29,11 +29,105 @@
             font-size: 18px;
             margin: 50px 0;
         }
+
+        .filter-section {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            margin-bottom: 10px;
+            width: 32%;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            min-height: 100px;
+        }
+
+        .filter-select option {
+            padding: 3px 0;
+        }
+
+        .filter-actions {
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .filter-actions button {
+            padding: 6px 12px;
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .filter-actions button:hover {
+            background-color: #3a5a80;
+        }
+
+        .filter-actions button.reset {
+            background-color: #6c757d;
+        }
+
+        .filter-actions button.reset:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Three-Dimensional Survey Results Table</h1>
+
+        <div class="filter-section">
+            <div class="filter-group">
+                <label for="manager-filter">Filter by Manager:</label>
+                <select id="manager-filter" class="filter-select" multiple>
+                    <!-- Will be populated dynamically -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="department-filter">Filter by Department:</label>
+                <select id="department-filter" class="filter-select" multiple>
+                    <!-- Will be populated dynamically -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="team-filter">Filter by Team:</label>
+                <select id="team-filter" class="filter-select" multiple>
+                    <!-- Will be populated dynamically -->
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button id="reset-filters" class="reset">Reset Filters</button>
+                <button id="apply-filters">Apply Filters</button>
+            </div>
+        </div>
+
         <div id="surveyTable" class="loading">Loading, please wait...</div>
     </div>
 
@@ -43,7 +137,16 @@
         // Initialize table after page loads
         document.addEventListener('DOMContentLoaded', () => {
             // Load JSON data using relative path
-            initTable('./temp/20250612.json', 'surveyTable');
+            initTable('./temp/20250612.json', 'surveyTable', {
+                enableFiltering: true,
+                filterElementIds: {
+                    manager: 'manager-filter',
+                    department: 'department-filter',
+                    team: 'team-filter'
+                },
+                applyFilterId: 'apply-filters',
+                resetFilterId: 'reset-filters'
+            });
         });
     </script>
 </body>
