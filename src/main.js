@@ -246,6 +246,7 @@ async function retrieveQuestions(query) {
         });
 
     return result.data.viewer.company.pulseAnalytics.resultsTableData.edges
+        .filter(edge => !!edge.node.score)
         .map(edge => edge.node.entityId);
 }
 
@@ -318,7 +319,7 @@ async function countSurvey(query, previous, type) {
             }
             let manager = managers[0];  // should be only one
             console.log(`Manager: ${manager.name} - score: ${JSON.stringify(scoreDiff)}`);
-            if (scoreDiff.disagree > 0 || scoreDiff.stronglyDisagree > 0) {
+            if (scoreDiff.totalResponse > 0) {
                 if (!(query.question in state.question)) {
                     state.question[query.question] = {
                         managers: []
@@ -344,7 +345,7 @@ async function countSurvey(query, previous, type) {
             }
             let department = departments[0];  // should be only one
             console.log(`Department: ${department.name} - score: ${JSON.stringify(scoreDiff)}`);
-            if (scoreDiff.disagree > 0 || scoreDiff.stronglyDisagree > 0) {
+            if (scoreDiff.totalResponse > 0) {
                 if (!(query.question in state.question)) {
                     state.question[query.question] = {
                         departments: []
@@ -370,7 +371,7 @@ async function countSurvey(query, previous, type) {
             }
             let team = teams[0];  // should be only one
             console.log(`Team: ${team.name} - score: ${JSON.stringify(scoreDiff)}`);
-            if (scoreDiff.disagree > 0 || scoreDiff.stronglyDisagree > 0) {
+            if (scoreDiff.totalResponse > 0) {
                 if (!(query.question in state.question)) {
                     state.question[query.question] = {
                         teams: []
@@ -546,11 +547,13 @@ async function analysis() {
     const questions = await retrieveQuestions(createBaseQuery());
 
     for (let question of questions) {
-        console.log(`analysis for question: ${state.question[question].label}`);
+        console.log(`********** analysis for question: ${state.question[question].label} **********`);
         await analysisDepartment(question);
         await analysisManager(question);
         await analysisTeam(question);
     }
+
+    console.log(`********** analysis completed **********`);
 }
 
 /*
