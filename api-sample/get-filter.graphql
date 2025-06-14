@@ -1,0 +1,103 @@
+query PulseResultsFiltersQuery($isSharedPulseResults: Boolean!) {
+  viewer {
+    user @include(if: $isSharedPulseResults) {
+      pulseSharings(first: 100) {
+        total
+        edges {
+          node {
+            entityId
+            filterConfig {
+              name
+              id
+            }
+            id
+          }
+        }
+      }
+      id
+    }
+    company {
+      pulseSettings {
+        id
+        entityId
+        filterConfigs @skip(if: $isSharedPulseResults) {
+          name
+          entityId
+          filters {
+            __typename
+            ... on DefaultFilter {
+              __typename
+              propertyLabel
+              property
+              value
+              valueLabel
+            }
+            ... on DateFilter {
+              __typename
+              property
+              propertyLabel
+              valueLabel
+              dateFilterValue: value {
+                startYearsAgo
+                endYearsAgo
+              }
+            }
+            ... on CustomFilter {
+              __typename
+              customAttributeType
+              property
+              propertyLabel
+              value
+              valueLabel
+              range {
+                min {
+                  value
+                  inclusive
+                }
+                max {
+                  value
+                  inclusive
+                }
+              }
+            }
+            ... on RatingQuestionByReviewCycleFilter {
+              __typename
+              property
+              propertyLabel
+              value
+              valueLabel
+              reviewCycle {
+                entityId
+                name
+                endDate
+                startDate
+                analyticsLockedAt
+                id
+              }
+              reviewCycleRatingQuestion {
+                question {
+                  __typename
+                  ... on RatingQuestion {
+                    entityId
+                  }
+                  ... on RatingAndBodyQuestion {
+                    entityId
+                  }
+                  ... on Node {
+                    __isNode: __typename
+                    id
+                  }
+                }
+                reviewGroupTypes
+                id
+              }
+            }
+          }
+          id
+        }
+      }
+      id
+    }
+    id
+  }
+}

@@ -1,0 +1,99 @@
+{
+    "data": {
+        "viewer": {
+            "company": {
+                "hasPurchasedHRIS": false,
+                "filterableEmployeeFields": [
+                    {
+                        "__typename": "MultipleChoiceField",
+                        "entityId": "1bac0a17-7496-46cd-b5ca-69da020e2adf",
+                        "defaultField": "employment.department_id",
+                        "name": "Department",
+                        "category": {
+                            "label": "Role details",
+                            "id": "RW1wbG95ZWVGaWVsZENhdGVnb3J5OjI0NmE3N2UwLTIyNGUtNGIzZS1iZTBmLTQ0YjQ1YzI5NjE4Yg=="
+                        },
+                        "selectOptions": [
+                            {
+                                "name": "Business Development",
+                                "entityId": "74809f59-370d-40d6-962e-a9c5d230fe33",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjc0ODA5ZjU5LTM3MGQtNDBkNi05NjJlLWE5YzVkMjMwZmUzMw=="
+                            },
+                            {
+                                "name": "Media",
+                                "entityId": "d42f3b6d-57d7-4c59-b890-88c59f05a5e1",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQ0MmYzYjZkLTU3ZDctNGM1OS1iODkwLTg4YzU5ZjA1YTVlMQ=="
+                            },
+                            {
+                                "name": "Marketing",
+                                "entityId": "10fbfe6e-aa1c-42e2-9b16-b4e50ab84f7d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjEwZmJmZTZlLWFhMWMtNDJlMi05YjE2LWI0ZTUwYWI4NGY3ZA=="
+                            },
+                            {
+                                "name": "Trading",
+                                "entityId": "677f32b4-6b1b-404c-87eb-3d933de8e7d8",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjY3N2YzMmI0LTZiMWItNDA0Yy04N2ViLTNkOTMzZGU4ZTdkOA=="
+                            },
+                            {
+                                "name": "Tech & Product",
+                                "entityId": "d1ded3f0-0302-4d63-91d0-f5fff33a9b68",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQxZGVkM2YwLTAzMDItNGQ2My05MWQwLWY1ZmZmMzNhOWI2OA=="
+                            },
+                            {
+                                "name": "Operations",
+                                "entityId": "052d976a-0f29-4bff-a570-4a4277437900",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjA1MmQ5NzZhLTBmMjktNGJmZi1hNTcwLTRhNDI3NzQzNzkwMA=="
+                            },
+                            {
+                                "name": "Executive Management",
+                                "entityId": "ca72cf71-157a-4d0d-9d72-6e789a8b6cf2",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmNhNzJjZjcxLTE1N2EtNGQwZC05ZDcyLTZlNzg5YThiNmNmMg=="
+                            },
+                            {
+                                "name": "HR",
+                                "entityId": "0df683bb-d7de-403e-b22b-6ef2ba678749",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjBkZjY4M2JiLWQ3ZGUtNDAzZS1iMjJiLTZlZjJiYTY3ODc0OQ=="
+                            },
+                            {
+                                "name": "Finance",
+                                "entityId": "b0139c7c-50a8-457b-b8d9-eba2591c73f6",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmIwMTM5YzdjLTUwYTgtNDU3Yi1iOGQ5LWViYTI1OTFjNzNmNg=="
+                            },
+                            {
+                                "name": "Legal",
+                                "entityId": "8cdd6519-99f7-41ae-a439-081ef63b7669",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjhjZGQ2NTE5LTk5ZjctNDFhZS1hNDM5LTA4MWVmNjNiNzY2OQ=="
+                            }
+                        ],
+                        "__isNode": "MultipleChoiceField",
+                        "id": "RW1wbG95ZWVGaWVsZDoxYmFjMGExNy03NDk2LTQ2Y2QtYjVjYS02OWRhMDIwZTJhZGY="
+                    },
+                    {
+                        "__typename": "RelationshipField",
+                        "entityId": "9b243968-31a6-46dc-9ba4-df91d61a6eb2",
+                        "defaultField": "employment.manager_id",
+                        "name": "Manager",
+                        "category": {
+                            "label": "Role details",
+                            "id": "RW1wbG95ZWVGaWVsZENhdGVnb3J5OjI0NmE3N2UwLTIyNGUtNGIzZS1iZTBmLTQ0YjQ1YzI5NjE4Yg=="
+                        },
+                        "__isNode": "RelationshipField",
+                        "id": "RW1wbG95ZWVGaWVsZDo5YjI0Mzk2OC0zMWE2LTQ2ZGMtOWJhNC1kZjkxZDYxYTZlYjI="
+                    }
+                ],
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

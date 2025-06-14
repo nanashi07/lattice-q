@@ -1,0 +1,154 @@
+query CustomFieldFiltersV2Query(
+  $fieldEntityIds: [EntityId]
+  $active: Boolean
+  $restrictToAllEmployeesView: Boolean
+  $selectOptionsActive: String = "active_only"
+) {
+  viewer {
+    company {
+      hasPurchasedHRIS
+      filterableEmployeeFields(
+        sourceType: custom
+        fieldEntityIds: $fieldEntityIds
+        active: $active
+        restrictToAllEmployeesView: $restrictToAllEmployeesView
+      ) {
+        __typename
+        ... on BooleanField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on DateField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on EmailField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on MultiSelectField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+          selectOptions(active: $selectOptionsActive) {
+            name
+            entityId
+            defaultKey
+            id
+          }
+        }
+        ... on MultipleChoiceField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+          selectOptions(active: $selectOptionsActive) {
+            name
+            entityId
+            defaultKey
+            id
+          }
+        }
+        ... on NumberField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+          ranges {
+            entityId
+            minValue
+            maxValue
+            id
+          }
+        }
+        ... on PercentageField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on ShortTextField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on SensitiveShortTextField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on LongTextField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on RelationshipField {
+          __typename
+          entityId
+          defaultField
+          name
+          category {
+            label
+            id
+          }
+        }
+        ... on Node {
+          __isNode: __typename
+          id
+        }
+      }
+      id
+    }
+    id
+  }
+}

@@ -1,0 +1,520 @@
+{
+    "data": {
+        "viewer": {
+            "company": {
+                "managers": {
+                    "pageInfo": {
+                        "hasNextPage": true,
+                        "endCursor": "YXJyYXljb25uZWN0aW9uJDEwNDY2NTIkMTk="
+                    },
+                    "edges": [
+                        {
+                            "node": {
+                                "name": "Eduardo Alapisco",
+                                "title": "Senior Automation QA Engineer",
+                                "entityId": "bc359817-e166-494b-ab7d-0e4e04050197",
+                                "id": "VXNlcjpiYzM1OTgxNy1lMTY2LTQ5NGItYWI3ZC0wZTRlMDQwNTAxOTc=",
+                                "email": "eduardo.alapisco@sporty.com",
+                                "pronouns": [
+                                    "He",
+                                    "Him",
+                                    "His"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=F07676&dpr=2&mask=ellipse&txt64=RUE=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeRed",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjQzZjZjZTlhLTRjYTItNDVlMS1iOGNhLTIwNzRlNmUwOWY0OQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDM2Mjg0MDMkMA=="
+                        },
+                        {
+                            "node": {
+                                "name": "Johnny Alberto",
+                                "title": "Senior QA Engineer",
+                                "entityId": "1189a6eb-df16-4794-aa19-2268079cd38e",
+                                "id": "VXNlcjoxMTg5YTZlYi1kZjE2LTQ3OTQtYWExOS0yMjY4MDc5Y2QzOGU=",
+                                "email": "johnny.alberto@opennet.tw",
+                                "pronouns": [
+                                    "He",
+                                    "Him"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=EB8B51&dpr=2&mask=ellipse&txt64=SkE=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeOrange",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmUyNWMzOWQ1LTNlZTItNGY2Ny05MDgwLWUyZmJhN2U0OTQ3Ng=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDQ4OTc5MjckMQ=="
+                        },
+                        {
+                            "node": {
+                                "name": "Balal Amin",
+                                "title": "Head of Technology",
+                                "entityId": "2a741709-963a-4947-9ac3-0b8abfd51ced",
+                                "id": "VXNlcjoyYTc0MTcwOS05NjNhLTQ5NDctOWFjMy0wYjhhYmZkNTFjZWQ=",
+                                "email": "balal.amin@sporty.com",
+                                "pronouns": [
+                                    "He",
+                                    "Him"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/avatars/2a741709-963a-4947-9ac3-0b8abfd51ced/d382afc6-8f23-4909-9f00-bb9364945e29_Hammonds-41.jpg?dpr=2&w=100&h=100&auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.33353677143729027&fp-z=1&mask=ellipse",
+                                "avatarFileName": "avatars/2a741709-963a-4947-9ac3-0b8abfd51ced/d382afc6-8f23-4909-9f00-bb9364945e29_Hammonds-41.jpg",
+                                "avatarCropValues": {
+                                    "x": 0.5,
+                                    "y": 0.33353677143729027,
+                                    "z": 1
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeGreen",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjAxMWY3MzcyLTdlNzktNGE2ZS04ZjIyLTBkMjBkZTk2YzUxYQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDU1NTE2MDUkMg=="
+                        },
+                        {
+                            "node": {
+                                "name": "Victor Andres Aguirre Fernandez",
+                                "title": "QA Director",
+                                "entityId": "9c8e7824-f7b2-441a-a699-70467779a416",
+                                "id": "VXNlcjo5YzhlNzgyNC1mN2IyLTQ0MWEtYTY5OS03MDQ2Nzc3OWE0MTY=",
+                                "email": "victor.andres@opennet.tw",
+                                "pronouns": [
+                                    "He"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=13AEC9&dpr=2&mask=ellipse&txt64=VkE=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeTeal",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjdjNzRlZTNkLTNlNTItNDcxZi04ZTc0LTQ4NzhmNzFhN2IyNA=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDM0MDcyODgkMw=="
+                        },
+                        {
+                            "node": {
+                                "name": "Yigit Anil",
+                                "title": "Backend Developer Lead",
+                                "entityId": "7609434d-ae68-415d-b13f-a8343c83de93",
+                                "id": "VXNlcjo3NjA5NDM0ZC1hZTY4LTQxNWQtYjEzZi1hODM0M2M4M2RlOTM=",
+                                "email": "yigit.anil@pleased.com",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=A57EE3&dpr=2&mask=ellipse&txt64=WUE=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themePurple",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjVmYjk5NTAyLWYzNDktNDE0MC05Y2QwLTQwNzBmMGM4Y2Q5OQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEzNjA1ODckNA=="
+                        },
+                        {
+                            "node": {
+                                "name": "Ashish Aryan",
+                                "title": "Lead - Product Design",
+                                "entityId": "d1894ef1-9dd2-4bf4-9e56-e401802078dd",
+                                "id": "VXNlcjpkMTg5NGVmMS05ZGQyLTRiZjQtOWU1Ni1lNDAxODAyMDc4ZGQ=",
+                                "email": "ashish.aryan@apertumo.com",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=7093E6&dpr=2&mask=ellipse&txt64=QUE=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeBlue",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjFjZmQ2ZTMxLTVjMjgtNDg0Yy1hZWZlLTBmNmY1OThiZmI2Zg=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY2NzckNQ=="
+                        },
+                        {
+                            "node": {
+                                "name": "Preetam Banerjee",
+                                "title": "IN Technical Director",
+                                "entityId": "fca271a4-1919-478a-9151-b9363ada26fd",
+                                "id": "VXNlcjpmY2EyNzFhNC0xOTE5LTQ3OGEtOTE1MS1iOTM2M2FkYTI2ZmQ=",
+                                "email": "preetam.banerjee@apertumo.com",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=13AEC9&dpr=2&mask=ellipse&txt64=UEI=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeTeal",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmY2ODkzZWZhLWIwZWMtNDFlNi1hZGMyLTA3NDFhYjI1ODc1OQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY3MzgkNg=="
+                        },
+                        {
+                            "node": {
+                                "name": "JB Blake",
+                                "title": "Operations Director, Customer Service",
+                                "entityId": "45994feb-c010-4d81-9f21-bf9000c0f329",
+                                "id": "VXNlcjo0NTk5NGZlYi1jMDEwLTRkODEtOWYyMS1iZjkwMDBjMGYzMjk=",
+                                "email": "jonathan.blake@sporty.com",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=7093E6&dpr=2&mask=ellipse&txt64=SkI=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeBlue",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmExMzgzNjQyLTllMTQtNGFmZS1hMGJmLTgzODExZDczODA0Mg=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDM5MTkyNDkkNw=="
+                        },
+                        {
+                            "node": {
+                                "name": "Oscar Cantu",
+                                "title": "Senior Media Manager",
+                                "entityId": "dce649cf-aadd-43ea-ad3f-f00b3cc16f8d",
+                                "id": "VXNlcjpkY2U2NDljZi1hYWRkLTQzZWEtYWQzZi1mMDBiM2NjMTZmOGQ=",
+                                "email": "oscar.cantu@sporty.com",
+                                "pronouns": [
+                                    "He"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=7093E6&dpr=2&mask=ellipse&txt64=T0M=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeBlue",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjYzMTNlNWVmLTczNTEtNGJiMC05ODk4LTI4YmE5MjY3ZTdiMw=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDMzOTg4MzckOA=="
+                        },
+                        {
+                            "node": {
+                                "name": "Jennings Chan",
+                                "title": "Data Analyst Lead",
+                                "entityId": "8d4ff2fe-b2af-4362-952d-cf9e787703cc",
+                                "id": "VXNlcjo4ZDRmZjJmZS1iMmFmLTQzNjItOTUyZC1jZjllNzg3NzAzY2M=",
+                                "email": "jennings.chan@opennet.tw",
+                                "pronouns": [
+                                    "He"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=FAC64E&dpr=2&mask=ellipse&txt64=SkM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeYellow",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmE0NGUyZmExLWVhMDQtNGQwMy1iOTE1LTlmNTA3YjgzZmRiYg=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDM5ODExMjckOQ=="
+                        },
+                        {
+                            "node": {
+                                "name": "Tony Chang",
+                                "title": "Senior Database Administrator",
+                                "entityId": "876aa927-5d46-4e14-9d07-4c1f2e5a6fed",
+                                "id": "VXNlcjo4NzZhYTkyNy01ZDQ2LTRlMTQtOWQwNy00YzFmMmU1YTZmZWQ=",
+                                "email": "tony.chang@opennet.tw",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=4FB0A2&dpr=2&mask=ellipse&txt64=VEM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeGreen",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjFhM2Q2Mjc0LWQ0MmEtNDcyMi05ZjE1LWE4MGFmY2Y2MzhhMA=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY3MjckMTA="
+                        },
+                        {
+                            "node": {
+                                "name": "Carol Chang",
+                                "title": "Product Director",
+                                "entityId": "fcef996f-261b-4fed-b4f9-d0df84b39a61",
+                                "id": "VXNlcjpmY2VmOTk2Zi0yNjFiLTRmZWQtYjRmOS1kMGRmODRiMzlhNjE=",
+                                "email": "carol.chang@opennet.tw",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=4FB0A2&dpr=2&mask=ellipse&txt64=Q0M=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeGreen",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjNhMmY0NjdhLWIzMGMtNDNkOS04ODgwLWYyOGFjMTQ2MGNiMQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY3MDUkMTE="
+                        },
+                        {
+                            "node": {
+                                "name": "Benson Chen",
+                                "title": "Principal Engineer",
+                                "entityId": "d077e7e6-c972-43ce-8f9d-9013e0ca7f75",
+                                "id": "VXNlcjpkMDc3ZTdlNi1jOTcyLTQzY2UtOGY5ZC05MDEzZTBjYTdmNzU=",
+                                "email": "benson.chen@football.com",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/avatars/d077e7e6-c972-43ce-8f9d-9013e0ca7f75/38505597-5c69-4b4c-856f-b1d8b590b0af_avataaars1.png?dpr=2&w=100&h=100&auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5285714285714287&fp-z=1&mask=ellipse",
+                                "avatarFileName": "avatars/d077e7e6-c972-43ce-8f9d-9013e0ca7f75/38505597-5c69-4b4c-856f-b1d8b590b0af_avataaars1.png",
+                                "avatarCropValues": {
+                                    "x": 0.5,
+                                    "y": 0.5285714285714287,
+                                    "z": 1
+                                },
+                                "colorScheme": {
+                                    "userColor": "themePink",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmZhN2QyNDA0LTQyNDgtNGQwOS1hYTEwLTE3NWU5YTlmMjEwOQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY2NDckMTI="
+                        },
+                        {
+                            "node": {
+                                "name": "Szu-Ying Chen",
+                                "title": "Principle Product Designer",
+                                "entityId": "e408e213-fbed-42ea-a14f-4fc1d5c637f5",
+                                "id": "VXNlcjplNDA4ZTIxMy1mYmVkLTQyZWEtYTE0Zi00ZmMxZDVjNjM3ZjU=",
+                                "email": "szuying.chen@opennet.tw",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=ED7BC0&dpr=2&mask=ellipse&txt64=U0M=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themePink",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjM3MTMzNTQ4LTgxNTMtNDdmOC1iOTg2LWM2MTQ1MWMyNTI4OA=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY2NzEkMTM="
+                        },
+                        {
+                            "node": {
+                                "name": "Aaron Chen",
+                                "title": "Senior Frontend Engineer",
+                                "entityId": "2d5c91ee-01cf-4d7a-ab53-f9c7bd31002d",
+                                "id": "VXNlcjoyZDVjOTFlZS0wMWNmLTRkN2EtYWI1My1mOWM3YmQzMTAwMmQ=",
+                                "email": "aaron.chen@opennet.tw",
+                                "pronouns": [
+                                    "He",
+                                    "Him"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=FAC64E&dpr=2&mask=ellipse&txt64=QUM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeYellow",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjdhNmE3OGY5LWY4OWYtNDc0ZS1hMmQ3LWZkYzE2ODUxNWEyOQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDUyMjgxNTIkMTQ="
+                        },
+                        {
+                            "node": {
+                                "name": "Howard Chen",
+                                "title": "Staff UIUX designer",
+                                "entityId": "06ec8d60-b7a5-4cc0-8eaf-58fdc9e71e24",
+                                "id": "VXNlcjowNmVjOGQ2MC1iN2E1LTRjYzAtOGVhZi01OGZkYzllNzFlMjQ=",
+                                "email": "howard.chen@opennet.tw",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=13AEC9&dpr=2&mask=ellipse&txt64=SEM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeTeal",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmEwMTZiZTdiLTEyYWUtNDIzNi1hZWUxLTFmZmM2ZGNmMmI2Mg=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY3MDAkMTU="
+                        },
+                        {
+                            "node": {
+                                "name": "Ian Chen",
+                                "title": "Sr. Staff QA Engineer",
+                                "entityId": "d043b6a3-9228-479c-bb8a-2bf99b12c17a",
+                                "id": "VXNlcjpkMDQzYjZhMy05MjI4LTQ3OWMtYmI4YS0yYmY5OWIxMmMxN2E=",
+                                "email": "ian.chen@football.com",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=EB8B51&dpr=2&mask=ellipse&txt64=SUM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeOrange",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjc0NzI2MDkyLWU4ZjAtNDc5OC04Y2Y3LThhODlmMzYxMDA1ZQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY2ODEkMTY="
+                        },
+                        {
+                            "node": {
+                                "name": "Timmy Chen",
+                                "title": "Middle Android Engineer",
+                                "entityId": "6aa502db-be18-435e-8fb8-6ee81c8adb07",
+                                "id": "VXNlcjo2YWE1MDJkYi1iZTE4LTQzNWUtOGZiOC02ZWU4MWM4YWRiMDc=",
+                                "email": "timmy.chen@opennet.tw",
+                                "pronouns": [
+                                    "He",
+                                    "Him"
+                                ],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=4FB0A2&dpr=2&mask=ellipse&txt64=VEM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeGreen",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjc0NmVlY2I0LTIyODItNDY1My1hOTdiLWRjZjk1MzllN2JiYQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDUyNTExNDAkMTc="
+                        },
+                        {
+                            "node": {
+                                "name": "Cloud Chen",
+                                "title": "Sr. QA Engineer",
+                                "entityId": "15fde8b5-49bd-4436-a3d9-06eeaaedba16",
+                                "id": "VXNlcjoxNWZkZThiNS00OWJkLTQ0MzYtYTNkOS0wNmVlYWFlZGJhMTY=",
+                                "email": "cloud.chen@opennet.tw",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=EB8B51&dpr=2&mask=ellipse&txt64=Q0M=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeOrange",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOmViZDIwNTJhLTVlOTktNDNhZC04ZTMzLTQwZjI4NjQ0MDllZQ=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDUxODk3MTIkMTg="
+                        },
+                        {
+                            "node": {
+                                "name": "Natsu Chen",
+                                "title": "Staff Frontend Engineer",
+                                "entityId": "21b38b20-be6f-44e4-bdf8-ecefd798f02c",
+                                "id": "VXNlcjoyMWIzOGIyMC1iZTZmLTQ0ZTQtYmRmOC1lY2VmZDc5OGYwMmM=",
+                                "email": "natsu.chen@opennet.tw",
+                                "pronouns": [],
+                                "status": "active",
+                                "avatarUrl": "https://uploads.latticehq.com/default_avatar.png?txt-align=middle,center&txt-color=white&txt-fit=max&txt-font=Roboto&txt-pad=21.43&txt-size=64.29&bg=EB8B51&dpr=2&mask=ellipse&txt64=TkM=&w=100",
+                                "avatarFileName": null,
+                                "avatarCropValues": {
+                                    "x": null,
+                                    "y": null,
+                                    "z": null
+                                },
+                                "colorScheme": {
+                                    "userColor": "themeOrange",
+                                    "id": "VXNlckNvbG9yU2NoZW1lOjBlODZiODMzLTZlMDUtNGQ3Ni1iNTU1LWJiNjFlODk3YzYyZA=="
+                                },
+                                "__typename": "User"
+                            },
+                            "cursor": "YXJyYXljb25uZWN0aW9uJDEwNDY2NTIkMTk="
+                        }
+                    ]
+                },
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

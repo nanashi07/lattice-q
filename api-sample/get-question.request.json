@@ -1,0 +1,32 @@
+{
+  "id": "PulseResultsTableQuery",
+  "query": "query PulseResultsTableQuery(\n  $dateRange: DateRange\n  $previousDateRange: DateRange\n  $defaultGroupByProp: String!\n  $ages: [YearRangeFilterInput!]\n  $tenures: [YearRangeFilterInput!]\n  $genders: [Gender!]\n  $managerEntityIds: [EntityId!]\n  $departmentEntityIds: [EntityId!]\n  $customFields: [PulseAnalyticsCustomFieldFilterInput!]\n  $ratingQuestionsByReviewCycle: [RatingQuestionByReviewCycleFilterInput!]\n  $themeEntityId: EntityId\n  $questionEntityId: EntityId\n  $first: Int\n  $after: String\n  $last: Int\n  $before: String\n  $orderBy: PulseAnalyticsResultsTableOrderBy\n  $orderDirection: OrderDirection\n  $pulseSharingEntityId: EntityId\n  $isCompareWithPrevious: Boolean!\n) {\n  viewer {\n    company {\n      pulseAnalytics: findPulseAnalytics(pulseSharingEntityId: $pulseSharingEntityId) {\n        __typename\n        resultsTableData(dateRange: $dateRange, previousDateRange: $previousDateRange, defaultGroupByProp: $defaultGroupByProp, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId, orderBy: $orderBy, orderDirection: $orderDirection, first: $first, last: $last, after: $after, before: $before) {\n          pageInfo {\n            startCursor\n            endCursor\n          }\n          total\n          edges {\n            cursor\n            node {\n              id\n              entityId\n              label\n              submittedCount\n              employeeCount\n              score\n              trendData\n              scoreDelta @include(if: $isCompareWithPrevious) {\n                value\n                magnitude\n                percent\n              }\n              questionState\n            }\n          }\n        }\n      }\n      id\n    }\n    id\n  }\n}\n",
+  "variables": {
+    "dateRange": {
+      "start": "2025-06-06",
+      "end": "2025-06-12"
+    },
+    "previousDateRange": {
+      "start": "2025-05-30",
+      "end": "2025-06-05"
+    },
+    "defaultGroupByProp": "question",
+    "ages": [],
+    "tenures": [],
+    "genders": [],
+    "managerEntityIds": [],
+    "departmentEntityIds": [],
+    "customFields": [],
+    "ratingQuestionsByReviewCycle": [],
+    "themeEntityId": null,
+    "questionEntityId": null,
+    "first": 20,
+    "after": null,
+    "last": null,
+    "before": null,
+    "orderBy": "Label",
+    "orderDirection": "asc",
+    "pulseSharingEntityId": null,
+    "isCompareWithPrevious": true
+  }
+}

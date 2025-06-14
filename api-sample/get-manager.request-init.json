@@ -1,0 +1,9 @@
+{
+    "id": "ManagerFiltersFetchComponentQuery",
+    "query": "query ManagerFiltersFetchComponentQuery(\n  $first: Int\n  $after: String\n  $searchQuery: String\n) {\n  viewer {\n    company {\n      ...ManagerFiltersFetchComponent_company_2Sak8L\n      id\n    }\n    id\n  }\n}\n\nfragment Avatar_user on User {\n  name\n  email\n  title\n  pronouns\n  status\n  avatarUrl\n  avatarFileName\n  avatarCropValues {\n    x\n    y\n    z\n  }\n  colorScheme {\n    userColor\n    id\n  }\n}\n\nfragment ManagerFiltersFetchComponent_company_2Sak8L on Company {\n  managers(first: $first, after: $after, query: $searchQuery) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      node {\n        name\n        title\n        entityId\n        id\n        ...Avatar_user\n        __typename\n      }\n      cursor\n    }\n  }\n  id\n}\n",
+    "variables": {
+        "first": 20,
+        "after": null,
+        "searchQuery": ""
+    }
+}

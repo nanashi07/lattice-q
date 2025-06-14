@@ -1,0 +1,139 @@
+get option manager/department
+
+
+fetch("https://sportygroup.latticehq.com/graphql", {
+  "headers": {
+    "accept": "application/json",
+    "accept-language": "en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja-JP;q=0.6,ja;q=0.5",
+    "cache-control": "no-cache",
+    "content-type": "application/json; charset=utf-8",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Google Chrome\";v=\"137\", \"Chromium\";v=\"137\", \"Not/A)Brand\";v=\"24\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "traceparent": "00-0000000000000000e38c80c5ceb3c6d1-21adc7add71248d7-01",
+    "tracestate": "dd=s:1;o:rum",
+    "x-datadog-origin": "rum",
+    "x-datadog-parent-id": "2426815323674134743",
+    "x-datadog-sampling-priority": "1",
+    "x-datadog-trace-id": "16396621930413934289",
+    "x-lattice-deployment": "us-prod-1",
+    "x-lattice-is-real-company": "true",
+    "x-lattice-market-segment": "midmarket_high",
+    "x-lattice-products": "{\"PulseResultsCommentListQuery\":\"pulse\"}",
+    "x-timezone": "Atlantic/Reykjavik",
+    "x-utc-offset": "0"
+  },
+  "referrer": "https://sportygroup.latticehq.com/admin/pulse/results?end=2025-06-12T01%3A01%3A26.369Z&start=2025-06-06T01%3A01%3A26.369Z&dateValue=custom&compareWith=previous&selectedTab=Questions&questionEntityId=4004d870-889b-11e8-9e91-6beb3fb6f0f7",
+  "referrerPolicy": "same-origin",
+  "body": "{\"id\":\"DefaultFieldFiltersQuery\",\"query\":\"query DefaultFieldFiltersQuery(\\n  $defaultFieldNames: [String]\\n  $selectOptionsActive: String = \\\"active_only\\\"\\n) {\\n  viewer {\\n    company {\\n      hasPurchasedHRIS\\n      filterableEmployeeFields(defaultFieldNames: $defaultFieldNames) {\\n        __typename\\n        ... on BooleanField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on DateField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on EmailField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on MultiSelectField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n          selectOptions(active: $selectOptionsActive) {\\n            name\\n            entityId\\n            defaultKey\\n            id\\n          }\\n        }\\n        ... on MultipleChoiceField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n          selectOptions(active: $selectOptionsActive) {\\n            name\\n            entityId\\n            defaultKey\\n            id\\n          }\\n        }\\n        ... on NumberField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n          ranges {\\n            entityId\\n            minValue\\n            maxValue\\n            id\\n          }\\n        }\\n        ... on PercentageField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on RelationshipField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on ShortTextField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on SensitiveShortTextField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on LongTextField {\\n          __typename\\n          entityId\\n          defaultField\\n          name\\n          category {\\n            label\\n            id\\n          }\\n        }\\n        ... on Node {\\n          __isNode: __typename\\n          id\\n        }\\n      }\\n      id\\n    }\\n    id\\n  }\\n}\\n\",\"variables\":{\"defaultFieldNames\":[\"birthdate\",\"gender_identity\",\"employment.department_id\",\"employment.manager_id\"],\"selectOptionsActive\":\"active_only\"}}",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "include"
+});
+
+----
+
+{
+    "data": {
+        "viewer": {
+            "company": {
+                "hasPurchasedHRIS": false,
+                "filterableEmployeeFields": [
+                    {
+                        "__typename": "MultipleChoiceField",
+                        "entityId": "1bac0a17-7496-46cd-b5ca-69da020e2adf",
+                        "defaultField": "employment.department_id",
+                        "name": "Department",
+                        "category": {
+                            "label": "Role details",
+                            "id": "RW1wbG95ZWVGaWVsZENhdGVnb3J5OjI0NmE3N2UwLTIyNGUtNGIzZS1iZTBmLTQ0YjQ1YzI5NjE4Yg=="
+                        },
+                        "selectOptions": [
+                            {
+                                "name": "Business Development",
+                                "entityId": "74809f59-370d-40d6-962e-a9c5d230fe33",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjc0ODA5ZjU5LTM3MGQtNDBkNi05NjJlLWE5YzVkMjMwZmUzMw=="
+                            },
+                            {
+                                "name": "Media",
+                                "entityId": "d42f3b6d-57d7-4c59-b890-88c59f05a5e1",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQ0MmYzYjZkLTU3ZDctNGM1OS1iODkwLTg4YzU5ZjA1YTVlMQ=="
+                            },
+                            {
+                                "name": "Marketing",
+                                "entityId": "10fbfe6e-aa1c-42e2-9b16-b4e50ab84f7d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjEwZmJmZTZlLWFhMWMtNDJlMi05YjE2LWI0ZTUwYWI4NGY3ZA=="
+                            },
+                            {
+                                "name": "Trading",
+                                "entityId": "677f32b4-6b1b-404c-87eb-3d933de8e7d8",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjY3N2YzMmI0LTZiMWItNDA0Yy04N2ViLTNkOTMzZGU4ZTdkOA=="
+                            },
+                            {
+                                "name": "Tech & Product",
+                                "entityId": "d1ded3f0-0302-4d63-91d0-f5fff33a9b68",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQxZGVkM2YwLTAzMDItNGQ2My05MWQwLWY1ZmZmMzNhOWI2OA=="
+                            },
+                            {
+                                "name": "Operations",
+                                "entityId": "052d976a-0f29-4bff-a570-4a4277437900",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjA1MmQ5NzZhLTBmMjktNGJmZi1hNTcwLTRhNDI3NzQzNzkwMA=="
+                            },
+                            {
+                                "name": "Executive Management",
+                                "entityId": "ca72cf71-157a-4d0d-9d72-6e789a8b6cf2",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmNhNzJjZjcxLTE1N2EtNGQwZC05ZDcyLTZlNzg5YThiNmNmMg=="
+                            },
+                            {
+                                "name": "HR",
+                                "entityId": "0df683bb-d7de-403e-b22b-6ef2ba678749",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjBkZjY4M2JiLWQ3ZGUtNDAzZS1iMjJiLTZlZjJiYTY3ODc0OQ=="
+                            },
+                            {
+                                "name": "Finance",
+                                "entityId": "b0139c7c-50a8-457b-b8d9-eba2591c73f6",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmIwMTM5YzdjLTUwYTgtNDU3Yi1iOGQ5LWViYTI1OTFjNzNmNg=="
+                            },
+                            {
+                                "name": "Legal",
+                                "entityId": "8cdd6519-99f7-41ae-a439-081ef63b7669",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjhjZGQ2NTE5LTk5ZjctNDFhZS1hNDM5LTA4MWVmNjNiNzY2OQ=="
+                            }
+                        ],
+                        "__isNode": "MultipleChoiceField",
+                        "id": "RW1wbG95ZWVGaWVsZDoxYmFjMGExNy03NDk2LTQ2Y2QtYjVjYS02OWRhMDIwZTJhZGY="
+                    },
+                    {
+                        "__typename": "RelationshipField",
+                        "entityId": "9b243968-31a6-46dc-9ba4-df91d61a6eb2",
+                        "defaultField": "employment.manager_id",
+                        "name": "Manager",
+                        "category": {
+                            "label": "Role details",
+                            "id": "RW1wbG95ZWVGaWVsZENhdGVnb3J5OjI0NmE3N2UwLTIyNGUtNGIzZS1iZTBmLTQ0YjQ1YzI5NjE4Yg=="
+                        },
+                        "__isNode": "RelationshipField",
+                        "id": "RW1wbG95ZWVGaWVsZDo5YjI0Mzk2OC0zMWE2LTQ2ZGMtOWJhNC1kZjkxZDYxYTZlYjI="
+                    }
+                ],
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "id": "ManagerFiltersFetchPaginationQuery",
+    "query": "query ManagerFiltersFetchPaginationQuery(\n  $after: String\n  $first: Int = 20\n  $searchQuery: String\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ManagerFiltersFetchComponent_company_2Sak8L\n    id\n  }\n}\n\nfragment Avatar_user on User {\n  name\n  email\n  title\n  pronouns\n  status\n  avatarUrl\n  avatarFileName\n  avatarCropValues {\n    x\n    y\n    z\n  }\n  colorScheme {\n    userColor\n    id\n  }\n}\n\nfragment ManagerFiltersFetchComponent_company_2Sak8L on Company {\n  managers(first: $first, after: $after, query: $searchQuery) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      node {\n        name\n        title\n        entityId\n        id\n        ...Avatar_user\n        __typename\n      }\n      cursor\n    }\n  }\n  id\n}\n",
+    "variables": {
+        "after": "YXJyYXljb25uZWN0aW9uJDEwNDY2NTIkMTk=",
+        "first": 20,
+        "searchQuery": "",
+        "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+    }
+}

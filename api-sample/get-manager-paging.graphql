@@ -1,0 +1,52 @@
+query ManagerFiltersFetchPaginationQuery(
+  $after: String
+  $first: Int = 20
+  $searchQuery: String
+  $id: ID!
+) {
+  node(id: $id) {
+    __typename
+    ...ManagerFiltersFetchComponent_company_2Sak8L
+    id
+  }
+}
+
+fragment Avatar_user on User {
+  name
+  email
+  title
+  pronouns
+  status
+  avatarUrl
+  avatarFileName
+  avatarCropValues {
+    x
+    y
+    z
+  }
+  colorScheme {
+    userColor
+    id
+  }
+}
+
+fragment ManagerFiltersFetchComponent_company_2Sak8L on Company {
+  managers(first: $first, after: $after, query: $searchQuery) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        name
+        title
+        entityId
+        id
+        ...Avatar_user
+        __typename
+      }
+      cursor
+    }
+  }
+  id
+}

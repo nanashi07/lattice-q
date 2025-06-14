@@ -1,0 +1,81 @@
+{
+    "data": {
+        "viewer": {
+            "isImpersonation": false,
+            "company": {
+                "histogramPulseSettings": {
+                    "commentRepliesEnabled": false,
+                    "id": "UHVsc2VTZXR0aW5nOmM2NmNkZGU5LTQ5ZDctNDVmMi04OTAxLWI3ZWFhZjFkMGIxNQ=="
+                },
+                "pulseSettings": {
+                    "commentRepliesEnabled": false,
+                    "id": "UHVsc2VTZXR0aW5nOmM2NmNkZGU5LTQ5ZDctNDVmMi04OTAxLWI3ZWFhZjFkMGIxNQ=="
+                },
+                "pulseAnalytics": {
+                    "__typename": "PulseAnalytics",
+                    "submittedResponsesCount": 0,
+                    "histogramScoreBreakdown": {
+                        "positivePercentage": null,
+                        "neutralPercentage": null,
+                        "negativePercentage": null,
+                        "stronglyDisagree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "disagree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "neutral": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "agree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "stronglyAgree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        }
+                    },
+                    "scoreBreakdown": {
+                        "stronglyDisagree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "disagree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "neutral": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "agree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "stronglyAgree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "hasSufficientResponses": false
+                    }
+                },
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

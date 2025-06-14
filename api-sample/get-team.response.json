@@ -1,0 +1,471 @@
+{
+    "data": {
+        "viewer": {
+            "company": {
+                "hasPurchasedHRIS": false,
+                "filterableEmployeeFields": [
+                    {
+                        "__typename": "MultipleChoiceField",
+                        "entityId": "c4bd9dd7-83ba-45f9-82ae-3a916b770ca4",
+                        "defaultField": null,
+                        "name": "Team",
+                        "category": {
+                            "label": "Role details",
+                            "id": "RW1wbG95ZWVGaWVsZENhdGVnb3J5OjI0NmE3N2UwLTIyNGUtNGIzZS1iZTBmLTQ0YjQ1YzI5NjE4Yg=="
+                        },
+                        "selectOptions": [
+                            {
+                                "name": "Artificial Intelligence",
+                                "entityId": "314efd12-7336-4c37-8ed7-4bfdb721a51f",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjMxNGVmZDEyLTczMzYtNGMzNy04ZWQ3LTRiZmRiNzIxYTUxZg=="
+                            },
+                            {
+                                "name": "BR Operations",
+                                "entityId": "67c1b05d-a124-40e5-9395-7e9c27a7cf2f",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjY3YzFiMDVkLWExMjQtNDBlNS05Mzk1LTdlOWMyN2E3Y2YyZg=="
+                            },
+                            {
+                                "name": "Branding - MKT",
+                                "entityId": "d51cdc76-a025-4bb2-96cd-7964047f951f",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQ1MWNkYzc2LWEwMjUtNGJiMi05NmNkLTc5NjQwNDdmOTUxZg=="
+                            },
+                            {
+                                "name": "Brazil - BD",
+                                "entityId": "b9bfd52f-4ce6-4f2f-8569-633d7f5acc40",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmI5YmZkNTJmLTRjZTYtNGYyZi04NTY5LTYzM2Q3ZjVhY2M0MA=="
+                            },
+                            {
+                                "name": "Business Intelligence",
+                                "entityId": "bf80c959-a237-422c-bb63-c90e3fb91cc1",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmJmODBjOTU5LWEyMzctNDIyYy1iYjYzLWM5MGUzZmI5MWNjMQ=="
+                            },
+                            {
+                                "name": "Casino Operations",
+                                "entityId": "af6ca363-4e27-4194-841b-7d7463ed481d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmFmNmNhMzYzLTRlMjctNDE5NC04NDFiLTdkNzQ2M2VkNDgxZA=="
+                            },
+                            {
+                                "name": "Core QA",
+                                "entityId": "870543d3-9751-476c-a3cd-bac104a35915",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjg3MDU0M2QzLTk3NTEtNDc2Yy1hM2NkLWJhYzEwNGEzNTkxNQ=="
+                            },
+                            {
+                                "name": "CRM Tech",
+                                "entityId": "d1fd4bfe-327d-4b2a-9cef-b772e88aa747",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQxZmQ0YmZlLTMyN2QtNGIyYS05Y2VmLWI3NzJlODhhYTc0Nw=="
+                            },
+                            {
+                                "name": "Customer Service",
+                                "entityId": "e21c6791-ea4d-49d5-be2f-fa9cc06174c4",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmUyMWM2NzkxLWVhNGQtNDlkNS1iZTJmLWZhOWNjMDYxNzRjNA=="
+                            },
+                            {
+                                "name": "DBA",
+                                "entityId": "cde3415c-74ee-48c7-bbf6-b6ef2936331f",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmNkZTM0MTVjLTc0ZWUtNDhjNy1iYmY2LWI2ZWYyOTM2MzMxZg=="
+                            },
+                            {
+                                "name": "DevOps",
+                                "entityId": "f139d14b-6ac3-445e-a772-356b9fa1a22e",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmYxMzlkMTRiLTZhYzMtNDQ1ZS1hNzcyLTM1NmI5ZmExYTIyZQ=="
+                            },
+                            {
+                                "name": "Diamond - Ops",
+                                "entityId": "4cc6b1a0-fc10-4f74-a67d-0102c3fc4584",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjRjYzZiMWEwLWZjMTAtNGY3NC1hNjdkLTAxMDJjM2ZjNDU4NA=="
+                            },
+                            {
+                                "name": "Events",
+                                "entityId": "6c37d96f-1a80-457a-8173-1763468fa33c",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjZjMzdkOTZmLTFhODAtNDU3YS04MTczLTE3NjM0NjhmYTMzYw=="
+                            },
+                            {
+                                "name": "Football.com",
+                                "entityId": "2d45c086-a11d-4383-b80e-d24d7b269e8d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjJkNDVjMDg2LWExMWQtNDM4My1iODBlLWQyNGQ3YjI2OWU4ZA=="
+                            },
+                            {
+                                "name": "Football.com - Ops",
+                                "entityId": "14718a73-4c39-48d0-a0d5-2702d12fc5b7",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjE0NzE4YTczLTRjMzktNDhkMC1hMGQ1LTI3MDJkMTJmYzViNw=="
+                            },
+                            {
+                                "name": "Games - Ops",
+                                "entityId": "685b2710-162f-467f-8904-75cf8463ab3a",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjY4NWIyNzEwLTE2MmYtNDY3Zi04OTA0LTc1Y2Y4NDYzYWIzYQ=="
+                            },
+                            {
+                                "name": "Gen Operations",
+                                "entityId": "f0f61f08-5f9d-480c-a5ac-bd05e7a217cb",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmYwZjYxZjA4LTVmOWQtNDgwYy1hNWFjLWJkMDVlN2EyMTdjYg=="
+                            },
+                            {
+                                "name": "IN Finance",
+                                "entityId": "e2fcdb38-69cd-4d50-ae1d-6f6a4759a99d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmUyZmNkYjM4LTY5Y2QtNGQ1MC1hZTFkLTZmNmE0NzU5YTk5ZA=="
+                            },
+                            {
+                                "name": "Innovation",
+                                "entityId": "568ae14f-3268-4a85-b091-e81f10bb6454",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjU2OGFlMTRmLTMyNjgtNGE4NS1iMDkxLWU4MWYxMGJiNjQ1NA=="
+                            },
+                            {
+                                "name": "INT Finance",
+                                "entityId": "4cc78732-bbec-4f0f-a2aa-d213c8b61130",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjRjYzc4NzMyLWJiZWMtNGYwZi1hMmFhLWQyMTNjOGI2MTEzMA=="
+                            },
+                            {
+                                "name": "International People Operations",
+                                "entityId": "dad06bff-d890-4374-9b8c-77eb91387123",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmRhZDA2YmZmLWQ4OTAtNDM3NC05YjhjLTc3ZWI5MTM4NzEyMw=="
+                            },
+                            {
+                                "name": "International Talent Acquisition",
+                                "entityId": "5942f159-01fe-4a9c-8d89-d90b94dfff8b",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjU5NDJmMTU5LTAxZmUtNGE5Yy04ZDg5LWQ5MGI5NGRmZmY4Yg=="
+                            },
+                            {
+                                "name": "MarTech",
+                                "entityId": "b07b8863-aaa2-4942-8cea-5e78b8476497",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmIwN2I4ODYzLWFhYTItNDk0Mi04Y2VhLTVlNzhiODQ3NjQ5Nw=="
+                            },
+                            {
+                                "name": "Media & Comm - Ops",
+                                "entityId": "834e5b9c-58f4-4eef-ad34-49c406a91b12",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjgzNGU1YjljLTU4ZjQtNGVlZi1hZDM0LTQ5YzQwNmE5MWIxMg=="
+                            },
+                            {
+                                "name": "Mexico - BD",
+                                "entityId": "b547fa9b-ac18-41f4-a5f1-4729917ed8c3",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmI1NDdmYTliLWFjMTgtNDFmNC1hNWYxLTQ3Mjk5MTdlZDhjMw=="
+                            },
+                            {
+                                "name": "ON Finance",
+                                "entityId": "822dbaf8-8803-4210-b7cd-0df0810b715c",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjgyMmRiYWY4LTg4MDMtNDIxMC1iN2NkLTBkZjA4MTBiNzE1Yw=="
+                            },
+                            {
+                                "name": "ON People Operations",
+                                "entityId": "ab0ac1cd-cbc0-483c-8af7-d1db49b5e24e",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmFiMGFjMWNkLWNiYzAtNDgzYy04YWY3LWQxZGI0OWI1ZTI0ZQ=="
+                            },
+                            {
+                                "name": "ON Talent Acquisition",
+                                "entityId": "de80a477-986a-4fb3-b12a-24e7a468c972",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmRlODBhNDc3LTk4NmEtNGZiMy1iMTJhLTI0ZTdhNDY4Yzk3Mg=="
+                            },
+                            {
+                                "name": "Ops Tech",
+                                "entityId": "1178dd11-702c-458c-bee2-eecd2c18217f",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjExNzhkZDExLTcwMmMtNDU4Yy1iZWUyLWVlY2QyYzE4MjE3Zg=="
+                            },
+                            {
+                                "name": "Payments - BD",
+                                "entityId": "c9d8b6de-1bd8-4ddf-8a7a-a37c28c37cae",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmM5ZDhiNmRlLTFiZDgtNGRkZi04YTdhLWEzN2MyOGMzN2NhZQ=="
+                            },
+                            {
+                                "name": "Payments - Ops",
+                                "entityId": "df8043cd-e5c3-42f0-a076-9a8b709edca6",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmRmODA0M2NkLWU1YzMtNDJmMC1hMDc2LTlhOGI3MDllZGNhNg=="
+                            },
+                            {
+                                "name": "Performance - MKT",
+                                "entityId": "d3ca476a-dca5-4ae8-8567-318d871b0db7",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQzY2E0NzZhLWRjYTUtNGFlOC04NTY3LTMxOGQ4NzFiMGRiNw=="
+                            },
+                            {
+                                "name": "Pleased",
+                                "entityId": "4d4ac578-b60b-423c-a8f4-f71c6a8320f9",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjRkNGFjNTc4LWI2MGItNDIzYy1hOGY0LWY3MWM2YTgzMjBmOQ=="
+                            },
+                            {
+                                "name": "Product Directors",
+                                "entityId": "11f3f06c-3094-425b-8ff6-a4447ac1d8aa",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjExZjNmMDZjLTMwOTQtNDI1Yi04ZmY2LWE0NDQ3YWMxZDhhYQ=="
+                            },
+                            {
+                                "name": "Retention",
+                                "entityId": "458c502c-1411-441e-8189-96b8e2507f39",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjQ1OGM1MDJjLTE0MTEtNDQxZS04MTg5LTk2YjhlMjUwN2YzOQ=="
+                            },
+                            {
+                                "name": "Risk & Fraud - Ops",
+                                "entityId": "be162a67-3b29-4b4b-93b1-2b5c6f8e396d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmJlMTYyYTY3LTNiMjktNGI0Yi05M2IxLTJiNWM2ZjhlMzk2ZA=="
+                            },
+                            {
+                                "name": "Senior Leadership",
+                                "entityId": "26a06c9a-c983-4859-98e2-5a670a2a68fe",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjI2YTA2YzlhLWM5ODMtNDg1OS05OGUyLTVhNjcwYTJhNjhmZQ=="
+                            },
+                            {
+                                "name": "Social Media",
+                                "entityId": "6c7c5ad6-7367-4ca7-9e8a-63cbc578a846",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjZjN2M1YWQ2LTczNjctNGNhNy05ZThhLTYzY2JjNTc4YTg0Ng=="
+                            },
+                            {
+                                "name": "South Africa - BD",
+                                "entityId": "3e0cc680-22f8-4063-96d9-8e3865af2299",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjNlMGNjNjgwLTIyZjgtNDA2My05NmQ5LThlMzg2NWFmMjI5OQ=="
+                            },
+                            {
+                                "name": "Sporty IT",
+                                "entityId": "99b4d928-963a-489e-bd04-4ca157d60600",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjk5YjRkOTI4LTk2M2EtNDg5ZS1iZDA0LTRjYTE1N2Q2MDYwMA=="
+                            },
+                            {
+                                "name": "Sporty Studios",
+                                "entityId": "b419600d-3558-4afb-b3b6-950491458335",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmI0MTk2MDBkLTM1NTgtNGFmYi1iM2I2LTk1MDQ5MTQ1ODMzNQ=="
+                            },
+                            {
+                                "name": "SportyBook A",
+                                "entityId": "9cbd8443-e8d2-4de0-86a6-799db1d35dba",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjljYmQ4NDQzLWU4ZDItNGRlMC04NmE2LTc5OWRiMWQzNWRiYQ=="
+                            },
+                            {
+                                "name": "SportyBook B",
+                                "entityId": "10fe383d-2432-42a3-8e3d-d1564e89a821",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjEwZmUzODNkLTI0MzItNDJhMy04ZTNkLWQxNTY0ZTg5YTgyMQ=="
+                            },
+                            {
+                                "name": "SportyBook C",
+                                "entityId": "42da6adf-2faf-4cf9-85b1-417fa93ab09b",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjQyZGE2YWRmLTJmYWYtNGNmOS04NWIxLTQxN2ZhOTNhYjA5Yg=="
+                            },
+                            {
+                                "name": "SportyBook D",
+                                "entityId": "6c40c10d-493c-4272-a7d9-e60f67de7294",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjZjNDBjMTBkLTQ5M2MtNDI3Mi1hN2Q5LWU2MGY2N2RlNzI5NA=="
+                            },
+                            {
+                                "name": "SportyBoot Core",
+                                "entityId": "1cad2906-1afe-48c4-9a9e-a38e2edd61f0",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjFjYWQyOTA2LTFhZmUtNDhjNC05YTllLWEzOGUyZWRkNjFmMA=="
+                            },
+                            {
+                                "name": "SportyBoot Local",
+                                "entityId": "7ca535ae-838f-462b-98d5-c66f32d286ed",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjdjYTUzNWFlLTgzOGYtNDYyYi05OGQ1LWM2NmYzMmQyODZlZA=="
+                            },
+                            {
+                                "name": "SportyBoot Payment",
+                                "entityId": "9bb0f23a-07f2-4c61-bd6d-091f5ffd1405",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjliYjBmMjNhLTA3ZjItNGM2MS1iZDZkLTA5MWY1ZmZkMTQwNQ=="
+                            },
+                            {
+                                "name": "SportyFM",
+                                "entityId": "70bccf75-e351-4fe7-ada7-303736b42dfa",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjcwYmNjZjc1LWUzNTEtNGZlNy1hZGE3LTMwMzczNmI0MmRmYQ=="
+                            },
+                            {
+                                "name": "SportyFraud",
+                                "entityId": "c5eef2b2-8012-4360-ab09-32bf8879ebee",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmM1ZWVmMmIyLTgwMTItNDM2MC1hYjA5LTMyYmY4ODc5ZWJlZQ=="
+                            },
+                            {
+                                "name": "SportyGames EU Infrastructure",
+                                "entityId": "c2b28a92-d652-4118-88d0-d92c9b169e4c",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmMyYjI4YTkyLWQ2NTItNDExOC04OGQwLWQ5MmM5YjE2OWU0Yw=="
+                            },
+                            {
+                                "name": "SportyGames EU Innovation",
+                                "entityId": "2e9da35b-4dc9-4c86-95dc-6f10e933c466",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjJlOWRhMzViLTRkYzktNGM4Ni05NWRjLTZmMTBlOTMzYzQ2Ng=="
+                            },
+                            {
+                                "name": "SportyGames IN Crash",
+                                "entityId": "c042ef77-045a-49ae-a2b0-d8c51fde3cb8",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmMwNDJlZjc3LTA0NWEtNDlhZS1hMmIwLWQ4YzUxZmRlM2NiOA=="
+                            },
+                            {
+                                "name": "SportyGames IN Hero",
+                                "entityId": "49019b23-fe33-4c5b-ac17-50e12a86d1b3",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjQ5MDE5YjIzLWZlMzMtNGM1Yi1hYzE3LTUwZTEyYTg2ZDFiMw=="
+                            },
+                            {
+                                "name": "SportyGames IN Misc",
+                                "entityId": "4dc1a19c-a3f8-40c8-9a77-223bfcc6d28b",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjRkYzFhMTljLWEzZjgtNDBjOC05YTc3LTIyM2JmY2M2ZDI4Yg=="
+                            },
+                            {
+                                "name": "SportyGames TW Quick",
+                                "entityId": "9f89c5a7-5cc8-45a3-a5ab-6dfb099bdbfd",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjlmODljNWE3LTVjYzgtNDVhMy1hNWFiLTZkZmIwOTliZGJmZA=="
+                            },
+                            {
+                                "name": "SportyGames TW Slots",
+                                "entityId": "1fe8f405-78f3-48ea-a8cc-12023faa977d",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjFmZThmNDA1LTc4ZjMtNDhlYS1hOGNjLTEyMDIzZmFhOTc3ZA=="
+                            },
+                            {
+                                "name": "SportyGames UK",
+                                "entityId": "26fef5ff-72ba-4138-92f1-5704929bc14a",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjI2ZmVmNWZmLTcyYmEtNDEzOC05MmYxLTU3MDQ5MjliYzE0YQ=="
+                            },
+                            {
+                                "name": "SportyGrowth",
+                                "entityId": "0de0090b-fd1a-41f9-989e-abfcef8d63bd",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjBkZTAwOTBiLWZkMWEtNDFmOS05ODllLWFiZmNlZjhkNjNiZA=="
+                            },
+                            {
+                                "name": "SportyMedia Tech",
+                                "entityId": "c049a772-c24d-4217-90b8-f3408480757b",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmMwNDlhNzcyLWMyNGQtNDIxNy05MGI4LWYzNDA4NDgwNzU3Yg=="
+                            },
+                            {
+                                "name": "SportyOdds Trading",
+                                "entityId": "d2ed0e82-8363-4020-9dea-5cc3f791ff1c",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmQyZWQwZTgyLTgzNjMtNDAyMC05ZGVhLTVjYzNmNzkxZmYxYw=="
+                            },
+                            {
+                                "name": "SportyOdds User",
+                                "entityId": "5f52e7b5-ff42-4d16-b9cc-ef9ad141aca0",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjVmNTJlN2I1LWZmNDItNGQxNi1iOWNjLWVmOWFkMTQxYWNhMA=="
+                            },
+                            {
+                                "name": "SportyPay",
+                                "entityId": "38a7a4dc-caaf-47f4-9449-ca5fb60f8f35",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjM4YTdhNGRjLWNhYWYtNDdmNC05NDQ5LWNhNWZiNjBmOGYzNQ=="
+                            },
+                            {
+                                "name": "SportyPersonalization",
+                                "entityId": "94d3d780-d99c-4d87-bbe7-9c3e2cc103dd",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjk0ZDNkNzgwLWQ5OWMtNGQ4Ny1iYmU3LTljM2UyY2MxMDNkZA=="
+                            },
+                            {
+                                "name": "SportyPlatform",
+                                "entityId": "6cc53d97-d9de-475b-9dc0-d08c1e314078",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjZjYzUzZDk3LWQ5ZGUtNDc1Yi05ZGMwLWQwOGMxZTMxNDA3OA=="
+                            },
+                            {
+                                "name": "SportyPromotion",
+                                "entityId": "6e937941-540f-49f7-b249-67b8a6ee6de2",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjZlOTM3OTQxLTU0MGYtNDlmNy1iMjQ5LTY3YjhhNmVlNmRlMg=="
+                            },
+                            {
+                                "name": "SportyRisk Trading",
+                                "entityId": "304c3848-51f3-4e63-83b9-4508f9306ace",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjMwNGMzODQ4LTUxZjMtNGU2My04M2I5LTQ1MDhmOTMwNmFjZQ=="
+                            },
+                            {
+                                "name": "SportyRisk User",
+                                "entityId": "da6acee6-b73b-4efa-b15e-a4bed3d3f8be",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmRhNmFjZWU2LWI3M2ItNGVmYS1iMTVlLWE0YmVkM2QzZjhiZQ=="
+                            },
+                            {
+                                "name": "SportySocial",
+                                "entityId": "e9263a80-3154-4c1d-9ead-b991abad5fd4",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmU5MjYzYTgwLTMxNTQtNGMxZC05ZWFkLWI5OTFhYmFkNWZkNA=="
+                            },
+                            {
+                                "name": "SportySS",
+                                "entityId": "92aa635c-8644-434b-987d-05a0accb337e",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjkyYWE2MzVjLTg2NDQtNDM0Yi05ODdkLTA1YTBhY2NiMzM3ZQ=="
+                            },
+                            {
+                                "name": "SportyTV",
+                                "entityId": "004f7214-b4a1-41eb-b98e-9e08f69b5718",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjAwNGY3MjE0LWI0YTEtNDFlYi1iOThlLTllMDhmNjliNTcxOA=="
+                            },
+                            {
+                                "name": "SportyVirtuals",
+                                "entityId": "a8b64e92-6ad4-4f36-a163-f759fd0a9d1f",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOmE4YjY0ZTkyLTZhZDQtNGYzNi1hMTYzLWY3NTlmZDBhOWQxZg=="
+                            },
+                            {
+                                "name": "Technical Directors",
+                                "entityId": "5d56cbfb-89d8-4107-910f-87701d17f03a",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjVkNTZjYmZiLTg5ZDgtNDEwNy05MTBmLTg3NzAxZDE3ZjAzYQ=="
+                            },
+                            {
+                                "name": "ZA Operations",
+                                "entityId": "343a93da-4bca-441c-b0e0-26940a3c0f46",
+                                "defaultKey": null,
+                                "id": "U2VsZWN0T3B0aW9uOjM0M2E5M2RhLTRiY2EtNDQxYy1iMGUwLTI2OTQwYTNjMGY0Ng=="
+                            }
+                        ],
+                        "__isNode": "MultipleChoiceField",
+                        "id": "RW1wbG95ZWVGaWVsZDpjNGJkOWRkNy04M2JhLTQ1ZjktODJhZS0zYTkxNmI3NzBjYTQ="
+                    }
+                ],
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

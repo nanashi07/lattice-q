@@ -1,0 +1,122 @@
+get survey count
+
+fetch("https://sportygroup.latticehq.com/graphql", {
+  "headers": {
+    "accept": "application/json",
+    "accept-language": "en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja-JP;q=0.6,ja;q=0.5",
+    "cache-control": "no-cache",
+    "content-type": "application/json; charset=utf-8",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Google Chrome\";v=\"137\", \"Chromium\";v=\"137\", \"Not/A)Brand\";v=\"24\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "traceparent": "00-00000000000000007bb453bd47e260c8-590dc94238d55e44-01",
+    "tracestate": "dd=s:1;o:rum",
+    "x-datadog-origin": "rum",
+    "x-datadog-parent-id": "6417006330331356740",
+    "x-datadog-sampling-priority": "1",
+    "x-datadog-trace-id": "8913841634892996808",
+    "x-lattice-deployment": "us-prod-1",
+    "x-lattice-is-real-company": "true",
+    "x-lattice-market-segment": "midmarket_high",
+    "x-lattice-products": "{\"PulseResultsGraphQuery\":\"pulse\"}",
+    "x-timezone": "Atlantic/Reykjavik",
+    "x-utc-offset": "0"
+  },
+  "referrer": "https://sportygroup.latticehq.com/admin/pulse/results?end=2025-06-12T01%3A01%3A26.369Z&start=2025-06-06T01%3A01%3A26.369Z&dateValue=custom&compareWith=previous&selectedTab=Questions&questionEntityId=4004d870-889b-11e8-9e91-6beb3fb6f0f7",
+  "referrerPolicy": "same-origin",
+  "body": "{\"id\":\"PulseResultsCommentsQuery\",\"query\":\"query PulseResultsCommentsQuery(\\n  $dateRange: DateRange\\n  $ages: [YearRangeFilterInput!]\\n  $tenures: [YearRangeFilterInput!]\\n  $genders: [Gender!]\\n  $managerEntityIds: [EntityId!]\\n  $departmentEntityIds: [EntityId!]\\n  $customFields: [PulseAnalyticsCustomFieldFilterInput!]\\n  $ratingQuestionsByReviewCycle: [RatingQuestionByReviewCycleFilterInput!]\\n  $themeEntityId: EntityId\\n  $questionEntityId: EntityId\\n  $pulseSharingEntityId: EntityId\\n) {\\n  viewer {\\n    isImpersonation\\n    company {\\n      histogramPulseSettings: pulseSettings {\\n        ...PulseResultsCommentsHistogram__pulseSettings\\n        id\\n      }\\n      pulseSettings {\\n        commentRepliesEnabled\\n        id\\n      }\\n      pulseAnalytics: findPulseAnalytics(pulseSharingEntityId: $pulseSharingEntityId) {\\n        __typename\\n        submittedResponsesCount(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId)\\n        histogramScoreBreakdown: scoreBreakdown(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId) {\\n          ...PulseResultsCommentsHistogram___scoreBreakdownType\\n        }\\n        scoreBreakdown(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId) {\\n          ...ResponseOpinionScoreFilterSelector_breakdown\\n          hasSufficientResponses\\n          stronglyDisagree {\\n            commentsCount\\n            submittedResponsesCount\\n            submittedResponsesPercentage\\n          }\\n          disagree {\\n            commentsCount\\n            submittedResponsesCount\\n            submittedResponsesPercentage\\n          }\\n          neutral {\\n            commentsCount\\n            submittedResponsesCount\\n            submittedResponsesPercentage\\n          }\\n          agree {\\n            commentsCount\\n            submittedResponsesCount\\n            submittedResponsesPercentage\\n          }\\n          stronglyAgree {\\n            commentsCount\\n            submittedResponsesCount\\n            submittedResponsesPercentage\\n          }\\n        }\\n      }\\n      id\\n    }\\n    id\\n  }\\n}\\n\\nfragment PulseResultsCommentsHistogram___scoreBreakdownType on PulseAnalyticsScoreBreakdown {\\n  positivePercentage\\n  neutralPercentage\\n  negativePercentage\\n  stronglyDisagree {\\n    submittedResponsesCount\\n    commentsCount\\n    submittedResponsesPercentage\\n  }\\n  disagree {\\n    submittedResponsesCount\\n    commentsCount\\n    submittedResponsesPercentage\\n  }\\n  neutral {\\n    submittedResponsesCount\\n    commentsCount\\n    submittedResponsesPercentage\\n  }\\n  agree {\\n    submittedResponsesCount\\n    commentsCount\\n    submittedResponsesPercentage\\n  }\\n  stronglyAgree {\\n    submittedResponsesCount\\n    commentsCount\\n    submittedResponsesPercentage\\n  }\\n}\\n\\nfragment PulseResultsCommentsHistogram__pulseSettings on PulseSetting {\\n  commentRepliesEnabled\\n}\\n\\nfragment ResponseOpinionScoreFilterSelector_breakdown on PulseAnalyticsScoreBreakdown {\\n  stronglyDisagree {\\n    submittedResponsesPercentage\\n  }\\n  disagree {\\n    submittedResponsesPercentage\\n  }\\n  neutral {\\n    submittedResponsesPercentage\\n  }\\n  agree {\\n    submittedResponsesPercentage\\n  }\\n  stronglyAgree {\\n    submittedResponsesPercentage\\n  }\\n}\\n\",\"variables\":{\"dateRange\":{\"start\":\"2025-06-06\",\"end\":\"2025-06-12\"},\"ages\":[],\"tenures\":[],\"genders\":[],\"managerEntityIds\":[\"9c8e7824-f7b2-441a-a699-70467779a416\"],\"departmentEntityIds\":[],\"customFields\":[],\"ratingQuestionsByReviewCycle\":[],\"themeEntityId\":null,\"questionEntityId\":\"4004d870-889b-11e8-9e91-6beb3fb6f0f7\",\"pulseSharingEntityId\":null}}",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "include"
+});
+
+
+-----
+
+
+{
+    "data": {
+        "viewer": {
+            "isImpersonation": false,
+            "company": {
+                "histogramPulseSettings": {
+                    "commentRepliesEnabled": false,
+                    "id": "UHVsc2VTZXR0aW5nOmM2NmNkZGU5LTQ5ZDctNDVmMi04OTAxLWI3ZWFhZjFkMGIxNQ=="
+                },
+                "pulseSettings": {
+                    "commentRepliesEnabled": false,
+                    "id": "UHVsc2VTZXR0aW5nOmM2NmNkZGU5LTQ5ZDctNDVmMi04OTAxLWI3ZWFhZjFkMGIxNQ=="
+                },
+                "pulseAnalytics": {
+                    "__typename": "PulseAnalytics",
+                    "submittedResponsesCount": 0,
+                    "histogramScoreBreakdown": {
+                        "positivePercentage": null,
+                        "neutralPercentage": null,
+                        "negativePercentage": null,
+                        "stronglyDisagree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "disagree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "neutral": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "agree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        },
+                        "stronglyAgree": {
+                            "submittedResponsesCount": 0,
+                            "commentsCount": 0,
+                            "submittedResponsesPercentage": null
+                        }
+                    },
+                    "scoreBreakdown": {
+                        "stronglyDisagree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "disagree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "neutral": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "agree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "stronglyAgree": {
+                            "submittedResponsesPercentage": null,
+                            "commentsCount": 0,
+                            "submittedResponsesCount": 0
+                        },
+                        "hasSufficientResponses": false
+                    }
+                },
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

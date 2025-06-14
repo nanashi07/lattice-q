@@ -1,0 +1,342 @@
+fetch("https://sportygroup.latticehq.com/graphql", {
+  "headers": {
+    "accept": "application/json",
+    "accept-language": "en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,ja-JP;q=0.6,ja;q=0.5",
+    "cache-control": "no-cache",
+    "content-type": "application/json; charset=utf-8",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Google Chrome\";v=\"137\", \"Chromium\";v=\"137\", \"Not/A)Brand\";v=\"24\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"macOS\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "traceparent": "00-00000000000000009dc6e1005faa365e-2b1711fc457f1a61-01",
+    "tracestate": "dd=s:1;o:rum",
+    "x-datadog-origin": "rum",
+    "x-datadog-parent-id": "3104970243290634849",
+    "x-datadog-sampling-priority": "1",
+    "x-datadog-trace-id": "11369021701064635998",
+    "x-lattice-deployment": "us-prod-1",
+    "x-lattice-is-real-company": "true",
+    "x-lattice-market-segment": "midmarket_high",
+    "x-lattice-products": "{\"PulseResultsTableQuery\":\"pulse\"}",
+    "x-timezone": "Atlantic/Reykjavik",
+    "x-utc-offset": "0"
+  },
+  "referrer": "https://sportygroup.latticehq.com/admin/pulse/results?end=2025-06-12T01%3A01%3A26.369Z&start=2025-06-06T01%3A01%3A26.369Z&dateValue=custom&compareWith=previous&selectedTab=Questions",
+  "referrerPolicy": "same-origin",
+  "body": "{\"id\":\"PulseResultsTableQuery\",\"query\":\"query PulseResultsTableQuery(\\n  $dateRange: DateRange\\n  $previousDateRange: DateRange\\n  $defaultGroupByProp: String!\\n  $ages: [YearRangeFilterInput!]\\n  $tenures: [YearRangeFilterInput!]\\n  $genders: [Gender!]\\n  $managerEntityIds: [EntityId!]\\n  $departmentEntityIds: [EntityId!]\\n  $customFields: [PulseAnalyticsCustomFieldFilterInput!]\\n  $ratingQuestionsByReviewCycle: [RatingQuestionByReviewCycleFilterInput!]\\n  $themeEntityId: EntityId\\n  $questionEntityId: EntityId\\n  $first: Int\\n  $after: String\\n  $last: Int\\n  $before: String\\n  $orderBy: PulseAnalyticsResultsTableOrderBy\\n  $orderDirection: OrderDirection\\n  $pulseSharingEntityId: EntityId\\n  $isCompareWithPrevious: Boolean!\\n) {\\n  viewer {\\n    company {\\n      pulseAnalytics: findPulseAnalytics(pulseSharingEntityId: $pulseSharingEntityId) {\\n        __typename\\n        resultsTableData(dateRange: $dateRange, previousDateRange: $previousDateRange, defaultGroupByProp: $defaultGroupByProp, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId, orderBy: $orderBy, orderDirection: $orderDirection, first: $first, last: $last, after: $after, before: $before) {\\n          pageInfo {\\n            startCursor\\n            endCursor\\n          }\\n          total\\n          edges {\\n            cursor\\n            node {\\n              id\\n              entityId\\n              label\\n              submittedCount\\n              employeeCount\\n              score\\n              trendData\\n              scoreDelta @include(if: $isCompareWithPrevious) {\\n                value\\n                magnitude\\n                percent\\n              }\\n              questionState\\n            }\\n          }\\n        }\\n      }\\n      id\\n    }\\n    id\\n  }\\n}\\n\",\"variables\":{\"dateRange\":{\"start\":\"2025-06-06\",\"end\":\"2025-06-12\"},\"previousDateRange\":{\"start\":\"2025-05-30\",\"end\":\"2025-06-05\"},\"defaultGroupByProp\":\"question\",\"ages\":[],\"tenures\":[],\"genders\":[],\"managerEntityIds\":[],\"departmentEntityIds\":[],\"customFields\":[],\"ratingQuestionsByReviewCycle\":[],\"themeEntityId\":null,\"questionEntityId\":null,\"first\":20,\"after\":null,\"last\":null,\"before\":null,\"orderBy\":\"Label\",\"orderDirection\":\"asc\",\"pulseSharingEntityId\":null,\"isCompareWithPrevious\":true}}",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "include"
+});
+
+  ----
+
+
+  {
+      "data": {
+          "viewer": {
+              "company": {
+                  "pulseAnalytics": {
+                      "__typename": "PulseAnalytics",
+                      "resultsTableData": {
+                          "pageInfo": {
+                              "startCursor": "YXJyYXljb25uZWN0aW9uJDBfcXVlc3Rpb24kMA==",
+                              "endCursor": "YXJyYXljb25uZWN0aW9uJDExX3F1ZXN0aW9uJDEx"
+                          },
+                          "total": 12,
+                          "edges": [
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDBfcXVlc3Rpb24kMA==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjBfcXVlc3Rpb24=",
+                                      "entityId": "4004e504-889b-11e8-9e94-876f61189799",
+                                      "label": "After work, I have energy for my leisure activities, friends and family.",
+                                      "submittedCount": 44,
+                                      "employeeCount": 44,
+                                      "score": 45,
+                                      "trendData": [
+                                          100,
+                                          0,
+                                          50,
+                                          50,
+                                          43,
+                                          40
+                                      ],
+                                      "scoreDelta": {
+                                          "value": -22,
+                                          "magnitude": 22,
+                                          "percent": -32.8
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDFfcXVlc3Rpb24kMQ==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjFfcXVlc3Rpb24=",
+                                      "entityId": "7ea2dedb-47de-46d1-9b33-06cd69af4791",
+                                      "label": "I am happy and satisfied with the work I do.",
+                                      "submittedCount": 0,
+                                      "employeeCount": 0,
+                                      "score": null,
+                                      "trendData": [],
+                                      "scoreDelta": {
+                                          "value": null,
+                                          "magnitude": null,
+                                          "percent": null
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDJfcXVlc3Rpb24kMg==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjJfcXVlc3Rpb24=",
+                                      "entityId": "c8d3dd7e-8768-45f7-834a-27f815baeed7",
+                                      "label": "I believe the company has a no blame culture and turn mistakes into a learning opportunity.",
+                                      "submittedCount": 38,
+                                      "employeeCount": 38,
+                                      "score": 58,
+                                      "trendData": [
+                                          100,
+                                          50,
+                                          100,
+                                          56,
+                                          70,
+                                          63,
+                                          29
+                                      ],
+                                      "scoreDelta": {
+                                          "value": -9,
+                                          "magnitude": 9,
+                                          "percent": -13.4
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDNfcXVlc3Rpb24kMw==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjNfcXVlc3Rpb24=",
+                                      "entityId": "7e9af821-9221-4250-8cef-12206d37fdbb",
+                                      "label": "I feel comfortable giving opinions and feedback to managers.",
+                                      "submittedCount": 41,
+                                      "employeeCount": 41,
+                                      "score": 95,
+                                      "trendData": [
+                                          100,
+                                          100,
+                                          100,
+                                          88,
+                                          100,
+                                          83
+                                      ],
+                                      "scoreDelta": {
+                                          "value": 14,
+                                          "magnitude": 14,
+                                          "percent": 17.3
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDRfcXVlc3Rpb24kNA==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjRfcXVlc3Rpb24=",
+                                      "entityId": "8e663b76-a19c-464f-9290-3c355ae51ef8",
+                                      "label": "I have the freedom and flexibility to do the tasks assigned to me.",
+                                      "submittedCount": 44,
+                                      "employeeCount": 44,
+                                      "score": 82,
+                                      "trendData": [
+                                          100,
+                                          100,
+                                          100,
+                                          71,
+                                          75,
+                                          83,
+                                          89
+                                      ],
+                                      "scoreDelta": {
+                                          "value": 0,
+                                          "magnitude": 0,
+                                          "percent": 0
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDVfcXVlc3Rpb24kNQ==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjVfcXVlc3Rpb24=",
+                                      "entityId": "d1fbe6f1-6e74-422d-8494-a01f33b4b9b6",
+                                      "label": "I receive meaningful recognition for doing a good job.",
+                                      "submittedCount": 0,
+                                      "employeeCount": 0,
+                                      "score": null,
+                                      "trendData": [],
+                                      "scoreDelta": {
+                                          "value": null,
+                                          "magnitude": null,
+                                          "percent": null
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDZfcXVlc3Rpb24kNg==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjZfcXVlc3Rpb24=",
+                                      "entityId": "4004c768-889b-11e8-9e8d-d795cd1e016b",
+                                      "label": "I talk up this company to my friends as a great company to work for.",
+                                      "submittedCount": 37,
+                                      "employeeCount": 36,
+                                      "score": 86,
+                                      "trendData": [
+                                          100,
+                                          100,
+                                          88,
+                                          70,
+                                          100,
+                                          89
+                                      ],
+                                      "scoreDelta": {
+                                          "value": 11,
+                                          "magnitude": 11,
+                                          "percent": 14.7
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDdfcXVlc3Rpb24kNw==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjdfcXVlc3Rpb24=",
+                                      "entityId": "dac46652-abee-11e8-9355-7b2f2f1f2353",
+                                      "label": "My manager assigns stretch opportunities to help me develop in my career.",
+                                      "submittedCount": 37,
+                                      "employeeCount": 37,
+                                      "score": 59,
+                                      "trendData": [
+                                          100,
+                                          100,
+                                          44,
+                                          44,
+                                          60,
+                                          86
+                                      ],
+                                      "scoreDelta": {
+                                          "value": -4,
+                                          "magnitude": 4,
+                                          "percent": -6.3
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDhfcXVlc3Rpb24kOA==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjhfcXVlc3Rpb24=",
+                                      "entityId": "1d5baeff-1081-47c6-aa38-5273a525ce13",
+                                      "label": "My manager assigns stretch opportunities to help me develop in my career.",
+                                      "submittedCount": 0,
+                                      "employeeCount": 0,
+                                      "score": null,
+                                      "trendData": [],
+                                      "scoreDelta": {
+                                          "value": null,
+                                          "magnitude": null,
+                                          "percent": null
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDlfcXVlc3Rpb24kOQ==",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjlfcXVlc3Rpb24=",
+                                      "entityId": "2cc27250-7484-11ea-aaf5-a7218b58b872",
+                                      "label": "My manager has checked in on my wellbeing in the last 7 days.",
+                                      "submittedCount": 31,
+                                      "employeeCount": 30,
+                                      "score": 87,
+                                      "trendData": [
+                                          100,
+                                          90,
+                                          50,
+                                          90,
+                                          88
+                                      ],
+                                      "scoreDelta": {
+                                          "value": 16,
+                                          "magnitude": 16,
+                                          "percent": 22.5
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDEwX3F1ZXN0aW9uJDEw",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjEwX3F1ZXN0aW9u",
+                                      "entityId": "2cc223ae-7484-11ea-aaee-5ba1a4cf3295",
+                                      "label": "My stress level is manageable.",
+                                      "submittedCount": 36,
+                                      "employeeCount": 36,
+                                      "score": 58,
+                                      "trendData": [
+                                          100,
+                                          0,
+                                          100,
+                                          55,
+                                          57,
+                                          67,
+                                          50
+                                      ],
+                                      "scoreDelta": {
+                                          "value": -3,
+                                          "magnitude": 3,
+                                          "percent": -4.9
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              },
+                              {
+                                  "cursor": "YXJyYXljb25uZWN0aW9uJDExX3F1ZXN0aW9uJDEx",
+                                  "node": {
+                                      "id": "UHVsc2VBbmFseXRpY3NSZXN1bHRzVGFibGVOb2RlOjExX3F1ZXN0aW9u",
+                                      "entityId": "4004d870-889b-11e8-9e91-6beb3fb6f0f7",
+                                      "label": "When I get up in the morning, I look forward to going to work.",
+                                      "submittedCount": 40,
+                                      "employeeCount": 40,
+                                      "score": 70,
+                                      "trendData": [
+                                          100,
+                                          50,
+                                          100,
+                                          67,
+                                          29,
+                                          91,
+                                          80
+                                      ],
+                                      "scoreDelta": {
+                                          "value": 21,
+                                          "magnitude": 21,
+                                          "percent": 42.9
+                                      },
+                                      "questionState": "Active"
+                                  }
+                              }
+                          ]
+                      }
+                  },
+                  "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+              },
+              "id": "Vmlld2VyOjA="
+          }
+      }
+  }

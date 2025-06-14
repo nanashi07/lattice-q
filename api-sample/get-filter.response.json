@@ -1,0 +1,450 @@
+{
+    "data": {
+        "viewer": {
+            "company": {
+                "pulseSettings": {
+                    "id": "UHVsc2VTZXR0aW5nOmM2NmNkZGU5LTQ5ZDctNDVmMi04OTAxLWI3ZWFhZjFkMGIxNQ==",
+                    "entityId": "c66cdde9-49d7-45f2-8901-b7eaaf1d0b15",
+                    "filterConfigs": [
+                        {
+                            "name": "INT (by BI)",
+                            "entityId": "b73b55a7-a95e-44d7-b42c-010ba8395ffb",
+                            "filters": [
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "f8ae73c2-7e19-44be-b7b7-518ced280350",
+                                    "valueLabel": "Apertum BG People & Talent (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "5e1d912a-4f3f-45c5-a531-f5d6449584e9",
+                                    "valueLabel": "Apertum IN People & Talent (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "88dcea9e-035c-44b7-b85f-96193530ce0b",
+                                    "valueLabel": "Business Development, Marketing & Media (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "8781b86c-d928-4549-b966-18e47d8c857c",
+                                    "valueLabel": "CoinFlow (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "4e95814a-5932-40e7-aefd-8d0226663471",
+                                    "valueLabel": "DevOps & SRE (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "d421a826-9148-4ada-8339-e5a6e1ac640b",
+                                    "valueLabel": "EU & IN Product (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ca72cf71-157a-4d0d-9d72-6e789a8b6cf2",
+                                    "valueLabel": "Executive Management"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "2ce1a5a9-7e2a-443e-8e3b-7ddf7fdfc742",
+                                    "valueLabel": "International People & Talent (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "052d976a-0f29-4bff-a570-4a4277437900",
+                                    "valueLabel": "Operations"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "d76c7740-94e0-4840-88fc-a7a532f9f4f2",
+                                    "valueLabel": "Pleased (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "a44e272b-524b-456a-a5f6-fe733acba83d",
+                                    "valueLabel": "QA Automation_INT (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "fc06dc30-229e-40eb-97fd-15dbe63bc270",
+                                    "valueLabel": "SportyBook EU (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "501a1108-4933-4030-81d5-67748cdc45c7",
+                                    "valueLabel": "SportyBoot (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "8f9adb04-3793-4016-b83a-8c5e3809a855",
+                                    "valueLabel": "SportyGames (IN) (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "9a6c83ad-f851-4eef-b848-6c83699bd2e5",
+                                    "valueLabel": "SportySS (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "196047e3-1bf2-456b-b4c7-6a4e7828755e",
+                                    "valueLabel": "Technical Management (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "677f32b4-6b1b-404c-87eb-3d933de8e7d8",
+                                    "valueLabel": "Trading"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "3c46ff37-795f-4473-b844-ad3dd62c1dbd",
+                                    "valueLabel": "Trading Odds (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "3892c137-f20c-447a-9465-141df8d53511",
+                                    "valueLabel": "Trading Risk (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "c508bada-9036-43ec-b0cf-ba517910c6e5",
+                                    "valueLabel": "User Odds (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "d40e2c8e-70f6-457b-9e6d-f2fd7eec4732",
+                                    "valueLabel": "User Risk (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "f40476d1-bccf-4818-af6e-9d71d15110f6",
+                                    "valueLabel": "DBA_INT (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "a92ba600-95bb-4b41-a5da-14e0a4e6a7b8",
+                                    "valueLabel": "BI_INT (archived)"
+                                }
+                            ],
+                            "id": "UHVsc2VGaWx0ZXJDb25maWc6YjczYjU1YTctYTk1ZS00NGQ3LWI0MmMtMDEwYmE4Mzk1ZmZi"
+                        },
+                        {
+                            "name": "TW (by BI_240709)",
+                            "entityId": "41cd0d8c-228c-4658-8621-a67e509bc27f",
+                            "filters": [
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "e634e5d9-40ec-4458-9b82-4a50f46713b8",
+                                    "valueLabel": "FCOM-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "71530de1-0f5c-4b89-8267-fc76ba38a67d",
+                                    "valueLabel": "Finance-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "7b945aca-707d-483a-bba0-f7b85b90e53e",
+                                    "valueLabel": "DevOps-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "99f7033b-3943-41f0-a7e4-63276bd345dd",
+                                    "valueLabel": "DBA-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ddb645ce-0fdb-4fc9-b945-b779e2c8bf10",
+                                    "valueLabel": "BI_ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "cb28807d-d24e-4fe4-9a10-ca51de178a31",
+                                    "valueLabel": "IS/IT-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "1ae36eb6-1a78-45a5-b945-c2e4dbfc3038",
+                                    "valueLabel": "HR-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "c1f85a13-e1e9-4d6c-98a4-bd579792f18e",
+                                    "valueLabel": "QA-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "3b9367d4-8a4f-477a-bafa-1e9b655210ba",
+                                    "valueLabel": "Management-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ac163b4e-9819-461d-a3cb-8025b819b2cd",
+                                    "valueLabel": "Backend-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "6dc65c36-025a-425e-9051-932b4733e1ca",
+                                    "valueLabel": "PM-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ae454619-3738-4e4d-a98b-75d40883f717",
+                                    "valueLabel": "iOS-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "3bbcc9e4-af28-4158-843b-fea5f9a8e693",
+                                    "valueLabel": "Android-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "de58e7ca-1cc3-4eb9-99b5-3f3b48a62ea3",
+                                    "valueLabel": "AI-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "6f156ee2-5b97-42d6-82d0-5cc9dbf05d88",
+                                    "valueLabel": "Frontend-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "d73d905f-e9c4-48f2-83c9-9dc120dfaef0",
+                                    "valueLabel": "UED_ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "1113c419-1d7f-4981-9ff1-09ddb73ae723",
+                                    "valueLabel": "SportySocial (archived)"
+                                }
+                            ],
+                            "id": "UHVsc2VGaWx0ZXJDb25maWc6NDFjZDBkOGMtMjI4Yy00NjU4LTg2MjEtYTY3ZTUwOWJjMjdm"
+                        },
+                        {
+                            "name": "TW (by BI_250208)",
+                            "entityId": "435fc95a-58a8-4690-b57b-7e301e6b3b40",
+                            "filters": [
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "4df8757d-5fd4-4b40-b700-860aa2b2efa7",
+                                    "valueLabel": "AI-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ddb645ce-0fdb-4fc9-b945-b779e2c8bf10",
+                                    "valueLabel": "BI_ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "99f7033b-3943-41f0-a7e4-63276bd345dd",
+                                    "valueLabel": "DBA-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "7b945aca-707d-483a-bba0-f7b85b90e53e",
+                                    "valueLabel": "DevOps-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "e634e5d9-40ec-4458-9b82-4a50f46713b8",
+                                    "valueLabel": "FCOM-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "71530de1-0f5c-4b89-8267-fc76ba38a67d",
+                                    "valueLabel": "Finance-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "cb28807d-d24e-4fe4-9a10-ca51de178a31",
+                                    "valueLabel": "IS/IT-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "1ae36eb6-1a78-45a5-b945-c2e4dbfc3038",
+                                    "valueLabel": "HR-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "c1f85a13-e1e9-4d6c-98a4-bd579792f18e",
+                                    "valueLabel": "QA-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "3b9367d4-8a4f-477a-bafa-1e9b655210ba",
+                                    "valueLabel": "Management-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "c5f0b176-62c9-468d-b55e-8bf72debfb21",
+                                    "valueLabel": "SportyGame1_TW (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ac163b4e-9819-461d-a3cb-8025b819b2cd",
+                                    "valueLabel": "Backend-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "6dc65c36-025a-425e-9051-932b4733e1ca",
+                                    "valueLabel": "PM-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "ae454619-3738-4e4d-a98b-75d40883f717",
+                                    "valueLabel": "iOS-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "3bbcc9e4-af28-4158-843b-fea5f9a8e693",
+                                    "valueLabel": "Android-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "de58e7ca-1cc3-4eb9-99b5-3f3b48a62ea3",
+                                    "valueLabel": "AI-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "1113c419-1d7f-4981-9ff1-09ddb73ae723",
+                                    "valueLabel": "SportySocial (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "6f156ee2-5b97-42d6-82d0-5cc9dbf05d88",
+                                    "valueLabel": "Frontend-ON (archived)"
+                                },
+                                {
+                                    "__typename": "DefaultFilter",
+                                    "propertyLabel": "Department",
+                                    "property": "DepartmentEntityId",
+                                    "value": "d73d905f-e9c4-48f2-83c9-9dc120dfaef0",
+                                    "valueLabel": "UED_ON (archived)"
+                                }
+                            ],
+                            "id": "UHVsc2VGaWx0ZXJDb25maWc6NDM1ZmM5NWEtNThhOC00NjkwLWI1N2ItN2UzMDFlNmIzYjQw"
+                        }
+                    ]
+                },
+                "id": "Q29tcGFueTozMDU1NjljMS05ZmI1LTRiZjUtYjUxMC03NjMwNjNjMmYzODM="
+            },
+            "id": "Vmlld2VyOjA="
+        }
+    }
+}

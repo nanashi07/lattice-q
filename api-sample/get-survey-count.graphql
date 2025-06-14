@@ -1,0 +1,153 @@
+query PulseResultsCommentsQuery(
+  $dateRange: DateRange
+  $ages: [YearRangeFilterInput!]
+  $tenures: [YearRangeFilterInput!]
+  $genders: [Gender!]
+  $managerEntityIds: [EntityId!]
+  $departmentEntityIds: [EntityId!]
+  $customFields: [PulseAnalyticsCustomFieldFilterInput!]
+  $ratingQuestionsByReviewCycle: [RatingQuestionByReviewCycleFilterInput!]
+  $themeEntityId: EntityId
+  $questionEntityId: EntityId
+  $pulseSharingEntityId: EntityId
+) {
+  viewer {
+    isImpersonation
+    company {
+      histogramPulseSettings: pulseSettings {
+        ...PulseResultsCommentsHistogram__pulseSettings
+        id
+      }
+      pulseSettings {
+        commentRepliesEnabled
+        id
+      }
+      pulseAnalytics: findPulseAnalytics(
+        pulseSharingEntityId: $pulseSharingEntityId
+      ) {
+        __typename
+        submittedResponsesCount(
+          dateRange: $dateRange
+          ages: $ages
+          tenures: $tenures
+          genders: $genders
+          managerEntityIds: $managerEntityIds
+          departmentEntityIds: $departmentEntityIds
+          customFields: $customFields
+          ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle
+          themeEntityId: $themeEntityId
+          questionEntityId: $questionEntityId
+        )
+        histogramScoreBreakdown: scoreBreakdown(
+          dateRange: $dateRange
+          ages: $ages
+          tenures: $tenures
+          genders: $genders
+          managerEntityIds: $managerEntityIds
+          departmentEntityIds: $departmentEntityIds
+          customFields: $customFields
+          ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle
+          themeEntityId: $themeEntityId
+          questionEntityId: $questionEntityId
+        ) {
+          ...PulseResultsCommentsHistogram___scoreBreakdownType
+        }
+        scoreBreakdown(
+          dateRange: $dateRange
+          ages: $ages
+          tenures: $tenures
+          genders: $genders
+          managerEntityIds: $managerEntityIds
+          departmentEntityIds: $departmentEntityIds
+          customFields: $customFields
+          ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle
+          themeEntityId: $themeEntityId
+          questionEntityId: $questionEntityId
+        ) {
+          ...ResponseOpinionScoreFilterSelector_breakdown
+          hasSufficientResponses
+          stronglyDisagree {
+            commentsCount
+            submittedResponsesCount
+            submittedResponsesPercentage
+          }
+          disagree {
+            commentsCount
+            submittedResponsesCount
+            submittedResponsesPercentage
+          }
+          neutral {
+            commentsCount
+            submittedResponsesCount
+            submittedResponsesPercentage
+          }
+          agree {
+            commentsCount
+            submittedResponsesCount
+            submittedResponsesPercentage
+          }
+          stronglyAgree {
+            commentsCount
+            submittedResponsesCount
+            submittedResponsesPercentage
+          }
+        }
+      }
+      id
+    }
+    id
+  }
+}
+
+fragment PulseResultsCommentsHistogram___scoreBreakdownType on PulseAnalyticsScoreBreakdown {
+  positivePercentage
+  neutralPercentage
+  negativePercentage
+  stronglyDisagree {
+    submittedResponsesCount
+    commentsCount
+    submittedResponsesPercentage
+  }
+  disagree {
+    submittedResponsesCount
+    commentsCount
+    submittedResponsesPercentage
+  }
+  neutral {
+    submittedResponsesCount
+    commentsCount
+    submittedResponsesPercentage
+  }
+  agree {
+    submittedResponsesCount
+    commentsCount
+    submittedResponsesPercentage
+  }
+  stronglyAgree {
+    submittedResponsesCount
+    commentsCount
+    submittedResponsesPercentage
+  }
+}
+
+fragment PulseResultsCommentsHistogram__pulseSettings on PulseSetting {
+  commentRepliesEnabled
+}
+
+fragment ResponseOpinionScoreFilterSelector_breakdown on PulseAnalyticsScoreBreakdown {
+  stronglyDisagree {
+    submittedResponsesPercentage
+  }
+  disagree {
+    submittedResponsesPercentage
+  }
+  neutral {
+    submittedResponsesPercentage
+  }
+  agree {
+    submittedResponsesPercentage
+  }
+  stronglyAgree {
+    submittedResponsesPercentage
+  }
+}
