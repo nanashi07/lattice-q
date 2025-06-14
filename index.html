@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results Table</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 18px;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Three-Dimensional Survey Results Table</h1>
+        <div id="surveyTable" class="loading">Loading, please wait...</div>
+    </div>
+
+    <script type="module">
+        import { initTable } from './src/table.js';
+
+        // Initialize table after page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load JSON data using relative path
+            initTable('./temp/20250612.json', 'surveyTable');
+        });
+    </script>
+</body>
+</html>
