@@ -5,6 +5,14 @@ const headers = {
     'content-type': 'application/json; charset=utf-8',
 };
 const day = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const initScores = {
+    totalResponse: 0,
+    stronglyDisagree: 0,
+    disagree: 0,
+    neutral: 0,
+    agree: 0,
+    stronglyAgree: 0
+};
 let state = {
     departments: [],
     managers: [],
@@ -330,6 +338,7 @@ async function countSurvey(query, previous, type) {
                 }
                 state.question[query.question].managers.push({
                     name: manager.name,
+                    entityId: manager.entityId,
                     scores: scoreDiff
                 });
             }
@@ -356,6 +365,7 @@ async function countSurvey(query, previous, type) {
                 }
                 state.question[query.question].departments.push({
                     name: department.name,
+                    entityId: department.entityId,
                     scores: scoreDiff
                 });
             }
@@ -382,6 +392,7 @@ async function countSurvey(query, previous, type) {
                 }
                 state.question[query.question].teams.push({
                     name: team.name,
+                    entityId: team.entityId,
                     scores: scoreDiff
                 });
             }
@@ -391,6 +402,172 @@ async function countSurvey(query, previous, type) {
     }
 
     return scores;
+}
+
+function totalScore(scores) {
+    return scores.stronglyDisagree + scores.disagree + scores.neutral + scores.agree + scores.stronglyAgree
+}
+
+async function findInvisibleSurvey() {
+    // for (let name in state.question) {
+    //     let question = state.question[name];
+    //     for (let department of question.departments) {
+    //         console.log(`department: ${department}`);
+    //         state.departments.filter(d => department.name === d.name).forEach(d => department.entityId = d.entityId);
+    //     }
+    //     for (let manager of question.managers) {
+    //         console.log(`manager: ${manager}`);
+    //         state.managers.filter(d => manager.name === d.name).forEach(d => manager.entityId = d.entityId);
+    //     }
+    //     for (let team of question.teams) {
+    //         console.log(`team: ${team}`);
+    //         state.teams.filter(d => team.name === d.name).forEach(d => team.entityId = d.entityId);
+    //     }
+    // }
+
+    let questions = structuredClone(state.question);
+    for (let name in questions) {
+        let question = questions[name];
+        if (question.departments && question.departments.length > 0) {
+            question.departments = question.departments.filter(department => department.scores.totalResponse !== totalScore(department.scores));
+        }
+        if (question.managers && question.managers.length > 0) {
+            question.managers = question.managers.filter(manager => manager.scores.totalResponse !== totalScore(manager.scores));
+        }
+        if (question.teams && question.teams.length > 0) {
+            question.teams = question.teams.filter(team => team.scores.totalResponse !== totalScore(team.scores));
+        }
+    }
+    return questions;
+}
+
+async function pickupKnowAnalysis(questionId, type) {
+    switch (type) {
+        case 'managers':
+            let managers = state.question[questionId].managers
+                .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
+            return managers.slice(0, Math.min(5, managers.length));
+        case 'departments':
+            let departments = state.question[questionId].departments
+                .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
+            return departments.slice(0, Math.min(5, departments.length));
+        case 'teams':
+            let teams = state.question[questionId].teams
+                .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
+            return teams.slice(0, Math.min(5, teams.length));
+        default:
+            return [];
+    }
+}
+
+async function recoverSurvey(query, previous, type) {
+    const response = await fetch(graphqlApi, {
+        'headers': headers,
+        'body': JSON.stringify({
+            'id': 'PulseResultsCommentsQuery',
+            'query': 'query PulseResultsCommentsQuery(\n  $dateRange: DateRange\n  $ages: [YearRangeFilterInput!]\n  $tenures: [YearRangeFilterInput!]\n  $genders: [Gender!]\n  $managerEntityIds: [EntityId!]\n  $departmentEntityIds: [EntityId!]\n  $customFields: [PulseAnalyticsCustomFieldFilterInput!]\n  $ratingQuestionsByReviewCycle: [RatingQuestionByReviewCycleFilterInput!]\n  $themeEntityId: EntityId\n  $questionEntityId: EntityId\n  $pulseSharingEntityId: EntityId\n) {\n  viewer {\n    isImpersonation\n    company {\n      histogramPulseSettings: pulseSettings {\n        ...PulseResultsCommentsHistogram__pulseSettings\n        id\n      }\n      pulseSettings {\n        commentRepliesEnabled\n        id\n      }\n      pulseAnalytics: findPulseAnalytics(pulseSharingEntityId: $pulseSharingEntityId) {\n        __typename\n        submittedResponsesCount(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId)\n        histogramScoreBreakdown: scoreBreakdown(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId) {\n          ...PulseResultsCommentsHistogram___scoreBreakdownType\n        }\n        scoreBreakdown(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId) {\n          ...ResponseOpinionScoreFilterSelector_breakdown\n          hasSufficientResponses\n          stronglyDisagree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          disagree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          neutral {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          agree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          stronglyAgree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n        }\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment PulseResultsCommentsHistogram___scoreBreakdownType on PulseAnalyticsScoreBreakdown {\n  positivePercentage\n  neutralPercentage\n  negativePercentage\n  stronglyDisagree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  disagree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  neutral {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  agree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  stronglyAgree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n}\n\nfragment PulseResultsCommentsHistogram__pulseSettings on PulseSetting {\n  commentRepliesEnabled\n}\n\nfragment ResponseOpinionScoreFilterSelector_breakdown on PulseAnalyticsScoreBreakdown {\n  stronglyDisagree {\n    submittedResponsesPercentage\n  }\n  disagree {\n    submittedResponsesPercentage\n  }\n  neutral {\n    submittedResponsesPercentage\n  }\n  agree {\n    submittedResponsesPercentage\n  }\n  stronglyAgree {\n    submittedResponsesPercentage\n  }\n}\n',
+            'variables': {
+                'dateRange': {
+                    'start': query.start,  // '2025-06-06',
+                    'end': query.end  // '2025-06-12'
+                },
+                'ages': [],
+                'tenures': [],
+                'genders': [],
+                'managerEntityIds': query.managers.map(manager => manager.entityId) || [], // ['4004d870-889b-11e8-9e91-6beb3fb6f0f7'],
+                'departmentEntityIds': query.departments.map(department => department.entityId) || [],
+                'customFields': query.teams.map(team => {
+                    return {
+                        'entityId': query.teamId,  // custom team entity ID
+                        'valueEntityId': team.entityId,
+                    };
+                }) || [],
+                'ratingQuestionsByReviewCycle': [],
+                'themeEntityId': null,
+                'questionEntityId': query.question,  // '4004d870-889b-11e8-9e91-6beb3fb6f0f7',
+                'pulseSharingEntityId': null
+            }
+        }),
+        'method': 'POST',
+    });
+
+    const result = await response.json();
+    //console.log(result)
+    let scores = {
+        totalResponse: result.data.viewer.company.pulseAnalytics.submittedResponsesCount,
+        stronglyDisagree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.stronglyDisagree.submittedResponsesCount,
+        disagree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.disagree.submittedResponsesCount,
+        neutral: result.data.viewer.company.pulseAnalytics.scoreBreakdown.neutral.submittedResponsesCount,
+        agree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.agree.submittedResponsesCount,
+        stronglyAgree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.stronglyAgree.submittedResponsesCount
+    };
+
+    let scoreDiff = {
+        totalResponse: scores.totalResponse - previous.scores.totalResponse,
+        stronglyDisagree: scores.stronglyDisagree - previous.scores.stronglyDisagree,
+        disagree: scores.disagree - previous.scores.disagree,
+        neutral: scores.neutral - previous.scores.neutral,
+        agree: scores.agree - previous.scores.agree,
+        stronglyAgree: scores.stronglyAgree - previous.scores.stronglyAgree,
+    };
+
+    switch (type) {
+        case 'managers':
+            // get the added manager
+            let managers = query.managers.map(m => m);
+            console.debug(`Previous: ${JSON.stringify(previous)}`);
+            previous.managers.forEach(previous => {
+                managers = managers.filter(current => current.entityId !== previous.entityId);
+            });
+            if (managers.length !== 1) {
+                console.warn(`Error: Expected exactly one new manager, found ${JSON.stringify(managers)}`);
+                break;
+            }
+            let manager = managers[0];  // should be only one
+            console.log(`Manager: ${manager.name} - score: ${JSON.stringify(scoreDiff)}`);
+            return [scores, {
+                name: manager.name,
+                entityId: manager.entityId,
+                scores: scoreDiff
+            }];
+        case 'departments':
+            let departments = query.departments.map(d => d);
+            previous.departments.forEach(previous => {
+                departments = departments.filter(current => current.entityId !== previous.entityId);
+            });
+            if (departments.length !== 1) {
+                console.warn(`Error: Expected exactly one new department, found ${JSON.stringify(departments)}`);
+                break;
+            }
+            let department = departments[0];  // should be only one
+            console.log(`Department: ${department.name} - score: ${JSON.stringify(scoreDiff)}`);
+            return [scores, {
+                name: department.name,
+                entityId: department.entityId,
+                scores: scoreDiff
+            }];
+        case 'teams':
+            let teams = query.teams.map(t => t);
+            previous.teams.forEach(previous => {
+                teams = teams.filter(current => current.entityId !== previous.entityId);
+            })
+            if (teams.length !== 1) {
+                console.warn(`Error: Expected exactly one new team, found ${JSON.stringify(teams)}`);
+                break;
+            }
+            let team = teams[0];  // should be only one
+            console.log(`Team: ${team.name} - score: ${JSON.stringify(scoreDiff)}`);
+            return [scores, {
+                name: team.name,
+                entityId: team.entityId,
+                scores: scoreDiff
+            }];
+        default:
+            break;
+    }
+
+    // return the total scores for first check
+    return [scores, null];
 }
 
 function createBaseQuery(question) {
@@ -543,6 +720,173 @@ async function analysisManager(question) {
     }
 }
 
+async function fixHiddenSurveyScore() {
+    let questions = await findInvisibleSurvey();
+    // console.log(`Invisible survey questions: ${JSON.stringify(questions)}`);
+
+    for (let questionId in questions) {
+        let question = questions[questionId];
+
+        let baseDepartment = await pickupKnowAnalysis(questionId, 'departments');
+        if (baseDepartment.length > 0) {
+            let result = await recoverSurvey(
+                {
+                    ...createBaseQuery(questionId), ...{
+                        managers: [],
+                        departments: baseDepartment,
+                        teams: [],
+                        teamId: ''
+                    }
+                },
+                {scores: structuredClone(initScores), departments: []},
+                'departments-init'
+            );
+            let previousScores = result[0];
+            await delay(1000);
+
+            if (question.departments && question.departments.length > 0) {
+                for (let department of question.departments) {
+                    result = await recoverSurvey(
+                        {
+                            ...createBaseQuery(questionId), ...{
+                                managers: [],
+                                departments: [...baseDepartment, department],
+                                teams: [],
+                                teamId: ''
+                            }
+                        },
+                        {scores: previousScores, departments: baseDepartment},
+                        'departments'
+                    );
+                    previousScores = result[0];
+                    let newScore = result[1];
+                    baseDepartment = [...baseDepartment, department];
+                    // update score
+                    state.question[questionId].departments
+                        .filter(d => d.entityId === department.entityId)
+                        .forEach(d => {
+                            console.log(`Updating question '${question.label}', department '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
+                            d.scores = newScore
+                        })
+
+                    await delay(1000);
+                }
+            }
+        } else {
+            console.warn(`No base department score for question ${questionId} found, ignore`)
+        }
+
+    }
+
+    for (let questionId in questions) {
+        let question = questions[questionId];
+
+        let baseManager = await pickupKnowAnalysis(questionId, 'managers');
+        if (baseManager.length > 0) {
+            let result = await recoverSurvey(
+                {
+                    ...createBaseQuery(questionId), ...{
+                        managers: baseManager,
+                        departments: [],
+                        teams: [],
+                        teamId: ''
+                    }
+                },
+                {scores: structuredClone(initScores), managers: []},
+                'managers-init'
+            );
+            let previousScores = result[0];
+            await delay(1000);
+
+            if (question.managers && question.managers.length > 0) {
+                for (let manager of question.managers) {
+                    result = await recoverSurvey(
+                        {
+                            ...createBaseQuery(questionId), ...{
+                                managers: [...baseManager, manager],
+                                departments: [],
+                                teams: [],
+                                teamId: ''
+                            }
+                        },
+                        {scores: previousScores, managers: baseManager},
+                        'managers'
+                    );
+                    previousScores = result[0];
+                    let newScore = result[1];
+                    baseManager = [...baseManager, manager];
+                    // update score
+                    state.question[questionId].managers
+                        .filter(d => d.entityId === manager.entityId)
+                        .forEach(d => {
+                            console.log(`Updating question '${question.label}', manager '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
+                            d.scores = newScore
+                        })
+
+                    await delay(1000);
+                }
+            }
+        } else {
+            console.warn(`No base manager score for question ${questionId} found, ignore`)
+        }
+
+    }
+
+    for (let questionId in questions) {
+        let question = questions[questionId];
+
+        let baseTeam = await pickupKnowAnalysis(questionId, 'teams');
+        if (baseTeam.length > 0) {
+            let result = await recoverSurvey(
+                {
+                    ...createBaseQuery(questionId), ...{
+                        managers: [],
+                        departments: [],
+                        teams: baseTeam,
+                        teamId: localStorage.getItem('sporty-team-id') || state.customTeamId
+                    }
+                },
+                {scores: structuredClone(initScores), teams: []},
+                'teams-init'
+            );
+            let previousScores = result[0];
+            await delay(1000);
+
+            if (question.teams && question.teams.length > 0) {
+                for (let team of question.teams) {
+                    result = await recoverSurvey(
+                        {
+                            ...createBaseQuery(questionId), ...{
+                                managers: [],
+                                departments: [],
+                                teams: [...baseTeam, team],
+                                teamId: localStorage.getItem('sporty-team-id') || state.customTeamId
+                            }
+                        },
+                        {scores: previousScores, teams: baseTeam},
+                        'teams'
+                    );
+                    previousScores = result[0];
+                    let newScore = result[1];
+                    baseTeam = [...baseTeam, team];
+                    // update score
+                    state.question[questionId].teams
+                        .filter(d => d.entityId === team.entityId)
+                        .forEach(d => {
+                            console.log(`Updating question '${question.label}', team '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
+                            d.scores = newScore
+                        })
+
+                    await delay(1000);
+                }
+            }
+        } else {
+            console.warn(`No base team score for question ${questionId} found, ignore`)
+        }
+
+    }
+}
+
 async function analysis() {
     const questions = await retrieveQuestions(createBaseQuery());
 
@@ -553,7 +897,10 @@ async function analysis() {
         await analysisTeam(question);
     }
 
+    await fixHiddenSurveyScore()
+
     console.log(`********** analysis completed **********`);
+    console.log(state.question);
 }
 
 /*
