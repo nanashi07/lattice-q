@@ -969,15 +969,15 @@ async function fixIncorrectSurveyScore() {
                         'departments'
                     );
                     previousScores = result[0]; // Update running total
-                    let newScore = result[1]; // Get the corrected score for this department
+                    let entity = result[1]; // Get the corrected score for this department
                     baseDepartment = [...baseDepartment, department]; // Add to baseline for next iteration
                     
                     // Update the department's scores in the state with the corrected values
                     state.question[questionId].departments
                         .filter(d => d.entityId === department.entityId)
                         .forEach(d => {
-                            console.log(`Updating question '${question.label}', department '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
-                            d.scores = newScore // Replace incorrect scores with corrected ones
+                            console.log(`Updating question '${question.label}', department '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(entity.scores)}`);
+                            d.scores = entity.scores // Replace incorrect scores with corrected ones
                         })
 
                     await delay(1000); // Rate limiting delay
@@ -1028,15 +1028,15 @@ async function fixIncorrectSurveyScore() {
                         'managers'
                     );
                     previousScores = result[0]; // Update running total
-                    let newScore = result[1]; // Get the corrected score for this manager
+                    let entity = result[1]; // Get the corrected score for this manager
                     baseManager = [...baseManager, manager]; // Add to baseline for next iteration
                     
                     // Update the manager's scores in the state with the corrected values
                     state.question[questionId].managers
                         .filter(d => d.entityId === manager.entityId)
                         .forEach(d => {
-                            console.log(`Updating question '${question.label}', manager '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
-                            d.scores = newScore // Replace incorrect scores with corrected ones
+                            console.log(`Updating question '${question.label}', manager '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(entity.scores)}`);
+                            d.scores = entity.scores // Replace incorrect scores with corrected ones
                         })
 
                     await delay(1000); // Rate limiting delay
@@ -1087,15 +1087,15 @@ async function fixIncorrectSurveyScore() {
                         'teams'
                     );
                     previousScores = result[0]; // Update running total
-                    let newScore = result[1]; // Get the corrected score for this team
+                    let entity = result[1]; // Get the corrected score for this team
                     baseTeam = [...baseTeam, team]; // Add to baseline for next iteration
                     
                     // Update the team's scores in the state with the corrected values
                     state.question[questionId].teams
                         .filter(d => d.entityId === team.entityId)
                         .forEach(d => {
-                            console.log(`Updating question '${question.label}', team '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
-                            d.scores = newScore // Replace incorrect scores with corrected ones
+                            console.log(`Updating question '${question.label}', team '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(entity.scores)}`);
+                            d.scores = entity.scores // Replace incorrect scores with corrected ones
                         })
 
                     await delay(1000); // Rate limiting delay
