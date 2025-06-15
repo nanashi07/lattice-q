@@ -94,6 +94,38 @@
         .filter-actions button.reset:hover {
             background-color: #5a6268;
         }
+
+        .filter-actions button.copy {
+            background-color: #28a745;
+        }
+
+        .filter-actions button.copy:hover {
+            background-color: #218838;
+        }
+
+        .copy-notification {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: fadeInOut 3s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -125,10 +157,14 @@
             <div class="filter-actions">
                 <button id="reset-filters" class="reset">Reset Filters</button>
                 <button id="apply-filters">Apply Filters</button>
+                <button id="copy-markdown" class="copy">Copy as Markdown</button>
             </div>
         </div>
 
         <div id="surveyTable" class="loading">Loading, please wait...</div>
+
+        <!-- Copy success message -->
+        <div id="copy-notification" class="copy-notification">Content copied to clipboard!</div>
     </div>
 
     <script type="module">

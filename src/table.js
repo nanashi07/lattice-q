@@ -560,6 +560,12 @@ function initTable(jsonDataPath, containerId, options = {}) {
       return response.json();
     })
     .then(data => {
+      const formattedData = formatTableData(data);
+
+      // Setup copy to markdown functionality
+      setupCopyMarkdown(formattedData);
+
+      // Render table
       renderTable(data, container, options);
     })
     .catch(error => {
@@ -623,5 +629,177 @@ function renderTable(jsonData, container, options = {}) {
   ]);
 }
 
+/**
+ * Convert table content to Markdown format
+ * @param {Object} questionGroups - Question groups data
+ * @returns {string} - Markdown formatted string
+ */
+function convertToMarkdown(questionGroups) {
+  let markdown = '# Survey Results\n\n';
+
+  Object.keys(questionGroups).forEach((questionId) => {
+    const questionData = questionGroups[questionId];
+    markdown += `## ${questionData.question}\n\n`;
+
+    Object.keys(questionData.dimensions).forEach((dimension) => {
+      const dimensionData = questionData.dimensions[dimension];
+      markdown += `### ${dimension}\n\n`;
+
+      // Create table header
+      markdown += '| Name | Total Responses | Strongly Disagree | Disagree | Neutral | Agree | Strongly Agree |\n';
+      markdown += '|------|----------------|-------------------|----------|---------|-------|---------------|\n';
+
+      // Add data rows
+      dimensionData.forEach(row => {
+        markdown += `| ${row.name} | ${row.totalResponse} | ${row.stronglyDisagree} | ${row.disagree} | ${row.neutral} | ${row.agree} | ${row.stronglyAgree} |\n`;
+      });
+
+      // Add total row
+      const totals = calculateTotals(dimensionData);
+      markdown += `| **${totals.name}** | **${totals.totalResponse}** | **${totals.stronglyDisagree}** | **${totals.disagree}** | **${totals.neutral}** | **${totals.agree}** | **${totals.stronglyAgree}** |\n\n`;
+    });
+  });
+
+  return markdown;
+}
+
+/**
+ * Setup copy to markdown functionality
+ * @param {Array} formattedData - Formatted table data
+ * @param {HTMLElement} container - Table container element
+ */
+function setupCopyMarkdown(formattedData) {
+  const copyButton = document.getElementById('copy-markdown');
+  if (!copyButton) return;
+
+  copyButton.addEventListener('click', () => {
+    // Get current visible question groups
+    const surveyTableElement = document.getElementById('surveyTable');
+    let questionGroups = {};
+
+    // Check if filtering is active
+    if (surveyTableElement.querySelectorAll('.question-section').length > 0) {
+      // Build question groups from current visible data
+      const sections = surveyTableElement.querySelectorAll('.question-section');
+
+      sections.forEach(section => {
+        const questionTitle = section.querySelector('h3').textContent;
+        const questionId = 'q' + Math.random().toString(36).substring(2, 9); // Generate random ID
+
+        questionGroups[questionId] = {
+          question: questionTitle,
+          dimensions: {}
+        };
+
+        // Process dimensions
+        let currentDimension = null;
+        let dimensionData = [];
+
+        section.childNodes.forEach(node => {
+          // If dimension header found
+          if (node.tagName === 'H4') {
+            // If we have a previous dimension, add it to the group
+            if (currentDimension && dimensionData.length > 0) {
+              questionGroups[questionId].dimensions[currentDimension] = [...dimensionData];
+              dimensionData = [];
+            }
+
+            currentDimension = node.textContent;
+            questionGroups[questionId].dimensions[currentDimension] = [];
+          }
+
+          // If table found, process rows
+          else if (node.tagName === 'TABLE' && currentDimension) {
+            const rows = node.querySelectorAll('tbody tr:not(.totals-row)');
+
+            rows.forEach(row => {
+              const cells = row.querySelectorAll('td');
+
+              // Create data row
+              const dataRow = {
+                name: cells[0].textContent,
+                totalResponse: parseInt(cells[1].textContent) || 0,
+                stronglyDisagree: parseInt(cells[2].textContent) || 0,
+                disagree: parseInt(cells[3].textContent) || 0,
+                neutral: parseInt(cells[4].textContent) || 0,
+                agree: parseInt(cells[5].textContent) || 0,
+                stronglyAgree: parseInt(cells[6].textContent) || 0
+              };
+
+              dimensionData.push(dataRow);
+            });
+
+            // Add last dimension data
+            questionGroups[questionId].dimensions[currentDimension] = [...dimensionData];
+          }
+        });
+      });
+    } else {
+      // If no visible data, use all formatted data
+      formattedData.forEach(row => {
+        if (!questionGroups[row.questionId]) {
+          questionGroups[row.questionId] = {
+            question: row.question,
+            dimensions: {}
+          };
+        }
+
+        if (!questionGroups[row.questionId].dimensions[row.dimension]) {
+          questionGroups[row.questionId].dimensions[row.dimension] = [];
+        }
+
+        questionGroups[row.questionId].dimensions[row.dimension].push(row);
+      });
+    }
+
+    // Convert to markdown
+    const markdown = convertToMarkdown(questionGroups);
+
+    // Copy to clipboard
+    copyToClipboard(markdown);
+
+    // Show notification
+    showCopyNotification();
+  });
+}
+
+/**
+ * Copy text to clipboard
+ * @param {string} text - Text to copy
+ */
+function copyToClipboard(text) {
+  // Create temporary textarea
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'absolute';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+
+  // Select and copy
+  textarea.select();
+  document.execCommand('copy');
+
+  // Cleanup
+  document.body.removeChild(textarea);
+}
+
+/**
+ * Show copy notification
+ */
+function showCopyNotification() {
+  const notification = document.getElementById('copy-notification');
+  if (!notification) return;
+
+  // Display notification
+  notification.style.display = 'block';
+
+  // Hide after animation
+  setTimeout(() => {
+    notification.style.display = 'none';
+  }, 3000);
+}
+
 // Export functions for external use
-export { initTable, renderTable, formatTableData };
+export { initTable, renderTable, formatTableData, convertToMarkdown };
+
