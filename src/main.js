@@ -444,6 +444,7 @@ async function countSurvey(query, previous, type) {
                 // Add the manager with their score difference to the question data
                 state.question[query.question].managers.push({
                     name: manager.name,
+                    title: manager.title,
                     entityId: manager.entityId,
                     scores: scoreDiff
                 });
