@@ -126,6 +126,27 @@
             80% { opacity: 1; }
             100% { opacity: 0; }
         }
+
+        /* 打印样式 - 隐藏过滤器部分 */
+        @media print {
+            .filter-section {
+                display: none !important;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .container {
+                max-width: none;
+            }
+
+            /* 确保表格内容可见 */
+            #surveyTable {
+                display: block !important;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
