@@ -356,6 +356,7 @@ async function retrieveQuestions(query) {
  * @returns {Object} Score counts for the survey responses
  */
 async function countSurvey(query, previous, type) {
+    // Make GraphQL API call to fetch survey response counts with specified filters
     const response = await fetch(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
@@ -363,30 +364,36 @@ async function countSurvey(query, previous, type) {
             'query': 'query PulseResultsCommentsQuery(\n  $dateRange: DateRange\n  $ages: [YearRangeFilterInput!]\n  $tenures: [YearRangeFilterInput!]\n  $genders: [Gender!]\n  $managerEntityIds: [EntityId!]\n  $departmentEntityIds: [EntityId!]\n  $customFields: [PulseAnalyticsCustomFieldFilterInput!]\n  $ratingQuestionsByReviewCycle: [RatingQuestionByReviewCycleFilterInput!]\n  $themeEntityId: EntityId\n  $questionEntityId: EntityId\n  $pulseSharingEntityId: EntityId\n) {\n  viewer {\n    isImpersonation\n    company {\n      histogramPulseSettings: pulseSettings {\n        ...PulseResultsCommentsHistogram__pulseSettings\n        id\n      }\n      pulseSettings {\n        commentRepliesEnabled\n        id\n      }\n      pulseAnalytics: findPulseAnalytics(pulseSharingEntityId: $pulseSharingEntityId) {\n        __typename\n        submittedResponsesCount(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId)\n        histogramScoreBreakdown: scoreBreakdown(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId) {\n          ...PulseResultsCommentsHistogram___scoreBreakdownType\n        }\n        scoreBreakdown(dateRange: $dateRange, ages: $ages, tenures: $tenures, genders: $genders, managerEntityIds: $managerEntityIds, departmentEntityIds: $departmentEntityIds, customFields: $customFields, ratingQuestionsByReviewCycle: $ratingQuestionsByReviewCycle, themeEntityId: $themeEntityId, questionEntityId: $questionEntityId) {\n          ...ResponseOpinionScoreFilterSelector_breakdown\n          hasSufficientResponses\n          stronglyDisagree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          disagree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          neutral {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          agree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n          stronglyAgree {\n            commentsCount\n            submittedResponsesCount\n            submittedResponsesPercentage\n          }\n        }\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment PulseResultsCommentsHistogram___scoreBreakdownType on PulseAnalyticsScoreBreakdown {\n  positivePercentage\n  neutralPercentage\n  negativePercentage\n  stronglyDisagree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  disagree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  neutral {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  agree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n  stronglyAgree {\n    submittedResponsesCount\n    commentsCount\n    submittedResponsesPercentage\n  }\n}\n\nfragment PulseResultsCommentsHistogram__pulseSettings on PulseSetting {\n  commentRepliesEnabled\n}\n\nfragment ResponseOpinionScoreFilterSelector_breakdown on PulseAnalyticsScoreBreakdown {\n  stronglyDisagree {\n    submittedResponsesPercentage\n  }\n  disagree {\n    submittedResponsesPercentage\n  }\n  neutral {\n    submittedResponsesPercentage\n  }\n  agree {\n    submittedResponsesPercentage\n  }\n  stronglyAgree {\n    submittedResponsesPercentage\n  }\n}\n',
             'variables': {
                 'dateRange': {
-                    'start': query.start,  // '2025-06-06',
-                    'end': query.end  // '2025-06-12'
+                    'start': query.start,  // Extract start date from query object
+                    'end': query.end  // Extract end date from query object
                 },
                 'ages': [],
                 'tenures': [],
                 'genders': [],
-                'managerEntityIds': query.managers.map(manager => manager.entityId) || [], // ['4004d870-889b-11e8-9e91-6beb3fb6f0f7'],
+                // Map manager objects to their entity IDs for filtering
+                'managerEntityIds': query.managers.map(manager => manager.entityId) || [], 
+                // Map department objects to their entity IDs for filtering
                 'departmentEntityIds': query.departments.map(department => department.entityId) || [],
+                // Map team objects to custom field format for team filtering
                 'customFields': query.teams.map(team => {
                     return {
-                        'entityId': query.teamId,  // custom team entity ID
-                        'valueEntityId': team.entityId,
+                        'entityId': query.teamId,  // Custom team field entity ID
+                        'valueEntityId': team.entityId,  // Specific team value entity ID
                     };
                 }) || [],
                 'ratingQuestionsByReviewCycle': [],
                 'themeEntityId': null,
-                'questionEntityId': query.question,  // '4004d870-889b-11e8-9e91-6beb3fb6f0f7',
+                'questionEntityId': query.question,  // Specific question to analyze
                 'pulseSharingEntityId': null
             }
         }),
         'method': 'POST',
     });
 
+    // Parse the API response as JSON
     const result = await response.json();
+    
+    // Extract current survey score counts from the API response
     let scores = {
         totalResponse: result.data.viewer.company.pulseAnalytics.submittedResponsesCount,
         stronglyDisagree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.stronglyDisagree.submittedResponsesCount,
@@ -396,6 +403,7 @@ async function countSurvey(query, previous, type) {
         stronglyAgree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.stronglyAgree.submittedResponsesCount
     };
 
+    // Calculate the difference between current and previous scores to isolate the impact of the newly added filter
     let scoreDiff = {
         totalResponse: scores.totalResponse - previous.scores.totalResponse,
         stronglyDisagree: scores.stronglyDisagree - previous.scores.stronglyDisagree,
@@ -405,28 +413,35 @@ async function countSurvey(query, previous, type) {
         stronglyAgree: scores.stronglyAgree - previous.scores.stronglyAgree,
     };
 
+    // Process the scores based on the analysis type to identify the newly added entity
     switch (type) {
         case 'managers':
-            // get the added manager
+            // Create a copy of current managers array to find the new one
             let managers = query.managers.map(m => m);
+            // Remove all managers that existed in the previous state to isolate the new manager
             previous.managers.forEach(previous => {
                 managers = managers.filter(current => current.entityId !== previous.entityId);
             });
+            // Validate that exactly one new manager was added (differential analysis requirement)
             if (managers.length !== 1) {
                 console.warn(`Error: Expected exactly one new manager, found ${JSON.stringify(managers)}`);
                 break;
             }
-            let manager = managers[0];  // should be only one
+            let manager = managers[0];  // Extract the single new manager
             console.log(`Manager: ${manager.name} - score: ${JSON.stringify(scoreDiff)}`);
+            // Only store the manager data if they have survey responses
             if (scoreDiff.totalResponse > 0) {
+                // Initialize question structure if it doesn't exist
                 if (!(query.question in state.question)) {
                     state.question[query.question] = {
                         managers: []
                     };
                 }
+                // Initialize managers array if it doesn't exist
                 if (!state.question[query.question].managers) {
                     state.question[query.question].managers = [];
                 }
+                // Add the manager with their score difference to the question data
                 state.question[query.question].managers.push({
                     name: manager.name,
                     entityId: manager.entityId,
@@ -435,25 +450,32 @@ async function countSurvey(query, previous, type) {
             }
             break;
         case 'departments':
+            // Create a copy of current departments array to find the new one
             let departments = query.departments.map(d => d);
+            // Remove all departments that existed in the previous state to isolate the new department
             previous.departments.forEach(previous => {
                 departments = departments.filter(current => current.entityId !== previous.entityId);
             });
+            // Validate that exactly one new department was added (differential analysis requirement)
             if (departments.length !== 1) {
                 console.warn(`Error: Expected exactly one new department, found ${JSON.stringify(departments)}`);
                 break;
             }
-            let department = departments[0];  // should be only one
+            let department = departments[0];  // Extract the single new department
             console.log(`Department: ${department.name} - score: ${JSON.stringify(scoreDiff)}`);
+            // Only store the department data if they have survey responses
             if (scoreDiff.totalResponse > 0) {
+                // Initialize question structure if it doesn't exist
                 if (!(query.question in state.question)) {
                     state.question[query.question] = {
                         departments: []
                     };
                 }
+                // Initialize departments array if it doesn't exist
                 if (!state.question[query.question].departments) {
                     state.question[query.question].departments = [];
                 }
+                // Add the department with their score difference to the question data
                 state.question[query.question].departments.push({
                     name: department.name,
                     entityId: department.entityId,
@@ -462,25 +484,32 @@ async function countSurvey(query, previous, type) {
             }
             break;
         case 'teams':
+            // Create a copy of current teams array to find the new one
             let teams = query.teams.map(t => t);
+            // Remove all teams that existed in the previous state to isolate the new team
             previous.teams.forEach(previous => {
                 teams = teams.filter(current => current.entityId !== previous.entityId);
             })
+            // Validate that exactly one new team was added (differential analysis requirement)
             if (teams.length !== 1) {
                 console.warn(`Error: Expected exactly one new team, found ${JSON.stringify(teams)}`);
                 break;
             }
-            let team = teams[0];  // should be only one
+            let team = teams[0];  // Extract the single new team
             console.log(`Team: ${team.name} - score: ${JSON.stringify(scoreDiff)}`);
+            // Only store the team data if they have survey responses
             if (scoreDiff.totalResponse > 0) {
+                // Initialize question structure if it doesn't exist
                 if (!(query.question in state.question)) {
                     state.question[query.question] = {
                         teams: []
                     };
                 }
+                // Initialize teams array if it doesn't exist
                 if (!state.question[query.question].teams) {
                     state.question[query.question].teams = [];
                 }
+                // Add the team with their score difference to the question data
                 state.question[query.question].teams.push({
                     name: team.name,
                     entityId: team.entityId,
@@ -492,6 +521,7 @@ async function countSurvey(query, previous, type) {
             break;
     }
 
+    // Return the current total scores for use in subsequent iterations
     return scores;
 }
 
@@ -509,19 +539,33 @@ function totalScore(scores) {
  * @returns {Object} Filtered question data
  */
 async function findMismatchedSurveyCount() {
+    // Create a deep copy of the question state to avoid modifying the original data
     let questions = structuredClone(state.question);
+    
+    // Iterate through each question in the state
     for (let name in questions) {
         let question = questions[name];
+        
+        // Filter departments to find those with mismatched survey counts
         if (question.departments && question.departments.length > 0) {
+            // Keep only departments where totalResponse doesn't match the sum of individual response counts
             question.departments = question.departments.filter(department => department.scores.totalResponse !== totalScore(department.scores));
         }
+        
+        // Filter managers to find those with mismatched survey counts
         if (question.managers && question.managers.length > 0) {
+            // Keep only managers where totalResponse doesn't match the sum of individual response counts
             question.managers = question.managers.filter(manager => manager.scores.totalResponse !== totalScore(manager.scores));
         }
+        
+        // Filter teams to find those with mismatched survey counts
         if (question.teams && question.teams.length > 0) {
+            // Keep only teams where totalResponse doesn't match the sum of individual response counts
             question.teams = question.teams.filter(team => team.scores.totalResponse !== totalScore(team.scores));
         }
     }
+    
+    // Return the filtered questions containing only entities with data inconsistencies
     return questions;
 }
 
@@ -532,20 +576,31 @@ async function findMismatchedSurveyCount() {
  * @returns {Promise<Array>} Subset of analysis data
  */
 async function pickupKnowAnalysis(questionId, type) {
+    // Use switch statement to handle different dimension types
     switch (type) {
         case 'managers':
+            // Get managers for the specified question from state
             let managers = state.question[questionId].managers
+                // Filter to include only managers with consistent survey data (totalResponse matches sum of individual scores)
                 .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
+            // Return up to 5 managers (or all if fewer than 5), used as a baseline for analysis
             return managers.slice(0, Math.min(5, managers.length));
         case 'departments':
+            // Get departments for the specified question from state
             let departments = state.question[questionId].departments
+                // Filter to include only departments with consistent survey data (totalResponse matches sum of individual scores)
                 .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
+            // Return up to 5 departments (or all if fewer than 5), used as a baseline for analysis
             return departments.slice(0, Math.min(5, departments.length));
         case 'teams':
+            // Get teams for the specified question from state
             let teams = state.question[questionId].teams
+                // Filter to include only teams with consistent survey data (totalResponse matches sum of individual scores)
                 .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
+            // Return up to 5 teams (or all if fewer than 5), used as a baseline for analysis
             return teams.slice(0, Math.min(5, teams.length));
         default:
+            // Return empty array for unrecognized dimension types
             return [];
     }
 }
@@ -748,35 +803,35 @@ async function renewOptions() {
  * @returns {Promise<void>}
  */
 async function analysisDepartment(question) {
-    // Initialize empty score object to track cumulative scores
+    // Initialize empty score tracking for incremental analysis
     let previousScores = structuredClone(initScores);
 
-    // Try to get departments from local storage or use ones in current state
+    // Try to load departments from local storage cache, fall back to state if not available
     let departments = localStorage.getItem('sporty-departments');
     if (departments) {
-        departments = JSON.parse(departments);
+        departments = JSON.parse(departments); // Parse cached JSON data
     } else {
-        departments = state.departments;
+        departments = state.departments; // Use current state as fallback
     }
 
-    // Process each department incrementally to analyze its unique contribution
+    // Process departments if available
     if (departments && departments.length > 0) {
+        // Iterate through each department to perform incremental analysis
         for (let i = 0; i < departments.length; i++) {
-            // Create a query that includes all departments up to index i
-            // This allows us to measure the incremental impact of adding each department
+            // Call countSurvey with cumulative departments (0 to i+1) to measure incremental impact
             previousScores = await countSurvey(
                 {
                     ...createBaseQuery(question), ...{
-                        managers: [], // No managers filter
-                        departments: departments.slice(0, i + 1), // All departments up to current one
-                        teams: [], // No teams filter
-                        teamId: ''
+                        managers: [], // No manager filter
+                        departments: departments.slice(0, i + 1), // Include all departments up to current index
+                        teams: [], // No team filter
+                        teamId: '' // Empty team ID
                     }
                 },
-                {scores: previousScores, departments: departments.slice(0, i)}, // Previous state for comparison
+                {scores: previousScores, departments: departments.slice(0, i)}, // Previous state for differential calculation
                 'departments' // Analysis type
             );
-            await delay(1000); // Avoid API rate limits
+            await delay(1000); // Add delay to prevent API rate limiting
         }
     } else {
         console.warn('No department options found for analysis')
@@ -789,35 +844,35 @@ async function analysisDepartment(question) {
  * @returns {Promise<void>}
  */
 async function analysisTeam(question) {
-    // Initialize empty score object to track cumulative scores
+    // Initialize empty score tracking for incremental analysis
     let previousScores = structuredClone(initScores);
 
-    // Try to get teams from local storage or use ones in current state
+    // Try to load teams from local storage cache, fall back to state if not available
     let teams = localStorage.getItem('sporty-teams');
     if (teams) {
-        teams = JSON.parse(teams);
+        teams = JSON.parse(teams); // Parse cached JSON data
     } else {
-        teams = state.teams;
+        teams = state.teams; // Use current state as fallback
     }
 
-    // Process each team incrementally to analyze its unique contribution
+    // Process teams if available
     if (teams && teams.length > 0) {
+        // Iterate through each team to perform incremental analysis
         for (let i = 0; i < teams.length; i++) {
-            // Create a query that includes all teams up to index i
-            // This measures the incremental impact of adding each team
+            // Call countSurvey with cumulative teams (0 to i+1) to measure incremental impact
             previousScores = await countSurvey(
                 {
                     ...createBaseQuery(question), ...{
-                        managers: [], // No managers filter
-                        departments: [], // No departments filter
-                        teams: teams.slice(0, i + 1), // All teams up to current one
-                        teamId: localStorage.getItem('sporty-team-id') || state.customTeamId // Team field ID
+                        managers: [], // No manager filter
+                        departments: [], // No department filter
+                        teams: teams.slice(0, i + 1), // Include all teams up to current index
+                        teamId: localStorage.getItem('sporty-team-id') || state.customTeamId // Get team field ID from cache or state
                     }
                 },
-                {scores: previousScores, teams: teams.slice(0, i)}, // Previous state for comparison
+                {scores: previousScores, teams: teams.slice(0, i)}, // Previous state for differential calculation
                 'teams' // Analysis type
             );
-            await delay(1000); // Avoid API rate limits
+            await delay(1000); // Add delay to prevent API rate limiting
         }
     } else {
         console.warn('No team options found for analysis')
@@ -830,35 +885,35 @@ async function analysisTeam(question) {
  * @returns {Promise<void>}
  */
 async function analysisManager(question) {
-    // Initialize empty score object to track cumulative scores
+    // Initialize empty score tracking for incremental analysis
     let previousScores = structuredClone(initScores);
 
-    // Try to get managers from local storage or use ones in current state
+    // Try to load managers from local storage cache, fall back to state if not available
     let managers = localStorage.getItem('sporty-managers');
     if (managers) {
-        managers = JSON.parse(managers);
+        managers = JSON.parse(managers); // Parse cached JSON data
     } else {
-        managers = state.managers;
+        managers = state.managers; // Use current state as fallback
     }
 
-    // Process each manager incrementally to analyze their unique contribution
+    // Process managers if available
     if (managers && managers.length > 0) {
+        // Iterate through each manager to perform incremental analysis
         for (let i = 0; i < managers.length; i++) {
-            // Create a query that includes all managers up to index i
-            // This measures the incremental impact of adding each manager
+            // Call countSurvey with cumulative managers (0 to i+1) to measure incremental impact
             previousScores = await countSurvey(
                 {
                     ...createBaseQuery(question), ...{
-                        managers: managers.slice(0, i + 1), // All managers up to current one
-                        departments: [], // No departments filter
-                        teams: [], // No teams filter
-                        teamId: ''
+                        managers: managers.slice(0, i + 1), // Include all managers up to current index
+                        departments: [], // No department filter
+                        teams: [], // No team filter
+                        teamId: '' // Empty team ID
                     }
                 },
-                {scores: previousScores, managers: managers.slice(0, i)}, // Previous state for comparison
+                {scores: previousScores, managers: managers.slice(0, i)}, // Previous state for differential calculation
                 'managers' // Analysis type
             );
-            await delay(1000); // Avoid API rate limits
+            await delay(1000); // Add delay to prevent API rate limiting
         }
     } else {
         console.warn('No manager options found for analysis')
@@ -870,13 +925,17 @@ async function analysisManager(question) {
  * @returns {Promise<void>}
  */
 async function fixIncorrectSurveyScore() {
+    // Get all questions with mismatched survey counts (where totalResponse != sum of individual scores)
     let questions = await findMismatchedSurveyCount();
 
+    // Phase 1: Fix department scores
     for (let questionId in questions) {
         let question = questions[questionId];
 
+        // Get reliable baseline departments (those with consistent data) to use as a foundation
         let baseDepartment = await pickupKnowAnalysis(questionId, 'departments');
         if (baseDepartment.length > 0) {
+            // Get baseline scores using only the reliable departments
             let result = await recoverSurvey(
                 {
                     ...createBaseQuery(questionId), ...{
@@ -886,51 +945,56 @@ async function fixIncorrectSurveyScore() {
                         teamId: ''
                     }
                 },
-                {scores: structuredClone(initScores), departments: []},
+                {scores: structuredClone(initScores), departments: []}, // Start from empty state
                 'departments-init'
             );
-            let previousScores = result[0];
-            await delay(1000);
+            let previousScores = result[0]; // Store baseline scores for incremental analysis
+            await delay(1000); // Rate limiting delay
 
+            // Process each department with inconsistent data
             if (question.departments && question.departments.length > 0) {
                 for (let department of question.departments) {
+                    // Recalculate scores by adding this department to the baseline
                     result = await recoverSurvey(
                         {
                             ...createBaseQuery(questionId), ...{
                                 managers: [],
-                                departments: [...baseDepartment, department],
+                                departments: [...baseDepartment, department], // Add current department to baseline
                                 teams: [],
                                 teamId: ''
                             }
                         },
-                        {scores: previousScores, departments: baseDepartment},
+                        {scores: previousScores, departments: baseDepartment}, // Use previous scores for differential calculation
                         'departments'
                     );
-                    previousScores = result[0];
-                    let newScore = result[1];
-                    baseDepartment = [...baseDepartment, department];
-                    // update score
+                    previousScores = result[0]; // Update running total
+                    let newScore = result[1]; // Get the corrected score for this department
+                    baseDepartment = [...baseDepartment, department]; // Add to baseline for next iteration
+                    
+                    // Update the department's scores in the state with the corrected values
                     state.question[questionId].departments
                         .filter(d => d.entityId === department.entityId)
                         .forEach(d => {
                             console.log(`Updating question '${question.label}', department '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
-                            d.scores = newScore
+                            d.scores = newScore // Replace incorrect scores with corrected ones
                         })
 
-                    await delay(1000);
+                    await delay(1000); // Rate limiting delay
                 }
             }
         } else {
             console.warn(`No base department score for question ${questionId} found, ignore`)
         }
-
     }
 
+    // Phase 2: Fix manager scores
     for (let questionId in questions) {
         let question = questions[questionId];
 
+        // Get reliable baseline managers (those with consistent data) to use as a foundation
         let baseManager = await pickupKnowAnalysis(questionId, 'managers');
         if (baseManager.length > 0) {
+            // Get baseline scores using only the reliable managers
             let result = await recoverSurvey(
                 {
                     ...createBaseQuery(questionId), ...{
@@ -940,98 +1004,105 @@ async function fixIncorrectSurveyScore() {
                         teamId: ''
                     }
                 },
-                {scores: structuredClone(initScores), managers: []},
+                {scores: structuredClone(initScores), managers: []}, // Start from empty state
                 'managers-init'
             );
-            let previousScores = result[0];
-            await delay(1000);
+            let previousScores = result[0]; // Store baseline scores for incremental analysis
+            await delay(1000); // Rate limiting delay
 
+            // Process each manager with inconsistent data
             if (question.managers && question.managers.length > 0) {
                 for (let manager of question.managers) {
+                    // Recalculate scores by adding this manager to the baseline
                     result = await recoverSurvey(
                         {
                             ...createBaseQuery(questionId), ...{
-                                managers: [...baseManager, manager],
+                                managers: [...baseManager, manager], // Add current manager to baseline
                                 departments: [],
                                 teams: [],
                                 teamId: ''
                             }
                         },
-                        {scores: previousScores, managers: baseManager},
+                        {scores: previousScores, managers: baseManager}, // Use previous scores for differential calculation
                         'managers'
                     );
-                    previousScores = result[0];
-                    let newScore = result[1];
-                    baseManager = [...baseManager, manager];
-                    // update score
+                    previousScores = result[0]; // Update running total
+                    let newScore = result[1]; // Get the corrected score for this manager
+                    baseManager = [...baseManager, manager]; // Add to baseline for next iteration
+                    
+                    // Update the manager's scores in the state with the corrected values
                     state.question[questionId].managers
                         .filter(d => d.entityId === manager.entityId)
                         .forEach(d => {
                             console.log(`Updating question '${question.label}', manager '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
-                            d.scores = newScore
+                            d.scores = newScore // Replace incorrect scores with corrected ones
                         })
 
-                    await delay(1000);
+                    await delay(1000); // Rate limiting delay
                 }
             }
         } else {
             console.warn(`No base manager score for question ${questionId} found, ignore`)
         }
-
     }
 
+    // Phase 3: Fix team scores
     for (let questionId in questions) {
         let question = questions[questionId];
 
+        // Get reliable baseline teams (those with consistent data) to use as a foundation
         let baseTeam = await pickupKnowAnalysis(questionId, 'teams');
         if (baseTeam.length > 0) {
+            // Get baseline scores using only the reliable teams
             let result = await recoverSurvey(
                 {
                     ...createBaseQuery(questionId), ...{
                         managers: [],
                         departments: [],
                         teams: baseTeam,
-                        teamId: localStorage.getItem('sporty-team-id') || state.customTeamId
+                        teamId: localStorage.getItem('sporty-team-id') || state.customTeamId // Get team field ID from storage or state
                     }
                 },
-                {scores: structuredClone(initScores), teams: []},
+                {scores: structuredClone(initScores), teams: []}, // Start from empty state
                 'teams-init'
             );
-            let previousScores = result[0];
-            await delay(1000);
+            let previousScores = result[0]; // Store baseline scores for incremental analysis
+            await delay(1000); // Rate limiting delay
 
+            // Process each team with inconsistent data
             if (question.teams && question.teams.length > 0) {
                 for (let team of question.teams) {
+                    // Recalculate scores by adding this team to the baseline
                     result = await recoverSurvey(
                         {
                             ...createBaseQuery(questionId), ...{
                                 managers: [],
                                 departments: [],
-                                teams: [...baseTeam, team],
+                                teams: [...baseTeam, team], // Add current team to baseline
                                 teamId: localStorage.getItem('sporty-team-id') || state.customTeamId
                             }
                         },
-                        {scores: previousScores, teams: baseTeam},
+                        {scores: previousScores, teams: baseTeam}, // Use previous scores for differential calculation
                         'teams'
                     );
-                    previousScores = result[0];
-                    let newScore = result[1];
-                    baseTeam = [...baseTeam, team];
-                    // update score
+                    previousScores = result[0]; // Update running total
+                    let newScore = result[1]; // Get the corrected score for this team
+                    baseTeam = [...baseTeam, team]; // Add to baseline for next iteration
+                    
+                    // Update the team's scores in the state with the corrected values
                     state.question[questionId].teams
                         .filter(d => d.entityId === team.entityId)
                         .forEach(d => {
                             console.log(`Updating question '${question.label}', team '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(newScore)}`);
-                            d.scores = newScore
+                            d.scores = newScore // Replace incorrect scores with corrected ones
                         })
 
-                    await delay(1000);
+                    await delay(1000); // Rate limiting delay
                 }
             }
         } else {
             console.warn(`No base team score for question ${questionId} found, ignore`)
         }
-
     }
 }
 
@@ -1040,18 +1111,25 @@ async function fixIncorrectSurveyScore() {
  * @returns {Promise<void>}
  */
 async function analysis() {
+    // Retrieve all available survey questions from the API based on current query parameters
     const questions = await retrieveQuestions(createBaseQuery());
 
+    // Process each question individually to perform comprehensive analysis
     for (let question of questions) {
         console.log(`********** analysis for question: ${state.question[question].label} **********`);
+        // Analyze survey responses by department dimension
         await analysisDepartment(question);
+        // Analyze survey responses by manager dimension
         await analysisManager(question);
+        // Analyze survey responses by team dimension
         await analysisTeam(question);
     }
 
+    // After collecting all survey data, fix any surveys with inconsistent score calculations
     await fixIncorrectSurveyScore()
 
     console.log(`********** analysis completed **********`);
+    // Output the final analyzed question data containing all dimensions and their scores
     console.log(state.question);
 }
 
