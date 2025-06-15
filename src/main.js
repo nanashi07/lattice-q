@@ -20,22 +20,43 @@ let state = {
     question: {},
 };
 
+/**
+ * Creates a promise that resolves after a specified time delay
+ * @param {number} ms - Time to delay in milliseconds
+ * @returns {Promise} Promise that resolves after the specified delay
+ */
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Calculates the time difference between two dates in milliseconds
+ * @param {string} start - Start date string
+ * @param {string} end - End date string
+ * @returns {number} Time difference in milliseconds
+ */
 function dateRange(start, end) {
     const from = Date.parse(start);
     const to = Date.parse(end);
     return to - from;
 }
 
+/**
+ * Gets a new date by adding/subtracting an offset from a given date
+ * @param {string} day - Base date string
+ * @param {number} offset - Offset in milliseconds to add or subtract
+ * @returns {string} New date in YYYY-MM-DD format
+ */
 function anotherDay(day, offset) {
     const timestamp = Date.parse(day);
     const date = new Date(timestamp + offset);
     return date.toISOString().split('T')[0];
 }
 
+/**
+ * Retrieves department information from the GraphQL API and stores it in the state
+ * @returns {Promise<void>}
+ */
 async function retrieveDepartments() {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -72,6 +93,10 @@ async function retrieveDepartments() {
     });
 }
 
+/**
+ * Retrieves manager information from the GraphQL API and stores it in the state
+ * @returns {Promise<void>}
+ */
 async function retrieveManagers() {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -105,7 +130,6 @@ async function retrieveManagers() {
     const id = result.data.viewer.company.id
 
     console.log(`hasNextPage: ${hasNextPage}, after: ${after}, id: ${id}`);
-    //console.log(result);
 
     if (hasNextPage) {
         await delay(1000); // Delay to avoid hitting rate limits
@@ -115,6 +139,12 @@ async function retrieveManagers() {
     }
 }
 
+/**
+ * Fetches additional managers using pagination from the GraphQL API
+ * @param {string} theAfter - Pagination cursor
+ * @param {string} theId - Company ID
+ * @returns {Promise<void>}
+ */
 async function retrieveMoreManagers(theAfter, theId) {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -132,7 +162,6 @@ async function retrieveMoreManagers(theAfter, theId) {
     });
 
     const result = await response.json();
-    //console.log(result);
     let managers = [];
     result.data.node.managers.edges.forEach(edge => {
         let manager = edge.node;
@@ -163,6 +192,10 @@ async function retrieveMoreManagers(theAfter, theId) {
     }
 }
 
+/**
+ * Retrieves team information from the GraphQL API and stores it in the state
+ * @returns {Promise<void>}
+ */
 async function retrieveTeams() {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -198,6 +231,11 @@ async function retrieveTeams() {
     })
 }
 
+/**
+ * Retrieves survey questions from the GraphQL API
+ * @param {Object} query - Query parameters including start and end dates
+ * @returns {Promise<Array<string>>} Array of question entity IDs
+ */
 async function retrieveQuestions(query) {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -237,7 +275,6 @@ async function retrieveQuestions(query) {
     });
 
     const result = await response.json();
-    // console.log(result);
     result.data.viewer.company.pulseAnalytics.resultsTableData.edges
         .filter(edge => !!edge.node.score)
         .forEach(edge => {
@@ -258,6 +295,13 @@ async function retrieveQuestions(query) {
         .map(edge => edge.node.entityId);
 }
 
+/**
+ * Counts survey responses for a specific question with given filters
+ * @param {Object} query - Query parameters
+ * @param {Object} previous - Previous state for differential analysis
+ * @param {string} type - Analysis type ('managers', 'departments', or 'teams')
+ * @returns {Object} Score counts for the survey responses
+ */
 async function countSurvey(query, previous, type) {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -290,7 +334,6 @@ async function countSurvey(query, previous, type) {
     });
 
     const result = await response.json();
-    //console.log(result)
     let scores = {
         totalResponse: result.data.viewer.company.pulseAnalytics.submittedResponsesCount,
         stronglyDisagree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.stronglyDisagree.submittedResponsesCount,
@@ -308,11 +351,6 @@ async function countSurvey(query, previous, type) {
         agree: scores.agree - previous.scores.agree,
         stronglyAgree: scores.stronglyAgree - previous.scores.stronglyAgree,
     };
-
-    // console.log(`previous scores: ${JSON.stringify(previous.scores)}`);
-    // console.log(`current scores: ${JSON.stringify(scores)}`);
-    // console.log(`diff scores: ${JSON.stringify(scoreDiff)}`);
-    // console.log('-----------------------------------');
 
     switch (type) {
         case 'managers':
@@ -404,27 +442,20 @@ async function countSurvey(query, previous, type) {
     return scores;
 }
 
+/**
+ * Calculates the total score by summing all response types
+ * @param {Object} scores - Score object with response counts
+ * @returns {number} Total sum of all scores
+ */
 function totalScore(scores) {
     return scores.stronglyDisagree + scores.disagree + scores.neutral + scores.agree + scores.stronglyAgree
 }
 
-async function findInvisibleSurvey() {
-    // for (let name in state.question) {
-    //     let question = state.question[name];
-    //     for (let department of question.departments) {
-    //         console.log(`department: ${department}`);
-    //         state.departments.filter(d => department.name === d.name).forEach(d => department.entityId = d.entityId);
-    //     }
-    //     for (let manager of question.managers) {
-    //         console.log(`manager: ${manager}`);
-    //         state.managers.filter(d => manager.name === d.name).forEach(d => manager.entityId = d.entityId);
-    //     }
-    //     for (let team of question.teams) {
-    //         console.log(`team: ${team}`);
-    //         state.teams.filter(d => team.name === d.name).forEach(d => team.entityId = d.entityId);
-    //     }
-    // }
-
+/**
+ * Identifies surveys with incorrect or mismatched data
+ * @returns {Object} Filtered question data
+ */
+async function findMismatchedSurveyCount() {
     let questions = structuredClone(state.question);
     for (let name in questions) {
         let question = questions[name];
@@ -441,6 +472,12 @@ async function findInvisibleSurvey() {
     return questions;
 }
 
+/**
+ * Selects a subset of analysis data for a specific question and dimension
+ * @param {string} questionId - ID of the question
+ * @param {string} type - Data dimension type ('managers', 'departments', or 'teams')
+ * @returns {Promise<Array>} Subset of analysis data
+ */
 async function pickupKnowAnalysis(questionId, type) {
     switch (type) {
         case 'managers':
@@ -460,6 +497,13 @@ async function pickupKnowAnalysis(questionId, type) {
     }
 }
 
+/**
+ * Recovers survey data by recalculating differences
+ * @param {Object} query - Query parameters
+ * @param {Object} previous - Previous state for differential analysis
+ * @param {string} type - Analysis type ('managers', 'departments', or 'teams')
+ * @returns {Array} Array containing [scores, entity] where entity is the new data point
+ */
 async function recoverSurvey(query, previous, type) {
     const response = await fetch(graphqlApi, {
         'headers': headers,
@@ -492,7 +536,6 @@ async function recoverSurvey(query, previous, type) {
     });
 
     const result = await response.json();
-    //console.log(result)
     let scores = {
         totalResponse: result.data.viewer.company.pulseAnalytics.submittedResponsesCount,
         stronglyDisagree: result.data.viewer.company.pulseAnalytics.scoreBreakdown.stronglyDisagree.submittedResponsesCount,
@@ -570,6 +613,11 @@ async function recoverSurvey(query, previous, type) {
     return [scores, null];
 }
 
+/**
+ * Creates a base query object from URL parameters
+ * @param {string} question - Question entity ID
+ * @returns {Object} Query object with start date, end date, and question ID
+ */
 function createBaseQuery(question) {
     let query = location.search.substring(1)
         .split('&')
@@ -589,6 +637,10 @@ function createBaseQuery(question) {
     };
 }
 
+/**
+ * Refreshes all option data by clearing local storage and retrieving new data
+ * @returns {Promise<void>}
+ */
 async function renewOptions() {
     // clean up localstorage
     localStorage.removeItem('sporty-departments');
@@ -606,6 +658,11 @@ async function renewOptions() {
     console.log(`Teams: ${JSON.stringify(state.teams)}`);
 }
 
+/**
+ * Analyzes survey data by department dimension
+ * @param {string} question - Question entity ID
+ * @returns {Promise<void>}
+ */
 async function analysisDepartment(question) {
     let previousScores = {
         totalResponse: 0,
@@ -644,6 +701,11 @@ async function analysisDepartment(question) {
     }
 }
 
+/**
+ * Analyzes survey data by team dimension
+ * @param {string} question - Question entity ID
+ * @returns {Promise<void>}
+ */
 async function analysisTeam(question) {
     let previousScores = {
         totalResponse: 0,
@@ -682,6 +744,11 @@ async function analysisTeam(question) {
     }
 }
 
+/**
+ * Analyzes survey data by manager dimension
+ * @param {string} question - Question entity ID
+ * @returns {Promise<void>}
+ */
 async function analysisManager(question) {
     let previousScores = {
         totalResponse: 0,
@@ -720,9 +787,12 @@ async function analysisManager(question) {
     }
 }
 
-async function fixHiddenSurveyScore() {
-    let questions = await findInvisibleSurvey();
-    // console.log(`Invisible survey questions: ${JSON.stringify(questions)}`);
+/**
+ * Fixes survey scores for incorrect or mismatched surveys
+ * @returns {Promise<void>}
+ */
+async function fixIncorrectSurveyScore() {
+    let questions = await findMismatchedSurveyCount();
 
     for (let questionId in questions) {
         let question = questions[questionId];
@@ -887,6 +957,10 @@ async function fixHiddenSurveyScore() {
     }
 }
 
+/**
+ * Analyzes survey data for all dimensions (department, manager, team) and fixes any issues with incorrect surveys
+ * @returns {Promise<void>}
+ */
 async function analysis() {
     const questions = await retrieveQuestions(createBaseQuery());
 
@@ -897,7 +971,7 @@ async function analysis() {
         await analysisTeam(question);
     }
 
-    await fixHiddenSurveyScore()
+    await fixIncorrectSurveyScore()
 
     console.log(`********** analysis completed **********`);
     console.log(state.question);
@@ -906,18 +980,4 @@ async function analysis() {
 /*
 await renewOptions();
 await analysis();
-
-await countSurvey(
-    {... createBaseQuery() ,... {  managers: state.managers.slice(0, 10) , departments: []}}, 
-    {scores: {
-        totalResponse: 0,
-        stronglyDisagree: 0,
-        disagree: 0,
-        neutral: 0,
-        agree: 0,
-        stronglyAgree: 0
-    }, managers: state.managers.slice(0, 9)},
-    'managers'
-);
-
 */
