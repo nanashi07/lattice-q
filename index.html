@@ -30,6 +30,20 @@
             margin: 50px 0;
         }
 
+        .instruction {
+            text-align: center;
+            font-size: 18px;
+            margin: 50px 0;
+            color: #6c757d;
+        }
+
+        .error {
+            text-align: center;
+            font-size: 18px;
+            margin: 50px 0;
+            color: #dc3545;
+        }
+
         .filter-section {
             background-color: #f5f5f5;
             padding: 15px;
@@ -147,6 +161,42 @@
                 width: 100%;
             }
         }
+
+        .file-upload-container {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .file-upload-container label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .file-upload-container input[type="file"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .file-upload-container button.upload {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .file-upload-container button.upload:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -175,6 +225,12 @@
                 </select>
             </div>
 
+            <div class="file-upload-container">
+                <label for="json-file-upload">Upload JSON Data File:</label>
+                <input type="file" id="json-file-upload" accept=".json">
+                <button id="process-upload" class="upload">Process Uploaded File</button>
+            </div>
+
             <div class="filter-actions">
                 <button id="reset-filters" class="reset">Reset Filters</button>
                 <button id="apply-filters">Apply Filters</button>
@@ -191,18 +247,59 @@
     <script type="module">
         import { initTable } from './src/table.js';
 
+        let tableInstance = null;
+
         // Initialize table after page loads
         document.addEventListener('DOMContentLoaded', () => {
-            // Load JSON data using relative path
-            initTable('./temp/20250612.json', 'surveyTable', {
-                enableFiltering: true,
-                filterElementIds: {
-                    manager: 'manager-filter',
-                    department: 'department-filter',
-                    team: 'team-filter'
-                },
-                applyFilterId: 'apply-filters',
-                resetFilterId: 'reset-filters'
+            // Display initial message instead of loading default data
+            const tableElement = document.getElementById('surveyTable');
+            tableElement.innerHTML = '<div class="instruction">Please upload a JSON file to view survey results</div>';
+
+            // Setup file upload handling
+            const fileUploadElement = document.getElementById('json-file-upload');
+            const processButton = document.getElementById('process-upload');
+
+            processButton.addEventListener('click', () => {
+                if (fileUploadElement.files.length === 0) {
+                    alert('Please select a JSON file first');
+                    return;
+                }
+
+                const file = fileUploadElement.files[0];
+                if (!file.type.includes('json') && !file.name.endsWith('.json')) {
+                    alert('Please upload a valid JSON file');
+                    return;
+                }
+
+                // Show loading state
+                tableElement.innerHTML = '<div class="loading">Processing uploaded file...</div>';
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        // Initialize table using uploaded JSON data
+                        tableInstance = initTable(null, 'surveyTable', {
+                            enableFiltering: true,
+                            filterElementIds: {
+                                manager: 'manager-filter',
+                                department: 'department-filter',
+                                team: 'team-filter'
+                            },
+                            applyFilterId: 'apply-filters',
+                            resetFilterId: 'reset-filters',
+                            data: jsonData // Pass parsed JSON data directly
+                        });
+                    } catch (error) {
+                        tableElement.innerHTML = `<div class="error">Error parsing JSON file: ${error.message}</div>`;
+                    }
+                };
+
+                reader.onerror = () => {
+                    tableElement.innerHTML = '<div class="error">Error reading file</div>';
+                };
+
+                reader.readAsText(file);
             });
         });
     </script>

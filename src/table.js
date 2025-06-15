@@ -534,9 +534,9 @@ const tableStyles = `
 
 /**
  * Initialize the table
- * @param {string} jsonDataPath - JSON data file path
+ * @param {string|null} jsonDataPath - JSON data file path, can be null if data is provided directly
  * @param {string} containerId - DOM ID of the table container
- * @param {Object} options - Options for filtering
+ * @param {Object} options - Options for filtering, can include direct data
  */
 function initTable(jsonDataPath, containerId, options = {}) {
   // Add CSS styles
@@ -551,7 +551,26 @@ function initTable(jsonDataPath, containerId, options = {}) {
     return;
   }
 
-  // Load JSON data
+  // If direct JSON data is provided, use it instead of loading from file
+  if (options.data) {
+    const formattedData = formatTableData(options.data);
+
+    // Setup copy to markdown functionality
+    setupCopyMarkdown(formattedData);
+
+    // Render table
+    renderTable(options.data, container, options);
+    return;
+  }
+
+  // If no data path is provided, show error
+  if (!jsonDataPath) {
+    console.error('No JSON data path or direct data provided');
+    container.innerHTML = '<p>Error: No data source provided</p>';
+    return;
+  }
+
+  // Load JSON data from file
   fetch(jsonDataPath)
     .then(response => {
       if (!response.ok) {
@@ -802,4 +821,3 @@ function showCopyNotification() {
 
 // Export functions for external use
 export { initTable, renderTable, formatTableData, convertToMarkdown };
-
