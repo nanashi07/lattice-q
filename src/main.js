@@ -14,7 +14,6 @@ const initScores = {
     stronglyAgree: 0
 };
 let state = {
-    departments: [],
     managers: [],
     teams: [],
     question: {},
@@ -60,53 +59,6 @@ function anotherDay(day, offset) {
     return date.toISOString().split('T')[0];
 }
 
-/**
- * Retrieves department information from the GraphQL API and stores it in the state
- * @returns {Promise<void>}
- */
-async function retrieveDepartments() {
-    // Make a POST request to the GraphQL API
-    const response = await fetch(graphqlApi, {
-        'headers': headers,
-        'body': JSON.stringify({
-            'id': 'DefaultFieldFiltersQuery',
-            'query': 'query DefaultFieldFiltersQuery(\n  $defaultFieldNames: [String]\n  $selectOptionsActive: String = \"active_only\"\n) {\n  viewer {\n    company {\n      hasPurchasedHRIS\n      filterableEmployeeFields(defaultFieldNames: $defaultFieldNames) {\n        __typename\n        ... on BooleanField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on DateField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on EmailField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on MultiSelectField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n          selectOptions(active: $selectOptionsActive) {\n            name\n            entityId\n            defaultKey\n            id\n          }\n        }\n        ... on MultipleChoiceField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n          selectOptions(active: $selectOptionsActive) {\n            name\n            entityId\n            defaultKey\n            id\n          }\n        }\n        ... on NumberField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n          ranges {\n            entityId\n            minValue\n            maxValue\n            id\n          }\n        }\n        ... on PercentageField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on RelationshipField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on ShortTextField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on SensitiveShortTextField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on LongTextField {\n          __typename\n          entityId\n          defaultField\n          name\n          category {\n            label\n            id\n          }\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n    id\n  }\n}\n',
-            'variables': {
-                'defaultFieldNames': [
-                    'birthdate',
-                    'gender_identity',
-                    'employment.department_id',
-                    'employment.manager_id'
-                ],
-                'selectOptionsActive': 'active_only'
-            }
-        }),
-        'method': 'POST',
-    });
-
-    // Parse the response JSON
-    const result = await response.json();
-
-    // Loop through the returned employee fields
-    result.data.viewer.company.filterableEmployeeFields.forEach(field => {
-        // Identify the department field by its defaultField property
-        if (field.defaultField === 'employment.department_id') {
-            let departments = []
-            // Extract each department option from the response
-            field.selectOptions.forEach(option => {
-                departments.push({
-                    name: option.name,
-                    entityId: option.entityId,
-                    id: option.id,
-                });
-            });
-            // Store departments in the application state
-            state.departments.push(...departments);
-            // Cache departments in local storage for faster future access
-            localStorage.setItem('sporty-departments', JSON.stringify(state.departments));
-        }
-    });
-}
 
 /**
  * Retrieves manager information from the GraphQL API and stores it in the state
@@ -336,7 +288,6 @@ async function retrieveQuestions(query) {
                 state.question[edge.node.entityId] = {
                     label: edge.node.label,
                     managers: [],
-                    departments: [],
                     teams: []
                 };
             }
@@ -352,7 +303,7 @@ async function retrieveQuestions(query) {
  * Counts survey responses for a specific question with given filters
  * @param {Object} query - Query parameters
  * @param {Object} previous - Previous state for differential analysis
- * @param {string} type - Analysis type ('managers', 'departments', or 'teams')
+ * @param {string} type - Analysis type ('managers' or 'teams')
  * @returns {Object} Score counts for the survey responses
  */
 async function countSurvey(query, previous, type) {
@@ -372,8 +323,8 @@ async function countSurvey(query, previous, type) {
                 'genders': [],
                 // Map manager objects to their entity IDs for filtering
                 'managerEntityIds': query.managers.map(manager => manager.entityId) || [], 
-                // Map department objects to their entity IDs for filtering
-                'departmentEntityIds': query.departments.map(department => department.entityId) || [],
+                // Map department objects to their entity IDs for filtering (empty array)
+                'departmentEntityIds': [],
                 // Map team objects to custom field format for team filtering
                 'customFields': query.teams.map(team => {
                     return {
@@ -392,7 +343,7 @@ async function countSurvey(query, previous, type) {
 
     // Parse the API response as JSON
     const result = await response.json();
-    
+
     // Extract current survey score counts from the API response
     let scores = {
         totalResponse: result.data.viewer.company.pulseAnalytics.submittedResponsesCount,
@@ -446,40 +397,6 @@ async function countSurvey(query, previous, type) {
                     name: manager.name,
                     title: manager.title,
                     entityId: manager.entityId,
-                    scores: scoreDiff
-                });
-            }
-            break;
-        case 'departments':
-            // Create a copy of current departments array to find the new one
-            let departments = query.departments.map(d => d);
-            // Remove all departments that existed in the previous state to isolate the new department
-            previous.departments.forEach(previous => {
-                departments = departments.filter(current => current.entityId !== previous.entityId);
-            });
-            // Validate that exactly one new department was added (differential analysis requirement)
-            if (departments.length !== 1) {
-                console.warn(`Error: Expected exactly one new department, found ${JSON.stringify(departments)}`);
-                break;
-            }
-            let department = departments[0];  // Extract the single new department
-            console.log(`Department: ${department.name} - score: ${JSON.stringify(scoreDiff)}`);
-            // Only store the department data if they have survey responses
-            if (scoreDiff.totalResponse > 0) {
-                // Initialize question structure if it doesn't exist
-                if (!(query.question in state.question)) {
-                    state.question[query.question] = {
-                        departments: []
-                    };
-                }
-                // Initialize departments array if it doesn't exist
-                if (!state.question[query.question].departments) {
-                    state.question[query.question].departments = [];
-                }
-                // Add the department with their score difference to the question data
-                state.question[query.question].departments.push({
-                    name: department.name,
-                    entityId: department.entityId,
                     scores: scoreDiff
                 });
             }
@@ -542,30 +459,24 @@ function totalScore(scores) {
 async function findMismatchedSurveyCount() {
     // Create a deep copy of the question state to avoid modifying the original data
     let questions = structuredClone(state.question);
-    
+
     // Iterate through each question in the state
     for (let name in questions) {
         let question = questions[name];
-        
-        // Filter departments to find those with mismatched survey counts
-        if (question.departments && question.departments.length > 0) {
-            // Keep only departments where totalResponse doesn't match the sum of individual response counts
-            question.departments = question.departments.filter(department => department.scores.totalResponse !== totalScore(department.scores));
-        }
-        
+
         // Filter managers to find those with mismatched survey counts
         if (question.managers && question.managers.length > 0) {
             // Keep only managers where totalResponse doesn't match the sum of individual response counts
             question.managers = question.managers.filter(manager => manager.scores.totalResponse !== totalScore(manager.scores));
         }
-        
+
         // Filter teams to find those with mismatched survey counts
         if (question.teams && question.teams.length > 0) {
             // Keep only teams where totalResponse doesn't match the sum of individual response counts
             question.teams = question.teams.filter(team => team.scores.totalResponse !== totalScore(team.scores));
         }
     }
-    
+
     // Return the filtered questions containing only entities with data inconsistencies
     return questions;
 }
@@ -573,7 +484,7 @@ async function findMismatchedSurveyCount() {
 /**
  * Selects a subset of analysis data for a specific question and dimension
  * @param {string} questionId - ID of the question
- * @param {string} type - Data dimension type ('managers', 'departments', or 'teams')
+ * @param {string} type - Data dimension type ('managers' or 'teams')
  * @returns {Promise<Array>} Subset of analysis data
  */
 async function pickupKnowAnalysis(questionId, type) {
@@ -586,13 +497,6 @@ async function pickupKnowAnalysis(questionId, type) {
                 .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
             // Return up to 5 managers (or all if fewer than 5), used as a baseline for analysis
             return managers.slice(0, Math.min(5, managers.length));
-        case 'departments':
-            // Get departments for the specified question from state
-            let departments = state.question[questionId].departments
-                // Filter to include only departments with consistent survey data (totalResponse matches sum of individual scores)
-                .filter(manager => manager.scores.totalResponse === totalScore(manager.scores))
-            // Return up to 5 departments (or all if fewer than 5), used as a baseline for analysis
-            return departments.slice(0, Math.min(5, departments.length));
         case 'teams':
             // Get teams for the specified question from state
             let teams = state.question[questionId].teams
@@ -610,7 +514,7 @@ async function pickupKnowAnalysis(questionId, type) {
  * Recovers survey data by recalculating differences
  * @param {Object} query - Query parameters
  * @param {Object} previous - Previous state for differential analysis
- * @param {string} type - Analysis type ('managers', 'departments', or 'teams')
+ * @param {string} type - Analysis type ('managers' or 'teams')
  * @returns {Array} Array containing [scores, entity] where entity is the new data point
  */
 async function recoverSurvey(query, previous, type) {
@@ -630,7 +534,7 @@ async function recoverSurvey(query, previous, type) {
                 'genders': [],
                 // Pass filter parameters based on the query object
                 'managerEntityIds': query.managers.map(manager => manager.entityId) || [],
-                'departmentEntityIds': query.departments.map(department => department.entityId) || [],
+                'departmentEntityIds': [],
                 'customFields': query.teams.map(team => {
                     return {
                         'entityId': query.teamId, // The custom team field ID
@@ -694,27 +598,6 @@ async function recoverSurvey(query, previous, type) {
                 scores: scoreDiff
             }];
 
-        case 'departments':
-            // Find which department is new (present in query but not in previous)
-            let departments = query.departments.map(d => d);
-            previous.departments.forEach(previous => {
-                departments = departments.filter(current => current.entityId !== previous.entityId);
-            });
-
-            if (departments.length !== 1) {
-                console.warn(`Error: Expected exactly one new department, found ${JSON.stringify(departments)}`);
-                break;
-            }
-
-            let department = departments[0]; // Get the newly added department
-            console.log(`Department: ${department.name} - score: ${JSON.stringify(scoreDiff)}`);
-
-            // Return both the total scores and the difference attributed to this department
-            return [scores, {
-                name: department.name,
-                entityId: department.entityId,
-                scores: scoreDiff
-            }];
 
         case 'teams':
             // Find which team is new (present in query but not in previous)
@@ -782,7 +665,6 @@ function createBaseQuery(question) {
  */
 async function renewOptions() {
     // Clean up all cached data from local storage
-    localStorage.removeItem('sporty-departments');
     localStorage.removeItem('sporty-managers');
     localStorage.removeItem('sporty-teams');
     localStorage.removeItem('sporty-team-id');
@@ -791,53 +673,10 @@ async function renewOptions() {
     await retrieveManagers();
     console.log(`Managers: ${JSON.stringify(state.managers)}`);
 
-    await retrieveDepartments();
-    console.log(`Departments: ${JSON.stringify(state.departments)}`);
-
     await retrieveTeams();
     console.log(`Teams: ${JSON.stringify(state.teams)}`);
 }
 
-/**
- * Analyzes survey data by department dimension
- * @param {string} question - Question entity ID
- * @returns {Promise<void>}
- */
-async function analysisDepartment(question) {
-    // Initialize empty score tracking for incremental analysis
-    let previousScores = structuredClone(initScores);
-
-    // Try to load departments from local storage cache, fall back to state if not available
-    let departments = localStorage.getItem('sporty-departments');
-    if (departments) {
-        departments = JSON.parse(departments); // Parse cached JSON data
-    } else {
-        departments = state.departments; // Use current state as fallback
-    }
-
-    // Process departments if available
-    if (departments && departments.length > 0) {
-        // Iterate through each department to perform incremental analysis
-        for (let i = 0; i < departments.length; i++) {
-            // Call countSurvey with cumulative departments (0 to i+1) to measure incremental impact
-            previousScores = await countSurvey(
-                {
-                    ...createBaseQuery(question), ...{
-                        managers: [], // No manager filter
-                        departments: departments.slice(0, i + 1), // Include all departments up to current index
-                        teams: [], // No team filter
-                        teamId: '' // Empty team ID
-                    }
-                },
-                {scores: previousScores, departments: departments.slice(0, i)}, // Previous state for differential calculation
-                'departments' // Analysis type
-            );
-            await delay(1000); // Add delay to prevent API rate limiting
-        }
-    } else {
-        console.warn('No department options found for analysis')
-    }
-}
 
 /**
  * Analyzes survey data by team dimension
@@ -929,66 +768,8 @@ async function fixIncorrectSurveyScore() {
     // Get all questions with mismatched survey counts (where totalResponse != sum of individual scores)
     let questions = await findMismatchedSurveyCount();
 
-    // Phase 1: Fix department scores
-    for (let questionId in questions) {
-        let question = questions[questionId];
 
-        // Get reliable baseline departments (those with consistent data) to use as a foundation
-        let baseDepartment = await pickupKnowAnalysis(questionId, 'departments');
-        if (baseDepartment.length > 0) {
-            // Get baseline scores using only the reliable departments
-            let result = await recoverSurvey(
-                {
-                    ...createBaseQuery(questionId), ...{
-                        managers: [],
-                        departments: baseDepartment,
-                        teams: [],
-                        teamId: ''
-                    }
-                },
-                {scores: structuredClone(initScores), departments: []}, // Start from empty state
-                'departments-init'
-            );
-            let previousScores = result[0]; // Store baseline scores for incremental analysis
-            await delay(1000); // Rate limiting delay
-
-            // Process each department with inconsistent data
-            if (question.departments && question.departments.length > 0) {
-                for (let department of question.departments) {
-                    // Recalculate scores by adding this department to the baseline
-                    result = await recoverSurvey(
-                        {
-                            ...createBaseQuery(questionId), ...{
-                                managers: [],
-                                departments: [...baseDepartment, department], // Add current department to baseline
-                                teams: [],
-                                teamId: ''
-                            }
-                        },
-                        {scores: previousScores, departments: baseDepartment}, // Use previous scores for differential calculation
-                        'departments'
-                    );
-                    previousScores = result[0]; // Update running total
-                    let entity = result[1]; // Get the corrected score for this department
-                    baseDepartment = [...baseDepartment, department]; // Add to baseline for next iteration
-                    
-                    // Update the department's scores in the state with the corrected values
-                    state.question[questionId].departments
-                        .filter(d => d.entityId === department.entityId)
-                        .forEach(d => {
-                            console.log(`Updating question '${question.label}', department '${d.name}', score: ${JSON.stringify(d.scores)} -> ${JSON.stringify(entity.scores)}`);
-                            d.scores = entity.scores // Replace incorrect scores with corrected ones
-                        })
-
-                    await delay(1000); // Rate limiting delay
-                }
-            }
-        } else {
-            console.warn(`No base department score for question ${questionId} found, ignore`)
-        }
-    }
-
-    // Phase 2: Fix manager scores
+    // Phase 1: Fix manager scores
     for (let questionId in questions) {
         let question = questions[questionId];
 
@@ -1030,7 +811,7 @@ async function fixIncorrectSurveyScore() {
                     previousScores = result[0]; // Update running total
                     let entity = result[1]; // Get the corrected score for this manager
                     baseManager = [...baseManager, manager]; // Add to baseline for next iteration
-                    
+
                     // Update the manager's scores in the state with the corrected values
                     state.question[questionId].managers
                         .filter(d => d.entityId === manager.entityId)
@@ -1047,7 +828,7 @@ async function fixIncorrectSurveyScore() {
         }
     }
 
-    // Phase 3: Fix team scores
+    // Phase 2: Fix team scores
     for (let questionId in questions) {
         let question = questions[questionId];
 
@@ -1089,7 +870,7 @@ async function fixIncorrectSurveyScore() {
                     previousScores = result[0]; // Update running total
                     let entity = result[1]; // Get the corrected score for this team
                     baseTeam = [...baseTeam, team]; // Add to baseline for next iteration
-                    
+
                     // Update the team's scores in the state with the corrected values
                     state.question[questionId].teams
                         .filter(d => d.entityId === team.entityId)
@@ -1108,7 +889,7 @@ async function fixIncorrectSurveyScore() {
 }
 
 /**
- * Analyzes survey data for all dimensions (department, manager, team) and fixes any issues with incorrect surveys
+ * Analyzes survey data for all dimensions (manager, team) and fixes any issues with incorrect surveys
  * @returns {Promise<void>}
  */
 async function analysis() {
@@ -1118,8 +899,6 @@ async function analysis() {
     // Process each question individually to perform comprehensive analysis
     for (let question of questions) {
         console.log(`********** analysis for question: ${state.question[question].label} **********`);
-        // Analyze survey responses by department dimension
-        await analysisDepartment(question);
         // Analyze survey responses by manager dimension
         await analysisManager(question);
         // Analyze survey responses by team dimension

@@ -56,7 +56,7 @@
 
         .filter-group {
             margin-bottom: 10px;
-            width: 32%;
+            width: 48%;
         }
 
         .filter-group label {
@@ -211,12 +211,6 @@
                 </select>
             </div>
 
-            <div class="filter-group">
-                <label for="department-filter">Filter by Department:</label>
-                <select id="department-filter" class="filter-select" multiple>
-                    <!-- Will be populated dynamically -->
-                </select>
-            </div>
 
             <div class="filter-group">
                 <label for="team-filter">Filter by Team:</label>
@@ -283,7 +277,6 @@
                             enableFiltering: true,
                             filterElementIds: {
                                 manager: 'manager-filter',
-                                department: 'department-filter',
                                 team: 'team-filter'
                             },
                             applyFilterId: 'apply-filters',

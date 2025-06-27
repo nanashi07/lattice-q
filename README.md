@@ -1,11 +1,11 @@
 # Lattice-Q Survey Data Visualization Tool
 
-Lattice-Q is a web application for displaying and analyzing employee survey data, presenting multi-dimensional scoring data categorized by management level, department, and team.
+Lattice-Q is a web application for displaying and analyzing employee survey data, presenting multi-dimensional scoring data categorized by management level and team.
 
 ## Features
 
-- **Multi-dimensional Data Display**: Present survey question response data in tabular form categorized by Manager, Department, and Team
-- **Interactive Filtering**: Users can filter data based on managers, departments, and teams
+- **Multi-dimensional Data Display**: Present survey question response data in tabular form categorized by Manager and Team
+- **Interactive Filtering**: Users can filter data based on managers and teams
 - **File Upload**: Users can upload their own JSON data files for visualization
 - **Responsive Design**: Adapts to different screen sizes
 - **Data Export**: Support for copying table data in Markdown format
@@ -16,7 +16,7 @@ Lattice-Q is a web application for displaying and analyzing employee survey data
 1. Open the `index.html` file to launch the application
 2. Click "Choose File" to select a JSON data file from your computer
 3. Click "Process Uploaded File" to load and visualize the data
-4. Use the filters at the top of the page to select specific managers, departments, or teams
+4. Use the filters at the top of the page to select specific managers or teams
 5. Click "Apply Filters" to apply the filtering conditions
 6. Click "Reset Filters" to reset all filtering conditions
 7. Click "Copy as Markdown" to copy the current table data to the clipboard in Markdown format

@@ -38,30 +38,6 @@ function formatTableData(data) {
       });
     }
 
-    // Create a row for each department
-    if (questionData.departments && questionData.departments.length > 0) {
-      questionData.departments.forEach(department => {
-        // Ensure scores structure is consistent
-        const scores = department.scores.scores || department.scores;
-
-        // Create a row of data
-        const row = {
-          questionId,
-          question,
-          dimension: 'Department', // Second dimension - Department
-          name: department.name,
-          entityId: department.entityId,
-          totalResponse: scores.totalResponse || 0,
-          stronglyDisagree: scores.stronglyDisagree || 0,
-          disagree: scores.disagree || 0,
-          neutral: scores.neutral || 0,
-          agree: scores.agree || 0,
-          stronglyAgree: scores.stronglyAgree || 0,
-        };
-
-        formattedData.push(row);
-      });
-    }
 
     // If there is data for a third dimension, also add it (adjust according to actual data structure)
     // Here we assume the third dimension might be teams or other types of groups
@@ -252,16 +228,12 @@ function setupSelectAllBehavior(elementId) {
  * @returns {Object} Filtered question groups
  */
 function applyFilters(formattedData, filters) {
-  const { managers, departments, teams } = filters;
+  const { managers, teams } = filters;
 
-  // Filter the data based on selected managers, departments, and teams
+  // Filter the data based on selected managers and teams
   const filteredData = formattedData.filter(row => {
     // Check if this row should be included based on its dimension and name
     if (row.dimension === 'Manager' && !managers.includes(row.name)) {
-      return false;
-    }
-
-    if (row.dimension === 'Department' && !departments.includes(row.name)) {
       return false;
     }
 
@@ -303,17 +275,14 @@ function setupFilters(formattedData, container, options) {
 
   // Extract entities for each dimension
   const managers = extractEntitiesByDimension(formattedData, 'Manager');
-  const departments = extractEntitiesByDimension(formattedData, 'Department');
   const teams = extractEntitiesByDimension(formattedData, 'Team');
 
   // Populate dropdowns
   populateDropdown(filterElementIds.manager, managers);
-  populateDropdown(filterElementIds.department, departments);
   populateDropdown(filterElementIds.team, teams);
 
   // Setup "Select All" behavior for each dropdown
   setupSelectAllBehavior(filterElementIds.manager);
-  setupSelectAllBehavior(filterElementIds.department);
   setupSelectAllBehavior(filterElementIds.team);
 
   // Apply filters button
@@ -322,13 +291,11 @@ function setupFilters(formattedData, container, options) {
     applyButton.addEventListener('click', () => {
       // Get selected filters
       const selectedManagers = getSelectedOptions(filterElementIds.manager);
-      const selectedDepartments = getSelectedOptions(filterElementIds.department);
       const selectedTeams = getSelectedOptions(filterElementIds.team);
 
       // Apply filters
       const filters = {
         managers: selectedManagers,
-        departments: selectedDepartments,
         teams: selectedTeams
       };
 
@@ -348,16 +315,12 @@ function setupFilters(formattedData, container, options) {
       // Reset manager dropdown
       populateDropdown(filterElementIds.manager, managers);
 
-      // Reset department dropdown
-      populateDropdown(filterElementIds.department, departments);
-
       // Reset team dropdown
       populateDropdown(filterElementIds.team, teams);
 
       // Apply reset (show all data)
       const filters = {
         managers: managers,
-        departments: departments,
         teams: teams
       };
 
@@ -608,12 +571,10 @@ function renderTable(jsonData, container, options = {}) {
 
     // Apply initial filters (show all data)
     const managers = extractEntitiesByDimension(formattedData, 'Manager');
-    const departments = extractEntitiesByDimension(formattedData, 'Department');
     const teams = extractEntitiesByDimension(formattedData, 'Team');
 
     const filters = {
       managers: managers,
-      departments: departments,
       teams: teams
     };
 
