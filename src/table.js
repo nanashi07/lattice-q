@@ -1,4 +1,4 @@
-// Three-dimensional table component, presenting multi-dimensional scoring data by question
+// 2-dimensional table component, presenting multi-dimensional scoring data by question
 
 /**
  * Convert JSON data to table-friendly format
@@ -557,7 +557,7 @@ function initTable(jsonDataPath, containerId, options = {}) {
 }
 
 /**
- * Render the three-dimensional table
+ * Render the 2-dimensional table
  * @param {Object} jsonData - Raw JSON data
  * @param {HTMLElement} container - Table container element
  * @param {Object} options - Options for filtering
