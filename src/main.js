@@ -59,6 +59,55 @@ function anotherDay(day, offset) {
     return date.toISOString().split('T')[0];
 }
 
+/**
+ * Enhanced fetch function with automatic retry logic and exponential backoff
+ * @param {string} url - The URL to fetch
+ * @param {Object} options - Fetch options (headers, method, body, etc.)
+ * @param {number} maxRetries - Maximum number of retry attempts (default: 3)
+ * @returns {Promise<Response>} - The fetch response
+ * @throws {Error} - Throws the last error if all retry attempts fail
+ */
+async function fetches(url, options, maxRetries = 3) {
+    let lastError;
+
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+            const response = await fetch(url, options);
+
+            // Only retry on specific status codes
+            if (response.ok || !shouldRetry(response.status)) {
+                return response;
+            }
+
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        } catch (error) {
+            lastError = error;
+
+            if (attempt === maxRetries) {
+                throw lastError;
+            }
+
+            // Exponential backoff with jitter
+            const baseDelay = 1000; // 1 second
+            const delayTime = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+            await delay(delayTime);
+        }
+    }
+}
+
+/**
+ * Determines if an HTTP status code should trigger a retry attempt
+ * @param {number} status - HTTP status code
+ * @returns {boolean} - True if the request should be retried, false otherwise
+ *
+ * Retries on:
+ * - 5xx server errors (500-599)
+ * - 429 Too Many Requests (rate limiting)
+ * - 408 Request Timeout
+ */
+function shouldRetry(status) {
+    return status >= 500 || status === 429 || status === 408;
+}
 
 /**
  * Retrieves manager information from the GraphQL API and stores it in the state
@@ -66,7 +115,7 @@ function anotherDay(day, offset) {
  */
 async function retrieveManagers() {
     // Make a POST request to the GraphQL API to get the first batch of managers
-    const response = await fetch(graphqlApi, {
+    const response = await fetches(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
             'id': 'ManagerFiltersFetchComponentQuery',
@@ -122,7 +171,7 @@ async function retrieveManagers() {
  */
 async function retrieveMoreManagers(theAfter, theId) {
     // Make a POST request using the pagination cursor to fetch the next batch of managers
-    const response = await fetch(graphqlApi, {
+    const response = await fetches(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
             'id': 'ManagerFiltersFetchPaginationQuery',
@@ -185,7 +234,7 @@ async function retrieveMoreManagers(theAfter, theId) {
  */
 async function retrieveTeams() {
     // Make a POST request to the GraphQL API to get teams data
-    const response = await fetch(graphqlApi, {
+    const response = await fetches(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
             'id': 'CustomFieldFiltersV2Query',
@@ -236,7 +285,7 @@ async function retrieveTeams() {
  */
 async function retrieveQuestions(query) {
     // Make a POST request to retrieve the pulse survey questions
-    const response = await fetch(graphqlApi, {
+    const response = await fetches(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
             'id': 'PulseResultsTableQuery',
@@ -308,7 +357,7 @@ async function retrieveQuestions(query) {
  */
 async function countSurvey(query, previous, type) {
     // Make GraphQL API call to fetch survey response counts with specified filters
-    const response = await fetch(graphqlApi, {
+    const response = await fetches(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
             'id': 'PulseResultsCommentsQuery',
@@ -322,7 +371,7 @@ async function countSurvey(query, previous, type) {
                 'tenures': [],
                 'genders': [],
                 // Map manager objects to their entity IDs for filtering
-                'managerEntityIds': query.managers.map(manager => manager.entityId) || [], 
+                'managerEntityIds': query.managers.map(manager => manager.entityId) || [],
                 // Map department objects to their entity IDs for filtering (empty array)
                 'departmentEntityIds': [],
                 // Map team objects to custom field format for team filtering
@@ -519,7 +568,7 @@ async function pickupKnowAnalysis(questionId, type) {
  */
 async function recoverSurvey(query, previous, type) {
     // Make a POST request to get survey data with the specified filters
-    const response = await fetch(graphqlApi, {
+    const response = await fetches(graphqlApi, {
         'headers': headers,
         'body': JSON.stringify({
             'id': 'PulseResultsCommentsQuery',
