@@ -225,24 +225,28 @@ function setupSelectAllBehavior(elementId) {
  * Apply filters to the data
  * @param {Array} formattedData - Original formatted data
  * @param {Object} filters - Filter criteria
+ * @param {boolean} [disagreeOnly=false] - Flag to filter only rows with disagree responses
  * @returns {Object} Filtered question groups
  */
-function applyFilters(formattedData, filters) {
+function applyFilters(formattedData, filters, disagreeOnly = false) {
   const { managers, teams } = filters;
 
   // Filter the data based on selected managers and teams
-  const filteredData = formattedData.filter(row => {
+  let filteredData = formattedData.filter(row => {
     // Check if this row should be included based on its dimension and name
     if (row.dimension === 'Manager' && !managers.includes(row.name)) {
       return false;
     }
-
     if (row.dimension === 'Team' && !teams.includes(row.name)) {
       return false;
     }
-
     return true;
   });
+
+  // If disagreeOnly is true, further filter rows
+  if (disagreeOnly) {
+    filteredData = filteredData.filter(row => (row.stronglyDisagree > 0 || row.disagree > 0));
+  }
 
   // Group the filtered data by question
   const questionGroups = {};
@@ -253,7 +257,6 @@ function applyFilters(formattedData, filters) {
         dimensions: {}
       };
     }
-
     if (!questionGroups[row.questionId].dimensions[row.dimension]) {
       questionGroups[row.questionId].dimensions[row.dimension] = [];
     }
@@ -287,11 +290,13 @@ function setupFilters(formattedData, container, options) {
 
   // Apply filters button
   const applyButton = document.getElementById(applyFilterId);
+  const disagreeOnlyCheckbox = document.getElementById('disagree-only-filter');
   if (applyButton) {
     applyButton.addEventListener('click', () => {
       // Get selected filters
       const selectedManagers = getSelectedOptions(filterElementIds.manager);
       const selectedTeams = getSelectedOptions(filterElementIds.team);
+      const disagreeOnly = disagreeOnlyCheckbox && disagreeOnlyCheckbox.checked;
 
       // Apply filters
       const filters = {
@@ -299,7 +304,7 @@ function setupFilters(formattedData, container, options) {
         teams: selectedTeams
       };
 
-      const filteredQuestionGroups = applyFilters(formattedData, filters);
+      const filteredQuestionGroups = applyFilters(formattedData, filters, disagreeOnly);
 
       // Render filtered data
       renderFilteredTable(filteredQuestionGroups, container, [
@@ -318,13 +323,16 @@ function setupFilters(formattedData, container, options) {
       // Reset team dropdown
       populateDropdown(filterElementIds.team, teams);
 
+      // Reset disagree-only checkbox
+      if (disagreeOnlyCheckbox) disagreeOnlyCheckbox.checked = false;
+
       // Apply reset (show all data)
       const filters = {
         managers: managers,
         teams: teams
       };
 
-      const filteredQuestionGroups = applyFilters(formattedData, filters);
+      const filteredQuestionGroups = applyFilters(formattedData, filters, false);
 
       renderFilteredTable(filteredQuestionGroups, container, [
         'stronglyDisagree', 'disagree', 'neutral', 'agree', 'stronglyAgree'

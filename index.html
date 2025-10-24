@@ -211,12 +211,17 @@
                 </select>
             </div>
 
-
             <div class="filter-group">
                 <label for="team-filter">Filter by Team:</label>
                 <select id="team-filter" class="filter-select" multiple>
                     <!-- Will be populated dynamically -->
                 </select>
+            </div>
+
+            <!-- New filter checkbox for Strongly Disagree/Disagree -->
+            <div class="filter-group" style="width:100%;margin-bottom:0;">
+                <input type="checkbox" id="disagree-only-filter" style="margin-right:8px;">
+                <label for="disagree-only-filter" style="display:inline;font-weight:normal;">Only show <strong>Strongly Disagree</strong> and <strong>Disagree</strong> responses</label>
             </div>
 
             <div class="file-upload-container">
